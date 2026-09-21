@@ -6,7 +6,7 @@
 
   <title>One Beyond Price Checker</title>
 
-  <meta name="theme-color" content="#0057b8">
+  <meta name="theme-color" content="#2b5db8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
@@ -18,32 +18,58 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      color: #1f2937;
+      background: #f1f2f4;
+      color: #222;
     }
 
     button,
     input {
-      font-family: inherit;
+      font-family: Arial, Helvetica, sans-serif;
     }
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
 
     .header {
-      background: #0057b8;
+      background: #2b5db8;
       color: white;
-      padding: 18px 16px;
       text-align: center;
-      font-weight: 700;
-      font-size: 21px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 34px 15px 34px;
+      border-bottom: 10px solid #f8d43f;
     }
 
-    .container {
-      max-width: 760px;
+    .header-title {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .header-subtitle {
+      font-size: 25px;
+      margin-top: 14px;
+      font-weight: 400;
+    }
+
+    /* =====================================================
+       APP
+    ===================================================== */
+
+    .app {
+      width: 100%;
+      max-width: 850px;
       margin: 0 auto;
-      padding: 18px 14px 40px;
+      padding: 22px 18px 50px;
     }
 
     .screen {
@@ -54,401 +80,610 @@
       display: block;
     }
 
-    .home-title {
-      text-align: center;
-      margin: 12px 0 22px;
-    }
+    /* =====================================================
+       HOME / FIND PRODUCT
+    ===================================================== */
 
-    .home-title h1 {
-      margin: 0 0 7px;
-      font-size: 26px;
-    }
-
-    .home-title p {
-      margin: 0;
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .menu-button {
-      width: 100%;
-      min-height: 72px;
-      border: 0;
-      border-radius: 12px;
+    .main-card {
       background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      font-size: 17px;
-      font-weight: 700;
-      color: #111827;
+      border-radius: 25px;
+      padding: 34px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .main-heading {
+      color: #2b5db8;
+      font-size: 34px;
+      font-weight: 800;
+      margin: 0 0 26px;
+    }
+
+    .main-description {
+      font-size: 23px;
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.35;
+    }
+
+    .mode-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .mode-button {
+      height: 70px;
+      border-radius: 18px;
+      border: 4px solid #d6d6d6;
+      background: white;
+      color: #555;
+      font-size: 23px;
+      font-weight: 800;
       cursor: pointer;
-      text-align: left;
-      padding: 18px;
     }
 
-    .menu-button:active {
-      transform: scale(0.99);
-    }
-
-    .menu-button.primary {
-      background: #0057b8;
+    .mode-button.active {
+      background: #2b5db8;
+      border-color: #2b5db8;
       color: white;
     }
 
-    .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin: 5px 0 18px;
+    .input-box {
+      width: 100%;
+      height: 90px;
+      border: 4px solid #2b5db8;
+      border-radius: 18px;
+      background: white;
+      padding: 0 25px;
+      font-size: 28px;
+      outline: none;
+      margin-bottom: 18px;
+    }
+
+    .input-box::placeholder {
+      color: #aaa;
+    }
+
+    .yellow-button {
+      width: 100%;
+      height: 85px;
+      border: none;
+      border-radius: 18px;
+      background: #f8d43f;
+      color: #111;
+      font-size: 27px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-bottom: 18px;
+    }
+
+    .blue-button {
+      width: 100%;
+      height: 85px;
+      border: none;
+      border-radius: 18px;
+      background: #2b5db8;
+      color: white;
+      font-size: 27px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .footer-text {
+      text-align: center;
+      color: #777;
+      font-size: 20px;
+      margin: 55px 0 10px;
+    }
+
+    /* =====================================================
+       PAGE HEADER
+    ===================================================== */
+
+    .page-top {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 22px;
     }
 
     .back-button {
-      border: 0;
+      border: none;
       background: transparent;
-      color: #0057b8;
-      font-size: 15px;
+      color: #2b5db8;
+      font-size: 18px;
       font-weight: 700;
-      padding: 4px 0 16px;
       cursor: pointer;
+      padding: 5px;
     }
 
-    .search-box {
+    .page-title {
+      color: #2b5db8;
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    /* =====================================================
+       SCANNER
+    ===================================================== */
+
+    .scanner-card {
       background: white;
-      border-radius: 12px;
-      padding: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      margin-bottom: 15px;
-    }
-
-    .search-box input {
-      width: 100%;
-      height: 48px;
-      border: 1px solid #d1d5db;
-      border-radius: 9px;
-      padding: 0 14px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .search-box input:focus {
-      border-color: #0057b8;
-    }
-
-    .action-button {
-      width: 100%;
-      height: 48px;
-      border: 0;
-      border-radius: 9px;
-      background: #0057b8;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
     #reader {
       width: 100%;
-      background: #000;
-      border-radius: 12px;
+      border-radius: 15px;
       overflow: hidden;
-      margin-bottom: 14px;
+      background: #000;
     }
 
-    .scanner-status {
+    .scanner-message {
       text-align: center;
-      color: #6b7280;
-      font-size: 14px;
-      margin: 10px 0 15px;
+      color: #666;
+      padding: 15px 5px 5px;
+      font-size: 15px;
     }
+
+    /* =====================================================
+       PRODUCT RESULT
+    ===================================================== */
 
     .result-card {
       background: white;
-      border-radius: 14px;
-      padding: 18px;
-      margin-top: 15px;
-      box-shadow: 0 2px 9px rgba(0,0,0,0.08);
+      border-radius: 20px;
+      padding: 25px;
+      margin-top: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
     .product-name {
-      font-size: 21px;
-      font-weight: 700;
+      color: #2b5db8;
+      font-size: 25px;
+      font-weight: 900;
       line-height: 1.25;
-      margin-bottom: 16px;
+      margin-bottom: 22px;
     }
 
     .price-label {
-      color: #6b7280;
       font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-
-    .current-price {
-      font-size: 36px;
+      color: #777;
       font-weight: 800;
-      margin-bottom: 18px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
 
-    .product-info {
-      border-top: 1px solid #e5e7eb;
+    .price {
+      font-size: 42px;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .product-detail {
+      border-top: 1px solid #ddd;
       padding-top: 14px;
+      margin-top: 10px;
     }
 
-    .info-row {
-      margin-bottom: 12px;
+    .detail-row {
+      margin-bottom: 13px;
     }
 
-    .info-label {
+    .detail-label {
+      color: #777;
       font-size: 12px;
-      color: #6b7280;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       margin-bottom: 3px;
     }
 
-    .info-value {
-      font-size: 15px;
+    .detail-value {
+      font-size: 16px;
       word-break: break-word;
     }
 
-    .promo-header {
-      margin-top: 20px;
-      margin-bottom: 12px;
-      padding-bottom: 9px;
-      border-bottom: 2px solid #0057b8;
-      color: #0057b8;
-      font-size: 18px;
-      font-weight: 800;
+    /* =====================================================
+       PROMOTION INFORMATION
+    ===================================================== */
+
+    .promo-title {
+      color: #2b5db8;
+      font-size: 21px;
+      font-weight: 900;
+      border-bottom: 3px solid #2b5db8;
+      padding-bottom: 10px;
+      margin-top: 25px;
+      margin-bottom: 14px;
     }
 
     .promo-entry {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 11px;
-      padding: 14px;
+      background: #f7f9fc;
+      border: 1px solid #dce2ea;
+      border-radius: 15px;
+      padding: 17px;
       margin-bottom: 12px;
     }
 
     .promo-entry-title {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      color: #111827;
+      color: #222;
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 14px;
     }
 
-    .promo-row {
-      margin-bottom: 9px;
+    .promo-line {
+      margin-bottom: 10px;
     }
 
-    .promo-row:last-child {
+    .promo-line:last-child {
       margin-bottom: 0;
     }
 
-    .promo-row-label {
+    .promo-line-label {
+      color: #777;
       font-size: 11px;
-      color: #64748b;
-      font-weight: 800;
+      font-weight: 900;
       text-transform: uppercase;
       margin-bottom: 2px;
     }
 
-    .promo-row-value {
-      font-size: 14px;
-      line-height: 1.35;
+    .promo-line-value {
+      font-size: 15px;
+      line-height: 1.4;
+      white-space: pre-line;
     }
 
-    .no-promo {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 14px;
-      color: #6b7280;
-      font-size: 14px;
+    /* =====================================================
+       PROMOTIONS
+    ===================================================== */
+
+    .promo-intro {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 17px;
     }
 
-    .promo-type-card {
+    .promo-section {
       background: white;
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      cursor: pointer;
+      border-radius: 16px;
+      min-height: 76px;
+      margin-bottom: 11px;
+      padding: 17px 18px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .promo-type-name {
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .promo-type-count {
-      background: #e8f1fb;
-      color: #0057b8;
-      border-radius: 20px;
-      padding: 5px 10px;
-      font-size: 12px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .location-card {
-      background: white;
-      border-radius: 12px;
-      padding: 17px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
       cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
     }
 
-    .location-name {
-      font-size: 17px;
-      font-weight: 800;
+    .promo-section:active,
+    .location-card:active,
+    .promo-product:active {
+      transform: scale(0.99);
     }
 
-    .location-count {
-      background: #0057b8;
-      color: white;
-      min-width: 30px;
-      height: 27px;
-      border-radius: 15px;
+    .promo-section-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: #eaf0fb;
+      color: #2b5db8;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 8px;
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 900;
+      margin-right: 14px;
     }
 
-    .product-list-card {
+    .promo-section-text {
+      flex: 1;
+    }
+
+    .promo-section-name {
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .promo-section-sub {
+      color: #777;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .promo-count {
+      background: #eaf0fb;
+      color: #2b5db8;
+      padding: 7px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* =====================================================
+       LOCATIONS
+    ===================================================== */
+
+    .location-card {
       background: white;
+      border-radius: 16px;
+      min-height: 76px;
+      margin-bottom: 11px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+      cursor: pointer;
+    }
+
+    .location-number {
+      width: 46px;
+      height: 46px;
       border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      background: #2b5db8;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      margin-right: 14px;
+    }
+
+    .location-content {
+      flex: 1;
+    }
+
+    .location-name {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .location-sub {
+      color: #777;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .location-arrow {
+      color: #2b5db8;
+      font-size: 27px;
+    }
+
+    /* =====================================================
+       PROMO PRODUCTS
+    ===================================================== */
+
+    .product-summary {
+      color: #777;
+      font-size: 14px;
+      margin: -8px 0 15px;
+    }
+
+    .promo-product {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 11px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
     }
 
     .product-number {
+      color: #2b5db8;
       font-size: 12px;
-      color: #0057b8;
-      font-weight: 800;
-      margin-bottom: 6px;
+      font-weight: 900;
       text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
-    .list-product-name {
-      font-size: 17px;
-      font-weight: 800;
+    .promo-product-name {
+      font-size: 18px;
+      font-weight: 900;
       line-height: 1.3;
       margin-bottom: 10px;
     }
 
-    .list-price {
-      font-size: 21px;
-      font-weight: 800;
-      margin-bottom: 12px;
+    .promo-product-price {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 13px;
     }
 
-    .small-info {
+    .small-row {
+      color: #555;
       font-size: 13px;
-      color: #4b5563;
+      line-height: 1.45;
       margin-bottom: 5px;
-      line-height: 1.35;
     }
 
-    .small-info strong {
-      color: #111827;
+    .small-row strong {
+      color: #222;
     }
 
-    .empty-state {
-      background: white;
-      border-radius: 12px;
-      padding: 25px 18px;
-      text-align: center;
-      color: #6b7280;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
+    /* =====================================================
+       LOADING / ERROR
+    ===================================================== */
 
     .loading {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
       text-align: center;
-      padding: 30px 10px;
-      color: #6b7280;
-      font-size: 14px;
+      color: #777;
     }
 
-    .error-box {
-      background: #fff1f2;
-      border: 1px solid #fecdd3;
+    .empty {
+      background: white;
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      color: #777;
+    }
+
+    .error {
+      background: #fff0f2;
+      border: 1px solid #ffcbd2;
       color: #9f1239;
-      border-radius: 10px;
-      padding: 13px;
+      border-radius: 12px;
+      padding: 14px;
       font-size: 14px;
-      margin-top: 12px;
+      line-height: 1.4;
     }
 
-    .success-box {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #166534;
-      border-radius: 10px;
-      padding: 13px;
-      font-size: 14px;
-      margin-top: 12px;
-    }
+    @media (max-width: 600px) {
 
-    .count-summary {
-      color: #6b7280;
-      font-size: 13px;
-      margin: -7px 0 14px;
-    }
-
-    @media (min-width: 600px) {
-      .menu-grid {
-        grid-template-columns: 1fr 1fr;
+      .header {
+        padding: 28px 12px 28px;
       }
+
+      .header-title {
+        font-size: 35px;
+      }
+
+      .header-subtitle {
+        font-size: 22px;
+      }
+
+      .app {
+        padding: 18px 14px 40px;
+      }
+
+      .main-card {
+        padding: 25px 20px;
+        border-radius: 22px;
+      }
+
+      .main-heading {
+        font-size: 31px;
+      }
+
+      .main-description {
+        font-size: 20px;
+      }
+
+      .mode-button {
+        font-size: 19px;
+      }
+
+      .input-box {
+        font-size: 22px;
+      }
+
+      .yellow-button,
+      .blue-button {
+        font-size: 23px;
+      }
+
     }
   </style>
 </head>
 
 <body>
 
-  <div class="header">
-    One Beyond Price Checker
-  </div>
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
 
-  <div class="container">
+  <header class="header">
 
-    <!-- HOME -->
-    <section id="homeScreen" class="screen active">
+    <div class="header-title">
+      ONE BEYOND
+    </div>
 
-      <div class="home-title">
-        <h1>Price Checker</h1>
-        <p>Select an option below</p>
-      </div>
+    <div class="header-subtitle">
+      Price Checker
+    </div>
 
-      <div class="menu-grid">
+  </header>
 
-        <button class="menu-button primary" onclick="openScanner()">
+
+  <main class="app">
+
+
+    <!-- ===================================================
+         HOME
+    ==================================================== -->
+
+    <section
+      id="homeScreen"
+      class="screen active"
+    >
+
+      <div class="main-card">
+
+        <h1 class="main-heading">
+          Find a Product
+        </h1>
+
+        <div class="main-description">
+          Search using a product barcode or product code.
+        </div>
+
+
+        <div class="mode-buttons">
+
+          <button
+            id="barcodeModeButton"
+            class="mode-button active"
+            onclick="setSearchMode('barcode')"
+          >
+            Barcode
+          </button>
+
+          <button
+            id="productCodeModeButton"
+            class="mode-button"
+            onclick="setSearchMode('productcode')"
+          >
+            Product Code
+          </button>
+
+        </div>
+
+
+        <input
+          id="searchInput"
+          class="input-box"
+          type="text"
+          placeholder="Enter barcode"
+          autocomplete="off"
+        >
+
+
+        <button
+          class="yellow-button"
+          onclick="performSearch()"
+        >
+          Search Product
+        </button>
+
+
+        <button
+          class="blue-button"
+          onclick="openScanner()"
+        >
           Scan Barcode
         </button>
 
-        <button class="menu-button" onclick="openProductSearch()">
-          Search Product Code
-        </button>
+      </div>
 
-        <button class="menu-button" onclick="openPromotions()">
+
+      <div class="footer-text">
+        One Beyond Price Checker
+      </div>
+
+
+      <div style="margin-top:20px">
+
+        <button
+          class="blue-button"
+          style="height:65px;font-size:20px"
+          onclick="openPromotions()"
+        >
           Promotions
         </button>
 
@@ -457,122 +692,204 @@
     </section>
 
 
-    <!-- SCANNER -->
-    <section id="scannerScreen" class="screen">
+    <!-- ===================================================
+         SCANNER
+    ==================================================== -->
 
-      <button class="back-button" onclick="goHome()">
-        ← Back
-      </button>
+    <section
+      id="scannerScreen"
+      class="screen"
+    >
 
-      <div class="section-title">
-        Scan Barcode
+      <div class="page-top">
+
+        <button
+          class="back-button"
+          onclick="goHome()"
+        >
+          ← Back
+        </button>
+
+        <h2 class="page-title">
+          Scan Barcode
+        </h2>
+
       </div>
 
-      <div id="reader"></div>
 
-      <div id="scannerStatus" class="scanner-status">
-        Point the camera at a product barcode.
+      <div class="scanner-card">
+
+        <div id="reader"></div>
+
+        <div
+          id="scannerMessage"
+          class="scanner-message"
+        >
+          Starting camera...
+        </div>
+
       </div>
+
 
       <div id="scannerResult"></div>
 
     </section>
 
 
-    <!-- PRODUCT CODE SEARCH -->
-    <section id="searchScreen" class="screen">
+    <!-- ===================================================
+         SEARCH RESULT
+    ==================================================== -->
 
-      <button class="back-button" onclick="goHome()">
-        ← Back
-      </button>
+    <section
+      id="searchResultScreen"
+      class="screen"
+    >
 
-      <div class="section-title">
-        Search Product Code
-      </div>
+      <div class="page-top">
 
-      <div class="search-box">
-
-        <input
-          id="productCodeInput"
-          type="text"
-          placeholder="Enter product code"
-          autocomplete="off"
+        <button
+          class="back-button"
+          onclick="goHome()"
         >
-
-        <button class="action-button" onclick="searchProductCode()">
-          Search
+          ← Back
         </button>
 
+        <h2 class="page-title">
+          Product
+        </h2>
+
       </div>
+
 
       <div id="searchResult"></div>
 
     </section>
 
 
-    <!-- PROMOTION TYPES -->
-    <section id="promotionsScreen" class="screen">
+    <!-- ===================================================
+         PROMOTIONS
+    ==================================================== -->
 
-      <button class="back-button" onclick="goHome()">
-        ← Back
-      </button>
+    <section
+      id="promotionsScreen"
+      class="screen"
+    >
 
-      <div class="section-title">
-        Promotions
+      <div class="page-top">
+
+        <button
+          class="back-button"
+          onclick="goHome()"
+        >
+          ← Back
+        </button>
+
+        <h2 class="page-title">
+          Promotions
+        </h2>
+
       </div>
+
+
+      <div class="promo-intro">
+        Select a promotional area to view its locations.
+      </div>
+
 
       <div id="promotionTypes">
+
         <div class="loading">
-          Loading promotional information...
+          Loading promotions...
         </div>
+
       </div>
 
     </section>
 
 
-    <!-- PROMOTION LOCATIONS -->
-    <section id="promotionLocationsScreen" class="screen">
+    <!-- ===================================================
+         PROMOTION LOCATIONS
+    ==================================================== -->
 
-      <button class="back-button" onclick="openPromotions()">
-        ← Back to Promotions
-      </button>
+    <section
+      id="locationsScreen"
+      class="screen"
+    >
 
-      <div id="locationTitle" class="section-title">
-        Promotional Locations
+      <div class="page-top">
+
+        <button
+          class="back-button"
+          onclick="openPromotions()"
+        >
+          ← Back
+        </button>
+
+        <h2
+          id="locationsTitle"
+          class="page-title"
+        >
+          Locations
+        </h2>
+
       </div>
 
-      <div id="promotionLocations"></div>
+
+      <div id="locationsList"></div>
 
     </section>
 
 
-    <!-- PROMOTION PRODUCTS -->
-    <section id="promotionProductsScreen" class="screen">
+    <!-- ===================================================
+         PROMOTION PRODUCTS
+    ==================================================== -->
 
-      <button class="back-button" onclick="backToLocations()">
-        ← Back to Locations
-      </button>
+    <section
+      id="promoProductsScreen"
+      class="screen"
+    >
 
-      <div id="productsTitle" class="section-title">
-        Products
+      <div class="page-top">
+
+        <button
+          class="back-button"
+          onclick="backToLocations()"
+        >
+          ← Back
+        </button>
+
+        <h2
+          id="promoProductsTitle"
+          class="page-title"
+        >
+          Products
+        </h2>
+
       </div>
 
-      <div id="productsSummary" class="count-summary"></div>
 
-      <div id="promotionProducts"></div>
+      <div
+        id="promoProductsSummary"
+        class="product-summary"
+      ></div>
+
+
+      <div id="promoProductsList"></div>
 
     </section>
 
-  </div>
+
+  </main>
 
 
 <script>
 
-  /* ============================================================
+  /* =========================================================
      SUPABASE
-  ============================================================ */
+  ========================================================= */
 
-  const SUPABASE_URL = "https://nmfjavzrxghvklkjtfaq.supabase.co";
+  const SUPABASE_URL =
+    "https://nmfjavzrxghvklkjtfaq.supabase.co";
 
   const SUPABASE_KEY =
     "sb_publishable_dd_QRjavucCN4sG-kuFFUQ_0qfJGUsz";
@@ -584,39 +901,46 @@
     );
 
 
-  /* ============================================================
-     GLOBAL VARIABLES
-  ============================================================ */
+  /* =========================================================
+     VARIABLES
+  ========================================================= */
+
+  let searchMode = "barcode";
 
   let scanner = null;
 
-  let allPromoProducts = [];
+  let promotionsLoaded = false;
 
-  let promotionStructure = {};
+  let promotionalProducts = [];
 
-  let selectedPromotionType = null;
+  let promotionGroups = {};
 
-  let selectedLocation = null;
+  let selectedPromotionType = "";
 
-  let promoDataLoaded = false;
+  let selectedLocation = "";
 
 
-  /* ============================================================
-     SCREEN MANAGEMENT
-  ============================================================ */
+  /* =========================================================
+     SCREEN
+  ========================================================= */
 
   function showScreen(id) {
 
-    document.querySelectorAll(".screen").forEach(screen => {
-      screen.classList.remove("active");
-    });
+    document
+      .querySelectorAll(".screen")
+      .forEach(screen => {
+        screen.classList.remove("active");
+      });
 
-    document.getElementById(id).classList.add("active");
+    const screen =
+      document.getElementById(id);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "instant"
-    });
+    if (screen) {
+      screen.classList.add("active");
+    }
+
+    window.scrollTo(0, 0);
+
   }
 
 
@@ -629,53 +953,308 @@
   }
 
 
-  /* ============================================================
-     BARCODE SCANNER
-  ============================================================ */
+  /* =========================================================
+     SEARCH MODE
+  ========================================================= */
+
+  function setSearchMode(mode) {
+
+    searchMode = mode;
+
+
+    const barcodeButton =
+      document.getElementById(
+        "barcodeModeButton"
+      );
+
+    const productCodeButton =
+      document.getElementById(
+        "productCodeModeButton"
+      );
+
+    const input =
+      document.getElementById(
+        "searchInput"
+      );
+
+
+    if (mode === "barcode") {
+
+      barcodeButton.classList.add("active");
+
+      productCodeButton.classList.remove("active");
+
+      input.placeholder =
+        "Enter barcode";
+
+    } else {
+
+      barcodeButton.classList.remove("active");
+
+      productCodeButton.classList.add("active");
+
+      input.placeholder =
+        "Enter product code";
+
+    }
+
+
+    input.value = "";
+
+    input.focus();
+
+  }
+
+
+  /* =========================================================
+     SEARCH
+  ========================================================= */
+
+  async function performSearch() {
+
+    const input =
+      document.getElementById(
+        "searchInput"
+      );
+
+    const value =
+      input.value.trim();
+
+
+    if (!value) {
+
+      alert(
+        searchMode === "barcode"
+          ? "Please enter a barcode."
+          : "Please enter a product code."
+      );
+
+      return;
+
+    }
+
+
+    showScreen("searchResultScreen");
+
+
+    document.getElementById(
+      "searchResult"
+    ).innerHTML =
+      `
+      <div class="loading">
+        Searching...
+      </div>
+      `;
+
+
+    try {
+
+      let query =
+        supabaseClient
+          .from("products")
+          .select(
+            "barcode,name,price,product_code,promo_offer"
+          );
+
+
+      if (
+        searchMode === "barcode"
+      ) {
+
+        query =
+          query.eq(
+            "barcode",
+            value
+          );
+
+      } else {
+
+        query =
+          query.eq(
+            "product_code",
+            value
+          );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await query
+          .order(
+            "product_code",
+            {
+              ascending: true
+            }
+          );
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        document.getElementById(
+          "searchResult"
+        ).innerHTML =
+          `
+          <div class="empty">
+
+            No product found.
+
+            <br><br>
+
+            <strong>
+              ${escapeHtml(value)}
+            </strong>
+
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "searchResult"
+      ).innerHTML =
+        data
+          .map(
+            product =>
+              buildProductResult(product)
+          )
+          .join("");
+
+
+    } catch (error) {
+
+      document.getElementById(
+        "searchResult"
+      ).innerHTML =
+        `
+        <div class="error">
+
+          Unable to search for the product.
+
+          <br><br>
+
+          ${escapeHtml(
+            error.message ||
+            "Unknown error"
+          )}
+
+        </div>
+        `;
+
+    }
+
+  }
+
+
+  document
+    .getElementById("searchInput")
+    .addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          performSearch();
+
+        }
+
+      }
+    );
+
+
+  /* =========================================================
+     SCANNER
+  ========================================================= */
 
   async function openScanner() {
 
     stopScanner();
 
-    showScreen("scannerScreen");
+    showScreen(
+      "scannerScreen"
+    );
 
-    document.getElementById("scannerResult").innerHTML = "";
 
-    document.getElementById("scannerStatus").textContent =
+    document.getElementById(
+      "scannerResult"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+      "scannerMessage"
+    ).textContent =
       "Starting camera...";
 
-    scanner = new Html5Qrcode("reader");
+
+    scanner =
+      new Html5Qrcode(
+        "reader"
+      );
+
 
     try {
 
       await scanner.start(
+
         {
-          facingMode: "environment"
+          facingMode:
+            "environment"
         },
+
         {
           fps: 10,
+
           qrbox: {
             width: 280,
             height: 150
           }
-        },
-        async (decodedText) => {
-
-          await handleBarcode(decodedText);
 
         },
+
+        async decodedText => {
+
+          await scannerLookup(
+            decodedText
+          );
+
+        },
+
         () => {}
+
       );
 
-      document.getElementById("scannerStatus").textContent =
+
+      document.getElementById(
+        "scannerMessage"
+      ).textContent =
         "Point the camera at a product barcode.";
 
     } catch (error) {
 
-      document.getElementById("scannerStatus").innerHTML =
-        `<div class="error-box">
-          Unable to start the camera. Please check camera permission.
-        </div>`;
+      document.getElementById(
+        "scannerMessage"
+      ).innerHTML =
+        `
+        <div class="error">
+          Camera could not be started.
+          Please allow camera access and try again.
+        </div>
+        `;
 
     }
 
@@ -688,187 +1267,143 @@
       return;
     }
 
+
     try {
 
-      if (scanner.isScanning) {
+      if (
+        scanner.isScanning
+      ) {
+
         await scanner.stop();
+
       }
 
       scanner.clear();
 
     } catch (error) {
-      // Ignore scanner stop errors
+      // Ignore scanner stop errors.
     }
+
 
     scanner = null;
 
   }
 
 
-  /* ============================================================
-     BARCODE LOOKUP
-  ============================================================ */
+  async function scannerLookup(
+    barcode
+  ) {
 
-  async function handleBarcode(barcode) {
+    const value =
+      String(barcode).trim();
 
-    const cleanBarcode = String(barcode).trim();
 
-    if (!cleanBarcode) {
+    if (!value) {
       return;
     }
 
-    document.getElementById("scannerStatus").textContent =
+
+    document.getElementById(
+      "scannerMessage"
+    ).textContent =
       "Checking product...";
+
 
     try {
 
-      const { data, error } =
+      /*
+        IMPORTANT:
+        Do not use maybeSingle().
+        Your pricing data contains a duplicate
+        barcode with different product codes.
+      */
+
+      const {
+        data,
+        error
+      } =
         await supabaseClient
           .from("products")
-          .select(`
-            barcode,
-            name,
-            price,
-            product_code,
-            promo_offer
-          `)
-          .eq("barcode", cleanBarcode)
-          .order("product_code", {
-            ascending: true
-          });
+          .select(
+            "barcode,name,price,product_code,promo_offer"
+          )
+          .eq(
+            "barcode",
+            value
+          )
+          .order(
+            "product_code",
+            {
+              ascending: true
+            }
+          );
+
 
       if (error) {
         throw error;
       }
 
-      if (!data || data.length === 0) {
 
-        document.getElementById("scannerResult").innerHTML =
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        document.getElementById(
+          "scannerResult"
+        ).innerHTML =
           `
-          <div class="empty-state">
-            No product found for barcode
+          <div class="empty">
+
+            No product found for:
+
             <br><br>
-            <strong>${escapeHtml(cleanBarcode)}</strong>
+
+            <strong>
+              ${escapeHtml(value)}
+            </strong>
+
           </div>
           `;
 
-        document.getElementById("scannerStatus").textContent =
-          "Scan another product.";
-
         return;
+
       }
 
-      document.getElementById("scannerResult").innerHTML =
-        data.map(product => buildProductResult(product)).join("");
 
-      document.getElementById("scannerStatus").textContent =
+      document.getElementById(
+        "scannerResult"
+      ).innerHTML =
+        data
+          .map(
+            product =>
+              buildProductResult(product)
+          )
+          .join("");
+
+
+      document.getElementById(
+        "scannerMessage"
+      ).textContent =
         "Product found.";
 
     } catch (error) {
 
-      document.getElementById("scannerResult").innerHTML =
+      document.getElementById(
+        "scannerResult"
+      ).innerHTML =
         `
-        <div class="error-box">
+        <div class="error">
+
           Unable to check this product.
+
           <br><br>
-          ${escapeHtml(error.message || "Unknown error")}
-        </div>
-        `;
 
-      document.getElementById("scannerStatus").textContent =
-        "Please try again.";
+          ${escapeHtml(
+            error.message ||
+            "Unknown error"
+          )}
 
-    }
-
-  }
-
-
-  /* ============================================================
-     PRODUCT CODE SEARCH
-  ============================================================ */
-
-  function openProductSearch() {
-
-    stopScanner();
-
-    showScreen("searchScreen");
-
-    document.getElementById("productCodeInput").focus();
-
-  }
-
-
-  async function searchProductCode() {
-
-    const input =
-      document.getElementById("productCodeInput");
-
-    const code = input.value.trim();
-
-    const result =
-      document.getElementById("searchResult");
-
-    if (!code) {
-
-      result.innerHTML =
-        `
-        <div class="error-box">
-          Please enter a product code.
-        </div>
-        `;
-
-      return;
-    }
-
-    result.innerHTML =
-      `<div class="loading">Searching...</div>`;
-
-    try {
-
-      const { data, error } =
-        await supabaseClient
-          .from("products")
-          .select(`
-            barcode,
-            name,
-            price,
-            product_code,
-            promo_offer
-          `)
-          .eq("product_code", code)
-          .order("barcode", {
-            ascending: true
-          });
-
-      if (error) {
-        throw error;
-      }
-
-      if (!data || data.length === 0) {
-
-        result.innerHTML =
-          `
-          <div class="empty-state">
-            No product found for product code
-            <br><br>
-            <strong>${escapeHtml(code)}</strong>
-          </div>
-          `;
-
-        return;
-      }
-
-      result.innerHTML =
-        data.map(product => buildProductResult(product)).join("");
-
-    } catch (error) {
-
-      result.innerHTML =
-        `
-        <div class="error-box">
-          Unable to search.
-          <br><br>
-          ${escapeHtml(error.message || "Unknown error")}
         </div>
         `;
 
@@ -877,93 +1412,115 @@
   }
 
 
-  document
-    .getElementById("productCodeInput")
-    .addEventListener("keydown", function(event) {
-
-      if (event.key === "Enter") {
-        searchProductCode();
-      }
-
-    });
-
-
-  /* ============================================================
+  /* =========================================================
      PRODUCT RESULT
-  ============================================================ */
+  ========================================================= */
 
-  function buildProductResult(product) {
+  function buildProductResult(
+    product
+  ) {
 
-    const promoEntries =
-      parsePromoOffer(product.promo_offer);
+    const entries =
+      parsePromoOffer(
+        product.promo_offer
+      );
+
 
     let html = `
+
       <div class="result-card">
 
         <div class="product-name">
-          ${escapeHtml(product.name || "Unnamed product")}
+          ${escapeHtml(
+            product.name ||
+            "Unnamed product"
+          )}
         </div>
+
 
         <div class="price-label">
           Current Price
         </div>
 
-        <div class="current-price">
-          ${formatPrice(product.price)}
+
+        <div class="price">
+          ${formatPrice(
+            product.price
+          )}
         </div>
 
-        <div class="product-info">
 
-          <div class="info-row">
-            <div class="info-label">
+        <div class="product-detail">
+
+          <div class="detail-row">
+
+            <div class="detail-label">
               Barcode
             </div>
-            <div class="info-value">
-              ${escapeHtml(product.barcode || "-")}
+
+            <div class="detail-value">
+              ${escapeHtml(
+                product.barcode ||
+                "-"
+              )}
             </div>
+
           </div>
 
-          <div class="info-row">
-            <div class="info-label">
+
+          <div class="detail-row">
+
+            <div class="detail-label">
               Product Code
             </div>
-            <div class="info-value">
-              ${escapeHtml(product.product_code || "-")}
+
+            <div class="detail-value">
+              ${escapeHtml(
+                product.product_code ||
+                "-"
+              )}
             </div>
+
           </div>
 
         </div>
+
+
+        <div class="promo-title">
+          Promotional Information
+        </div>
+
     `;
 
 
-    if (promoEntries.length > 0) {
+    if (
+      entries.length === 0
+    ) {
 
       html += `
-        <div class="promo-header">
-          Promotional Information
+
+        <div class="empty">
+
+          No promotional information recorded
+          for this product.
+
         </div>
+
       `;
-
-      promoEntries.forEach((entry, index) => {
-
-        html += buildPromoEntryDisplay(
-          entry,
-          index
-        );
-
-      });
 
     } else {
 
-      html += `
-        <div class="promo-header">
-          Promotional Information
-        </div>
+      entries.forEach(
+        (entry, index) => {
 
-        <div class="no-promo">
-          No promotional information recorded for this product.
-        </div>
-      `;
+          html +=
+            buildPromoEntry(
+              entry,
+              index
+            );
+
+        }
+      );
 
     }
 
@@ -972,253 +1529,311 @@
       </div>
     `;
 
+
     return html;
 
   }
 
 
-  /* ============================================================
+  /* =========================================================
      PROMOTION PARSER
-  ============================================================ */
+     
+     IMPORTANT:
+     This parser is deliberately more flexible.
 
-  function parsePromoOffer(text) {
+     It reads the actual LOCATION from the stored
+     promotional information and also searches the
+     complete record for END / SIDE / BAY numbers.
+
+     This prevents everything falling into GENERAL.
+  ========================================================= */
+
+  function parsePromoOffer(
+    text
+  ) {
 
     if (!text) {
       return [];
     }
 
-    const raw = String(text)
-      .replace(/\r/g, "")
-      .trim();
+
+    const raw =
+      String(text)
+        .replace(/\r/g, "")
+        .trim();
+
 
     if (!raw) {
       return [];
     }
 
 
-    /*
-      The admin page stores promotional records beginning with:
-
-      PLAN:
-      LOCATION:
-      STORE CATEGORIES:
-      CODE:
-      PRODUCT:
-      PROMO PRICE:
-      DETAILS:
-
-      Split each PLAN record into its own promotion.
-    */
-
-    let chunks = raw
-      .split(/(?=\n?\s*PLAN\s*:)/i)
-      .map(x => x.trim())
-      .filter(Boolean);
+    let records = [];
 
 
     /*
-      If there was only one record but it does not start with PLAN,
-      treat the entire text as one record.
+      Current admin format:
+
+      PLAN: ...
+      LOCATION: ...
+      ...
+
+      PLAN: ...
+      LOCATION: ...
+      ...
+
+      Split at every PLAN line.
     */
 
-    if (chunks.length === 0) {
-      chunks = [raw];
+    const planParts =
+      raw
+        .split(
+          /(?=\n?\s*PLAN\s*:)/i
+        )
+        .map(
+          x => x.trim()
+        )
+        .filter(Boolean);
+
+
+    if (
+      planParts.length > 0
+    ) {
+
+      records =
+        planParts;
+
+    } else {
+
+      records = [raw];
+
     }
 
 
-    const entries = [];
+    /*
+      If the data has no PLAN field at all,
+      still treat it as one record.
+    */
 
-    chunks.forEach(chunk => {
+    if (
+      records.length === 0
+    ) {
 
-      const entry = {
+      records = [raw];
 
-        plan: getLabelValue(
-          chunk,
-          ["PLAN"]
-        ),
-
-        location: getLabelValue(
-          chunk,
-          [
-            "LOCATION",
-            "PLACEMENT"
-          ]
-        ),
-
-        type: getLabelValue(
-          chunk,
-          ["TYPE"]
-        ),
-
-        storeCategories: getLabelValue(
-          chunk,
-          [
-            "STORE CATEGORIES",
-            "CATEGORIES"
-          ]
-        ),
-
-        code: getLabelValue(
-          chunk,
-          [
-            "CODE",
-            "PRODUCT CODE"
-          ]
-        ),
-
-        barcode: getLabelValue(
-          chunk,
-          ["BARCODE"]
-        ),
-
-        product: getLabelValue(
-          chunk,
-          [
-            "PRODUCT",
-            "DESCRIPTION"
-          ]
-        ),
-
-        promoPrice: getLabelValue(
-          chunk,
-          [
-            "PROMO PRICE",
-            "PROMOTIONAL PRICE",
-            "PRICE"
-          ]
-        ),
-
-        offer: getLabelValue(
-          chunk,
-          ["OFFER"]
-        ),
-
-        bay: getLabelValue(
-          chunk,
-          [
-            "BAY",
-            "BAY NO",
-            "BAY NUMBER"
-          ]
-        ),
-
-        shelf: getLabelValue(
-          chunk,
-          [
-            "SHELF",
-            "SHARED SHELF"
-          ]
-        ),
-
-        comments: getLabelValue(
-          chunk,
-          [
-            "COMMENTS",
-            "DETAILS"
-          ]
-        ),
-
-        instructions: getLabelValue(
-          chunk,
-          ["INSTRUCTIONS"]
-        ),
-
-        supplierFunded: getLabelValue(
-          chunk,
-          ["SUPPLIER FUNDED"]
-        )
-
-      };
+    }
 
 
-      /*
-        If the product field wasn't explicitly stored,
-        don't replace it with unrelated information.
-      */
-
-      entry.location =
-        cleanValue(entry.location);
-
-      entry.plan =
-        cleanValue(entry.plan);
-
-      entry.type =
-        cleanValue(entry.type);
-
-      entry.storeCategories =
-        cleanValue(entry.storeCategories);
-
-      entry.code =
-        cleanValue(entry.code);
-
-      entry.product =
-        cleanValue(entry.product);
-
-      entry.promoPrice =
-        cleanValue(entry.promoPrice);
-
-      entry.offer =
-        cleanValue(entry.offer);
-
-      entry.bay =
-        cleanValue(entry.bay);
-
-      entry.shelf =
-        cleanValue(entry.shelf);
-
-      entry.comments =
-        cleanValue(entry.comments);
-
-      entry.instructions =
-        cleanValue(entry.instructions);
-
-      entry.supplierFunded =
-        cleanValue(entry.supplierFunded);
+    const result = [];
 
 
-      entry.promotionType =
-        identifyPromotionType(entry);
+    records.forEach(
+      record => {
+
+        const entry = {
+
+          raw: record,
+
+          plan:
+            getField(
+              record,
+              [
+                "PLAN"
+              ]
+            ),
+
+          location:
+            getField(
+              record,
+              [
+                "LOCATION",
+                "PLACEMENT"
+              ]
+            ),
+
+          type:
+            getField(
+              record,
+              [
+                "TYPE"
+              ]
+            ),
+
+          categories:
+            getField(
+              record,
+              [
+                "STORE CATEGORIES",
+                "CATEGORIES"
+              ]
+            ),
+
+          code:
+            getField(
+              record,
+              [
+                "CODE",
+                "PRODUCT CODE"
+              ]
+            ),
+
+          barcode:
+            getField(
+              record,
+              [
+                "BARCODE"
+              ]
+            ),
+
+          product:
+            getField(
+              record,
+              [
+                "PRODUCT",
+                "DESCRIPTION"
+              ]
+            ),
+
+          promoPrice:
+            getField(
+              record,
+              [
+                "PROMO PRICE",
+                "PROMOTIONAL PRICE"
+              ]
+            ),
+
+          price:
+            getField(
+              record,
+              [
+                "PRICE"
+              ]
+            ),
+
+          offer:
+            getField(
+              record,
+              [
+                "OFFER"
+              ]
+            ),
+
+          bay:
+            getField(
+              record,
+              [
+                "BAY",
+                "BAY NO",
+                "BAY NUMBER"
+              ]
+            ),
+
+          shelf:
+            getField(
+              record,
+              [
+                "SHELF",
+                "SHARED SHELF"
+              ]
+            ),
+
+          comments:
+            getField(
+              record,
+              [
+                "COMMENTS"
+              ]
+            ),
+
+          details:
+            getField(
+              record,
+              [
+                "DETAILS"
+              ]
+            ),
+
+          instructions:
+            getField(
+              record,
+              [
+                "INSTRUCTIONS"
+              ]
+            )
+
+        };
 
 
-      entry.locationName =
-        identifyLocation(entry);
+        /*
+          Work out the promotional section.
+        */
+
+        entry.promotionType =
+          getPromotionType(
+            entry
+          );
 
 
-      /*
-        Only add meaningful promotional records.
-      */
+        /*
+          Work out the actual numbered location.
+        */
 
-      if (
-        entry.plan ||
-        entry.location ||
-        entry.type ||
-        entry.bay ||
-        entry.product ||
-        entry.code
-      ) {
+        entry.locationName =
+          getActualLocation(
+            entry
+          );
 
-        entries.push(entry);
+
+        /*
+          Only add genuine records.
+        */
+
+        if (
+          entry.plan ||
+          entry.location ||
+          entry.type ||
+          entry.bay ||
+          entry.product ||
+          entry.code
+        ) {
+
+          result.push(entry);
+
+        }
 
       }
+    );
 
-    });
 
-
-    return entries;
+    return result;
 
   }
 
 
-  /* ============================================================
-     LABEL READER
-  ============================================================ */
+  /* =========================================================
+     FIELD READER
+  ========================================================= */
 
-  function getLabelValue(text, labels) {
+  function getField(
+    text,
+    labels
+  ) {
 
-    for (const label of labels) {
+    for (
+      const label of labels
+    ) {
 
       const escaped =
-        label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        label.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+
+      /*
+        Normal newline format.
+      */
 
       const regex =
         new RegExp(
@@ -1228,205 +1843,315 @@
           "i"
         );
 
+
       const match =
         text.match(regex);
 
-      if (match && match[1]) {
 
-        return cleanValue(match[1]);
+      if (
+        match &&
+        match[1]
+      ) {
+
+        return clean(
+          match[1]
+        );
+
+      }
+
+
+      /*
+        Also support pipe-separated values.
+      */
+
+      const pipeRegex =
+        new RegExp(
+          "(?:^|\\|)\\s*" +
+          escaped +
+          "\\s*:\\s*([^|]*?)(?=\\||$)",
+          "i"
+        );
+
+
+      const pipeMatch =
+        text.match(
+          pipeRegex
+        );
+
+
+      if (
+        pipeMatch &&
+        pipeMatch[1]
+      ) {
+
+        return clean(
+          pipeMatch[1]
+        );
 
       }
 
     }
+
 
     return "";
 
   }
 
 
-  function cleanValue(value) {
-
-    if (!value) {
-      return "";
-    }
-
-    return String(value)
-      .replace(/\r/g, "")
-      .trim()
-      .replace(/\n{3,}/g, "\n\n");
-
-  }
-
-
-  /* ============================================================
+  /* =========================================================
      PROMOTION TYPE
-  ============================================================ */
+  ========================================================= */
 
-  function identifyPromotionType(entry) {
+  function getPromotionType(
+    entry
+  ) {
 
     const plan =
-      String(entry.plan || "").toUpperCase();
+      String(
+        entry.plan || ""
+      ).toUpperCase();
 
     const location =
-      String(entry.location || "").toUpperCase();
+      String(
+        entry.location || ""
+      ).toUpperCase();
 
     const type =
-      String(entry.type || "").toUpperCase();
+      String(
+        entry.type || ""
+      ).toUpperCase();
+
+    const bay =
+      String(
+        entry.bay || ""
+      ).toUpperCase();
 
 
     const combined =
-      `${plan} ${location} ${type}`;
+      [
+        plan,
+        location,
+        type,
+        bay
+      ].join(" ");
 
 
     /*
-      IMPORTANT:
-      Check the more specific sections first.
-
-      TILL ENDS must be checked before generic ENDS.
-      PROMO BAY PLASTIC TRAYS and PROMO BAY CLIP STRIPS
-      must be checked before generic PROMO BAYS.
+      Specific sections FIRST.
     */
 
-
     if (
-      combined.includes("PROMO BAY PLASTIC TRAY") ||
-      combined.includes("PROMO BAY PLASTIC TRAYS")
+      combined.includes(
+        "PROMO BAY PLASTIC TRAY"
+      )
     ) {
+
       return "PROMO BAY PLASTIC TRAYS";
+
     }
 
 
     if (
-      combined.includes("PROMO BAY CLIP STRIP") ||
-      combined.includes("PROMO BAY CLIP STRIPS")
+      combined.includes(
+        "PROMO BAY CLIP STRIP"
+      )
     ) {
+
       return "PROMO BAY CLIP STRIPS";
+
     }
 
 
     if (
-      combined.includes("TILL FRONT") ||
-      combined.includes("TILL FRONTS")
+      /\bTILL\s+ENDS?\b/.test(
+        combined
+      )
     ) {
-      return "TILL FRONTS";
-    }
 
-
-    if (
-      combined.includes("TILL END") ||
-      combined.includes("TILL ENDS")
-    ) {
       return "TILL ENDS";
+
     }
 
 
     if (
-      combined.includes("END GONDOLA")
+      /\bTILL\s+FRONTS?\b/.test(
+        combined
+      )
     ) {
+
+      return "TILL FRONTS";
+
+    }
+
+
+    /*
+      END locations.
+    */
+
+    if (
+      /\bEND\s*(?:-|:)?\s*\d+\b/.test(
+        location
+      ) ||
+      /\bENDS?\s+\d+\b/.test(
+        location
+      ) ||
+      combined.includes(
+        "END GONDOLA"
+      )
+    ) {
+
       return "ENDS";
+
     }
 
 
-    if (
-      /^\s*END\s*\d+/i.test(entry.location || "") ||
-      /\bEND\s*\d+/i.test(location)
-    ) {
-      return "ENDS";
-    }
-
+    /*
+      SIDE locations.
+    */
 
     if (
-      combined.includes("SIDE GONDOLA")
+      /\bSIDE\s*(?:-|:)?\s*\d+\b/.test(
+        location
+      ) ||
+      /\bSIDES?\s+\d+\b/.test(
+        location
+      ) ||
+      combined.includes(
+        "SIDE GONDOLA"
+      )
     ) {
+
       return "SIDES";
+
     }
 
 
-    if (
-      /^\s*SIDE\s*\d+/i.test(entry.location || "") ||
-      /\bSIDE\s*\d+/i.test(location)
-    ) {
-      return "SIDES";
-    }
-
+    /*
+      Promo Bay.
+    */
 
     if (
-      combined.includes("PROMO BAY")
+      /\bBAY\s*(?:-|:)?\s*\d+\b/.test(
+        location
+      ) ||
+      /\bBAY\s*(?:-|:)?\s*\d+\b/.test(
+        bay
+      ) ||
+      combined.includes(
+        "PROMO BAY"
+      )
     ) {
+
       return "PROMO BAYS";
+
     }
 
 
     if (
-      /\bBAY\s*\d+/i.test(location)
+      combined.includes(
+        "FRONT OF STORE"
+      )
     ) {
-      return "PROMO BAYS";
-    }
 
-
-    if (
-      combined.includes("FRONT OF STORE")
-    ) {
       return "FRONT OF STORE";
+
     }
 
 
     if (
-      combined.includes("WINDOW BASKET")
+      combined.includes(
+        "WINDOW BASKET"
+      )
     ) {
+
       return "WINDOW BASKETS";
+
     }
 
 
     if (
-      combined.includes("BULK STACK")
+      combined.includes(
+        "BULK STACK"
+      )
     ) {
+
       return "BULK STACKS";
+
     }
 
 
     if (
-      combined.includes("PENCIL STACK")
+      combined.includes(
+        "PENCIL STACK"
+      )
     ) {
+
       return "PENCIL STACKS";
+
     }
 
 
     if (
-      combined.includes("FSDU") ||
-      combined.includes("STAND")
+      combined.includes(
+        "FSDU"
+      ) ||
+      combined.includes(
+        "STAND"
+      )
     ) {
+
       return "FSDU & STANDS";
+
     }
 
 
     if (
-      combined.includes("DUMP BIN")
+      combined.includes(
+        "DUMP BIN"
+      )
     ) {
+
       return "DUMP BINS";
+
     }
 
 
     if (
-      combined.includes("GIANT TIERED") ||
-      combined.includes("REAR HALF")
+      combined.includes(
+        "GIANT TIERED"
+      ) ||
+      combined.includes(
+        "REAR HALF"
+      )
     ) {
+
       return "GIANT TIERED BASKETS";
+
     }
 
 
     if (
-      combined.includes("CLIP STRIP")
+      combined.includes(
+        "CLIP STRIP"
+      )
     ) {
+
       return "CLIP STRIPS";
+
     }
 
 
     if (
-      combined.includes("DRINKS CHILLER") ||
-      combined.includes("DRINK CHILLER")
+      combined.includes(
+        "DRINKS CHILLER"
+      ) ||
+      combined.includes(
+        "DRINK CHILLER"
+      )
     ) {
+
       return "DRINKS CHILLER";
+
     }
 
 
@@ -1435,90 +2160,100 @@
   }
 
 
-  /* ============================================================
-     LOCATION IDENTIFICATION
-  ============================================================ */
+  /* =========================================================
+     ACTUAL LOCATION
 
-  function identifyLocation(entry) {
+     THIS IS THE IMPORTANT FIX.
 
-    let location =
-      cleanValue(entry.location);
+     We search the location field first.
 
-    const bay =
-      cleanValue(entry.bay);
+     If it is not there, we search plan/type/bay/details
+     for an actual END / SIDE / BAY number.
 
+     Therefore:
 
-    /*
-      If the PDF/admin data already contains a location,
-      preserve it exactly where possible.
-    */
+     END 17 -> END 17
+     END 18 -> END 18
+     SIDE 1 -> SIDE 1
+     SIDE 2 -> SIDE 2
+     BAY 1 -> BAY 1
 
-    if (location) {
+     They will NOT become GENERAL.
+  ========================================================= */
 
-      return normaliseLocationName(
-        location,
-        entry.promotionType
-      );
-
-    }
-
-
-    /*
-      If there is a BAY field, use it for Promo Bays.
-    */
-
-    if (bay) {
-
-      const match =
-        bay.match(/(?:PROMO\s*)?BAY\s*([0-9]+)/i);
-
-      if (match) {
-
-        return `BAY ${match[1]}`;
-
-      }
-
-      return bay;
-
-    }
-
-
-    return "GENERAL";
-
-  }
-
-
-  function normaliseLocationName(
-    location,
-    promotionType
+  function getActualLocation(
+    entry
   ) {
 
-    let value =
-      String(location)
-        .replace(/\s+/g, " ")
-        .trim();
+    const type =
+      entry.promotionType;
 
 
     /*
       END
-      END 1
-      END1
-      END - 1
-
-      becomes:
-
-      END 1
     */
 
-    if (promotionType === "ENDS") {
+    if (
+      type === "ENDS"
+    ) {
 
-      const match =
-        value.match(
-          /(?:END|ENDS)\s*[-#:]*\s*(\d+)/i
-        );
+      const values = [
+        entry.location,
+        entry.plan,
+        entry.type,
+        entry.comments,
+        entry.details,
+        entry.raw
+      ];
 
-      if (match) {
-        return `END ${match[1]}`;
+
+      for (
+        const value of values
+      ) {
+
+        const match =
+          String(
+            value || ""
+          ).match(
+            /\bEND(?:S)?\s*(?:-|:)?\s*(\d+)\b/i
+          );
+
+
+        if (match) {
+
+          return `END ${match[1]}`;
+
+        }
+
+      }
+
+
+      /*
+        Also support forms such as:
+
+        END17
+        END-17
+        END:17
+      */
+
+      for (
+        const value of values
+      ) {
+
+        const match =
+          String(
+            value || ""
+          ).match(
+            /\bEND\s*[-#:]*\s*(\d+)\b/i
+          );
+
+
+        if (match) {
+
+          return `END ${match[1]}`;
+
+        }
+
       }
 
     }
@@ -1526,20 +2261,40 @@
 
     /*
       SIDE
-      SIDE 1
-      SIDE1
-      SIDE - 1
     */
 
-    if (promotionType === "SIDES") {
+    if (
+      type === "SIDES"
+    ) {
 
-      const match =
-        value.match(
-          /(?:SIDE|SIDES)\s*[-#:]*\s*(\d+)/i
-        );
+      const values = [
+        entry.location,
+        entry.plan,
+        entry.type,
+        entry.comments,
+        entry.details,
+        entry.raw
+      ];
 
-      if (match) {
-        return `SIDE ${match[1]}`;
+
+      for (
+        const value of values
+      ) {
+
+        const match =
+          String(
+            value || ""
+          ).match(
+            /\bSIDES?\s*[-#:]*\s*(\d+)\b/i
+          );
+
+
+        if (match) {
+
+          return `SIDE ${match[1]}`;
+
+        }
+
       }
 
     }
@@ -1547,28 +2302,45 @@
 
     /*
       PROMO BAY
-      BAY
-      BAY 1
-      PROMO BAY 1
-
-      becomes:
-
-      BAY 1
     */
 
     if (
-      promotionType === "PROMO BAYS" ||
-      promotionType === "PROMO BAY PLASTIC TRAYS" ||
-      promotionType === "PROMO BAY CLIP STRIPS"
+      type === "PROMO BAYS" ||
+      type ===
+        "PROMO BAY PLASTIC TRAYS" ||
+      type ===
+        "PROMO BAY CLIP STRIPS"
     ) {
 
-      const match =
-        value.match(
-          /(?:PROMO\s*)?BAY\s*[-#:]*\s*(\d+)/i
-        );
+      const values = [
+        entry.location,
+        entry.bay,
+        entry.plan,
+        entry.type,
+        entry.comments,
+        entry.details,
+        entry.raw
+      ];
 
-      if (match) {
-        return `BAY ${match[1]}`;
+
+      for (
+        const value of values
+      ) {
+
+        const match =
+          String(
+            value || ""
+          ).match(
+            /\b(?:PROMO\s*)?BAY\s*[-#:]*\s*(\d+)\b/i
+          );
+
+
+        if (match) {
+
+          return `BAY ${match[1]}`;
+
+        }
+
       }
 
     }
@@ -1576,18 +2348,38 @@
 
     /*
       TILL END
-      TILL END 1
     */
 
-    if (promotionType === "TILL ENDS") {
+    if (
+      type === "TILL ENDS"
+    ) {
 
-      const match =
-        value.match(
-          /TILL\s*END\s*[-#:]*\s*(\d+)/i
-        );
+      const values = [
+        entry.location,
+        entry.plan,
+        entry.type,
+        entry.raw
+      ];
 
-      if (match) {
-        return `TILL END ${match[1]}`;
+
+      for (
+        const value of values
+      ) {
+
+        const match =
+          String(
+            value || ""
+          ).match(
+            /\bTILL\s*END\s*[-#:]*\s*(\d+)\b/i
+          );
+
+
+        if (match) {
+
+          return `TILL END ${match[1]}`;
+
+        }
+
       }
 
     }
@@ -1595,93 +2387,152 @@
 
     /*
       TILL FRONT
-      TILL FRONT 1
     */
 
-    if (promotionType === "TILL FRONTS") {
+    if (
+      type === "TILL FRONTS"
+    ) {
 
-      const match =
-        value.match(
-          /TILL\s*FRONT\s*[-#:]*\s*(\d+)/i
-        );
+      const values = [
+        entry.location,
+        entry.plan,
+        entry.type,
+        entry.raw
+      ];
 
-      if (match) {
-        return `TILL FRONT ${match[1]}`;
+
+      for (
+        const value of values
+      ) {
+
+        const match =
+          String(
+            value || ""
+          ).match(
+            /\bTILL\s*FRONT\s*[-#:]*\s*(\d+)\b/i
+          );
+
+
+        if (match) {
+
+          return `TILL FRONT ${match[1]}`;
+
+        }
+
       }
 
     }
 
 
-    return value;
+    /*
+      Other promotional areas:
+      preserve their actual location.
+    */
+
+    if (
+      clean(entry.location)
+    ) {
+
+      return clean(
+        entry.location
+      );
+
+    }
+
+
+    /*
+      GENERAL is now only used when there really
+      is no identifiable location.
+    */
+
+    return "GENERAL";
 
   }
 
 
-  /* ============================================================
-     PROMOTIONS
-  ============================================================ */
+  /* =========================================================
+     PROMOTION LOADING
+  ========================================================= */
 
   async function openPromotions() {
 
     stopScanner();
 
-    showScreen("promotionsScreen");
+    showScreen(
+      "promotionsScreen"
+    );
 
-    if (!promoDataLoaded) {
 
-      await loadPromotionData();
+    if (
+      !promotionsLoaded
+    ) {
+
+      await loadPromotions();
 
     }
+
 
     renderPromotionTypes();
 
   }
 
 
-  async function loadPromotionData() {
+  async function loadPromotions() {
 
     const container =
-      document.getElementById("promotionTypes");
+      document.getElementById(
+        "promotionTypes"
+      );
+
 
     container.innerHTML =
-      `<div class="loading">
-        Loading promotional information...
-      </div>`;
+      `
+      <div class="loading">
+        Loading promotions...
+      </div>
+      `;
 
 
-    allPromoProducts = [];
+    promotionalProducts = [];
 
 
     try {
 
-      /*
-        Supabase returns a limited number of rows per request,
-        so load the promotional products in batches.
-      */
-
       const pageSize = 1000;
 
-      let from = 0;
+      let start = 0;
+
 
       while (true) {
 
-        const to =
-          from + pageSize - 1;
+        const end =
+          start +
+          pageSize -
+          1;
 
 
-        const { data, error } =
+        const {
+          data,
+          error
+        } =
           await supabaseClient
             .from("products")
-            .select(`
-              barcode,
-              name,
-              price,
-              product_code,
-              promo_offer
-            `)
-            .not("promo_offer", "is", null)
-            .neq("promo_offer", "")
-            .range(from, to);
+            .select(
+              "barcode,name,price,product_code,promo_offer"
+            )
+            .not(
+              "promo_offer",
+              "is",
+              null
+            )
+            .neq(
+              "promo_offer",
+              ""
+            )
+            .range(
+              start,
+              end
+            );
 
 
         if (error) {
@@ -1689,108 +2540,57 @@
         }
 
 
-        if (!data || data.length === 0) {
+        if (
+          !data ||
+          data.length === 0
+        ) {
+
           break;
+
         }
 
 
-        allPromoProducts =
-          allPromoProducts.concat(data);
+        promotionalProducts =
+          promotionalProducts.concat(
+            data
+          );
 
 
-        if (data.length < pageSize) {
+        if (
+          data.length <
+          pageSize
+        ) {
+
           break;
+
         }
 
 
-        from += pageSize;
+        start += pageSize;
 
       }
 
 
-      /*
-        Build the complete promotion structure.
-      */
+      buildPromotionGroups();
 
-      promotionStructure = {};
+      promotionsLoaded = true;
 
-
-      allPromoProducts.forEach(product => {
-
-        const entries =
-          parsePromoOffer(product.promo_offer);
-
-
-        entries.forEach(entry => {
-
-          if (!entry.promotionType) {
-            return;
-          }
-
-
-          if (
-            !promotionStructure[
-              entry.promotionType
-            ]
-          ) {
-
-            promotionStructure[
-              entry.promotionType
-            ] = {};
-
-          }
-
-
-          const location =
-            entry.locationName ||
-            "GENERAL";
-
-
-          if (
-            !promotionStructure[
-              entry.promotionType
-            ][location]
-          ) {
-
-            promotionStructure[
-              entry.promotionType
-            ][location] = [];
-
-          }
-
-
-          /*
-            Store the product together with its
-            specific promotional entry.
-          */
-
-          promotionStructure[
-            entry.promotionType
-          ][location].push({
-
-            product: product,
-
-            entry: entry
-
-          });
-
-        });
-
-      });
-
-
-      promoDataLoaded = true;
 
     } catch (error) {
 
       container.innerHTML =
         `
-        <div class="error-box">
-          Unable to load promotional information.
+        <div class="error">
+
+          Unable to load promotions.
+
           <br><br>
+
           ${escapeHtml(
-            error.message || "Unknown error"
+            error.message ||
+            "Unknown error"
           )}
+
         </div>
         `;
 
@@ -1799,17 +2599,96 @@
   }
 
 
-  /* ============================================================
-     PROMOTION TYPE LIST
-  ============================================================ */
+  /* =========================================================
+     BUILD GROUPS
+  ========================================================= */
+
+  function buildPromotionGroups() {
+
+    promotionGroups = {};
+
+
+    promotionalProducts.forEach(
+      product => {
+
+        const entries =
+          parsePromoOffer(
+            product.promo_offer
+          );
+
+
+        entries.forEach(
+          entry => {
+
+            const type =
+              entry.promotionType;
+
+            const location =
+              entry.locationName;
+
+
+            if (!type) {
+              return;
+            }
+
+
+            if (
+              !promotionGroups[type]
+            ) {
+
+              promotionGroups[type] =
+                {};
+
+            }
+
+
+            if (
+              !promotionGroups[type][
+                location
+              ]
+            ) {
+
+              promotionGroups[type][
+                location
+              ] = [];
+
+            }
+
+
+            promotionGroups[type][
+              location
+            ].push({
+
+              product:
+                product,
+
+              entry:
+                entry
+
+            });
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     PROMOTION TYPES
+  ========================================================= */
 
   function renderPromotionTypes() {
 
     const container =
-      document.getElementById("promotionTypes");
+      document.getElementById(
+        "promotionTypes"
+      );
 
 
-    const preferredOrder = [
+    const order = [
 
       "ENDS",
       "SIDES",
@@ -1832,46 +2711,53 @@
     ];
 
 
-    const availableTypes =
-      Object.keys(promotionStructure);
+    const available =
+      Object.keys(
+        promotionGroups
+      );
 
 
-    const orderedTypes = [];
+    const types = [];
 
 
-    preferredOrder.forEach(type => {
+    order.forEach(
+      type => {
 
-      if (
-        availableTypes.includes(type)
-      ) {
+        if (
+          available.includes(type)
+        ) {
 
-        orderedTypes.push(type);
+          types.push(type);
+
+        }
 
       }
+    );
 
-    });
 
+    available.forEach(
+      type => {
 
-    /*
-      Add anything not covered by the
-      standard order.
-    */
+        if (
+          !types.includes(type)
+        ) {
 
-    availableTypes.forEach(type => {
+          types.push(type);
 
-      if (!orderedTypes.includes(type)) {
-        orderedTypes.push(type);
+        }
+
       }
+    );
 
-    });
 
-
-    if (orderedTypes.length === 0) {
+    if (
+      types.length === 0
+    ) {
 
       container.innerHTML =
         `
-        <div class="empty-state">
-          No promotional information is currently available.
+        <div class="empty">
+          No promotional information available.
         </div>
         `;
 
@@ -1881,102 +2767,185 @@
 
 
     container.innerHTML =
-      orderedTypes.map(type => {
+      types
+        .map(
+          type => {
 
-        const locations =
-          promotionStructure[type] || {};
-
-
-        const locationCount =
-          Object.keys(locations).length;
+            const locations =
+              promotionGroups[type];
 
 
-        const productCount =
-          Object.values(locations)
-            .reduce(
-              (total, products) =>
-                total + products.length,
-              0
-            );
+            const locationCount =
+              Object.keys(
+                locations
+              ).length;
 
 
-        return `
-          <div
-            class="promo-type-card"
-            onclick="openPromotionLocations('${escapeAttribute(type)}')"
-          >
+            const productCount =
+              Object.values(
+                locations
+              ).reduce(
+                (
+                  total,
+                  items
+                ) =>
+                  total +
+                  items.length,
+                0
+              );
 
-            <div>
 
-              <div class="promo-type-name">
-                ${escapeHtml(type)}
-              </div>
+            return `
 
               <div
-                style="
-                  margin-top:5px;
-                  color:#6b7280;
-                  font-size:13px;
+                class="promo-section"
+                onclick="
+                  openPromotionLocations(
+                    '${escapeAttribute(type)}'
+                  )
                 "
               >
-                ${locationCount}
-                ${locationCount === 1 ? "location" : "locations"}
+
+                <div class="promo-section-icon">
+                  ${shortName(type)}
+                </div>
+
+
+                <div class="promo-section-text">
+
+                  <div class="promo-section-name">
+                    ${escapeHtml(type)}
+                  </div>
+
+                  <div class="promo-section-sub">
+                    ${locationCount}
+                    ${
+                      locationCount === 1
+                        ? "location"
+                        : "locations"
+                    }
+                  </div>
+
+                </div>
+
+
+                <div class="promo-count">
+                  ${productCount} products
+                </div>
+
               </div>
 
-            </div>
+            `;
 
-            <div class="promo-type-count">
-              ${productCount} products
-            </div>
-
-          </div>
-        `;
-
-      }).join("");
+          }
+        )
+        .join("");
 
   }
 
 
-  /* ============================================================
-     PROMOTION LOCATIONS
-  ============================================================ */
+  function shortName(type) {
 
-  function openPromotionLocations(type) {
+    const names = {
 
-    selectedPromotionType = type;
+      "ENDS": "E",
+      "SIDES": "S",
+      "TILL ENDS": "TE",
+      "TILL FRONTS": "TF",
+      "FRONT OF STORE": "FS",
+      "WINDOW BASKETS": "WB",
+      "PROMO BAYS": "B",
+      "PROMO BAY PLASTIC TRAYS": "PT",
+      "PROMO BAY CLIP STRIPS": "CS",
+      "BULK STACKS": "BS",
+      "PENCIL STACKS": "PS",
+      "FSDU & STANDS": "F",
+      "DUMP BINS": "DB",
+      "GIANT TIERED BASKETS": "GT",
+      "CLIP STRIPS": "C",
+      "DRINKS CHILLER": "DC",
+      "OTHER": "O"
 
-    selectedLocation = null;
+    };
+
+
+    return names[type] || "P";
+
+  }
+
+
+  /* =========================================================
+     LOCATIONS
+  ========================================================= */
+
+  function openPromotionLocations(
+    type
+  ) {
+
+    selectedPromotionType =
+      type;
+
+
+    selectedLocation = "";
+
 
     showScreen(
-      "promotionLocationsScreen"
+      "locationsScreen"
     );
 
 
-    document.getElementById("locationTitle")
-      .textContent = type;
+    document.getElementById(
+      "locationsTitle"
+    ).textContent =
+      type;
 
 
     const container =
       document.getElementById(
-        "promotionLocations"
+        "locationsList"
       );
 
 
     const locations =
-      promotionStructure[type] || {};
+      promotionGroups[type] ||
+      {};
 
 
-    const locationNames =
-      Object.keys(locations);
+    const names =
+      Object.keys(
+        locations
+      );
 
 
-    if (locationNames.length === 0) {
+    /*
+      Sort numerically:
+
+      END 1
+      END 2
+      END 3
+      ...
+      END 10
+
+      NOT:
+
+      END 1
+      END 10
+      END 2
+    */
+
+    names.sort(
+      naturalSort
+    );
+
+
+    if (
+      names.length === 0
+    ) {
 
       container.innerHTML =
         `
-        <div class="empty-state">
-          No locations found for
-          <strong>${escapeHtml(type)}</strong>.
+        <div class="empty">
+          No locations found.
         </div>
         `;
 
@@ -1985,106 +2954,154 @@
     }
 
 
-    /*
-      Sort locations naturally.
-
-      END 1
-      END 2
-      END 10
-
-      rather than:
-
-      END 1
-      END 10
-      END 2
-    */
-
-    locationNames.sort(
-      naturalLocationSort
-    );
-
-
     container.innerHTML =
-      locationNames.map(location => {
+      names
+        .map(
+          (
+            location,
+            index
+          ) => {
 
-        const count =
-          locations[location].length;
+            const count =
+              locations[
+                location
+              ].length;
 
 
-        return `
-          <div
-            class="location-card"
-            onclick="
-              openPromotionProducts(
-                '${escapeAttribute(location)}'
-              )
-            "
-          >
+            return `
 
-            <div class="location-name">
-              ${escapeHtml(location)}
-            </div>
+              <div
+                class="location-card"
+                onclick="
+                  openPromotionProducts(
+                    '${escapeAttribute(location)}'
+                  )
+                "
+              >
 
-            <div class="location-count">
-              ${count}
-            </div>
+                <div class="location-number">
+                  ${locationNumber(
+                    location,
+                    index
+                  )}
+                </div>
 
-          </div>
-        `;
 
-      }).join("");
+                <div class="location-content">
+
+                  <div class="location-name">
+                    ${escapeHtml(
+                      location
+                    )}
+                  </div>
+
+                  <div class="location-sub">
+                    ${count}
+                    ${
+                      count === 1
+                        ? "product"
+                        : "products"
+                    }
+                  </div>
+
+                </div>
+
+
+                <div class="location-arrow">
+                  →
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
 
   }
 
 
-  /* ============================================================
-     PROMOTION PRODUCTS
-  ============================================================ */
+  function locationNumber(
+    location,
+    index
+  ) {
 
-  function openPromotionProducts(location) {
+    const match =
+      String(location)
+        .match(
+          /(\d+)/
+        );
 
-    selectedLocation = location;
+
+    if (match) {
+      return match[1];
+    }
+
+
+    return index + 1;
+
+  }
+
+
+  /* =========================================================
+     PRODUCTS IN LOCATION
+  ========================================================= */
+
+  function openPromotionProducts(
+    location
+  ) {
+
+    selectedLocation =
+      location;
+
 
     showScreen(
-      "promotionProductsScreen"
+      "promoProductsScreen"
     );
 
 
-    document.getElementById("productsTitle")
-      .textContent =
-        `${selectedPromotionType} — ${location}`;
+    document.getElementById(
+      "promoProductsTitle"
+    ).textContent =
+      `${selectedPromotionType} — ${location}`;
 
 
     const products =
       (
-        promotionStructure[
+        promotionGroups[
           selectedPromotionType
         ] || {}
       )[location] || [];
 
 
-    document.getElementById("productsSummary")
-      .textContent =
-        `${products.length} ${
-          products.length === 1
-            ? "product"
-            : "products"
-        }`;
+    document.getElementById(
+      "promoProductsSummary"
+    ).textContent =
+      `${products.length} ${
+        products.length === 1
+          ? "product"
+          : "products"
+      }`;
 
 
     const container =
       document.getElementById(
-        "promotionProducts"
+        "promoProductsList"
       );
 
 
-    if (products.length === 0) {
+    if (
+      products.length === 0
+    ) {
 
       container.innerHTML =
         `
-        <div class="empty-state">
+        <div class="empty">
           No products found for
-          <strong>${escapeHtml(location)}</strong>.
+          <strong>
+            ${escapeHtml(location)}
+          </strong>.
         </div>
         `;
 
@@ -2094,16 +3111,18 @@
 
 
     container.innerHTML =
-      products.map(
-        (item, index) => {
-
-          return buildPromotionProductCard(
+      products
+        .map(
+          (
             item,
             index
-          );
-
-        }
-      ).join("");
+          ) =>
+            buildPromoProduct(
+              item,
+              index
+            )
+        )
+        .join("");
 
   }
 
@@ -2117,11 +3136,11 @@
   }
 
 
-  /* ============================================================
-     PROMOTION PRODUCT CARD
-  ============================================================ */
+  /* =========================================================
+     PROMO PRODUCT
+  ========================================================= */
 
-  function buildPromotionProductCard(
+  function buildPromoProduct(
     item,
     index
   ) {
@@ -2134,136 +3153,194 @@
 
 
     let html = `
-      <div class="product-list-card">
+
+      <div class="promo-product">
 
         <div class="product-number">
-          Product ${index + 1}
+          PRODUCT ${index + 1}
         </div>
 
-        <div class="list-product-name">
+
+        <div class="promo-product-name">
           ${escapeHtml(
-            product.name || "Unnamed product"
+            product.name ||
+            entry.product ||
+            "Unnamed product"
           )}
         </div>
 
-        <div class="list-price">
-          ${formatPrice(product.price)}
+
+        <div class="promo-product-price">
+          ${formatPrice(
+            product.price
+          )}
         </div>
 
-        <div class="small-info">
+
+        <div class="small-row">
+
           <strong>Barcode:</strong>
+
           ${escapeHtml(
-            product.barcode || "-"
+            product.barcode ||
+            "-"
           )}
+
         </div>
 
-        <div class="small-info">
+
+        <div class="small-row">
+
           <strong>Product Code:</strong>
+
           ${escapeHtml(
-            product.product_code || "-"
+            product.product_code ||
+            "-"
           )}
+
         </div>
+
     `;
 
 
-    if (entry.storeCategories) {
+    if (
+      entry.categories
+    ) {
 
       html += `
-        <div class="small-info">
-          <strong>Store Categories:</strong>
+
+        <div class="small-row">
+
+          <strong>
+            Store Categories:
+          </strong>
+
           ${escapeHtml(
-            entry.storeCategories
+            entry.categories
           )}
+
         </div>
+
       `;
 
     }
 
 
-    if (entry.promoPrice) {
+    const promotionalPrice =
+      entry.promoPrice ||
+      entry.price;
+
+
+    if (
+      promotionalPrice
+    ) {
 
       html += `
-        <div class="small-info">
-          <strong>Promotional Price:</strong>
+
+        <div class="small-row">
+
+          <strong>
+            Promotional Price:
+          </strong>
+
           ${escapeHtml(
-            entry.promoPrice
+            promotionalPrice
           )}
+
         </div>
-      `;
 
-    }
-
-
-    if (entry.offer) {
-
-      html += `
-        <div class="small-info">
-          <strong>Offer:</strong>
-          ${escapeHtml(
-            entry.offer
-          )}
-        </div>
       `;
 
     }
 
 
     if (
-      entry.bay &&
-      !entry.locationName.includes(
-        entry.bay
-      )
+      entry.offer
     ) {
 
       html += `
-        <div class="small-info">
-          <strong>Bay:</strong>
+
+        <div class="small-row">
+
+          <strong>
+            Offer:
+          </strong>
+
           ${escapeHtml(
-            entry.bay
+            entry.offer
           )}
+
         </div>
+
       `;
 
     }
 
 
-    if (entry.shelf) {
+    if (
+      entry.shelf
+    ) {
 
       html += `
-        <div class="small-info">
-          <strong>Shelf:</strong>
+
+        <div class="small-row">
+
+          <strong>
+            Shelf:
+          </strong>
+
           ${escapeHtml(
             entry.shelf
           )}
+
         </div>
+
       `;
 
     }
 
 
-    if (entry.supplierFunded) {
+    if (
+      entry.comments
+    ) {
 
       html += `
-        <div class="small-info">
-          <strong>Supplier Funded:</strong>
-          ${escapeHtml(
-            entry.supplierFunded
-          )}
-        </div>
-      `;
 
-    }
+        <div class="small-row">
 
+          <strong>
+            Comments:
+          </strong>
 
-    if (entry.comments) {
-
-      html += `
-        <div class="small-info">
-          <strong>Comments:</strong>
           ${escapeHtml(
             entry.comments
           )}
+
         </div>
+
+      `;
+
+    }
+
+
+    if (
+      entry.details
+    ) {
+
+      html += `
+
+        <div class="small-row">
+
+          <strong>
+            Details:
+          </strong>
+
+          ${escapeHtml(
+            entry.details
+          )}
+
+        </div>
+
       `;
 
     }
@@ -2279,164 +3356,178 @@
   }
 
 
-  /* ============================================================
-     PROMOTIONAL ENTRY DISPLAY
-  ============================================================ */
+  /* =========================================================
+     PRODUCT PROMO INFORMATION
+  ========================================================= */
 
-  function buildPromoEntryDisplay(
+  function buildPromoEntry(
     entry,
     index
   ) {
 
-    let title = "";
-
-
-    if (entry.locationName) {
-
-      title =
-        entry.locationName;
-
-    } else if (entry.plan) {
-
-      title =
-        entry.plan;
-
-    } else {
-
-      title =
-        `Promotion ${index + 1}`;
-
-    }
+    const title =
+      entry.locationName ||
+      entry.plan ||
+      `Promotion ${index + 1}`;
 
 
     let html = `
+
       <div class="promo-entry">
 
         <div class="promo-entry-title">
           ${escapeHtml(title)}
         </div>
+
     `;
 
 
     if (
       entry.location &&
-      entry.location !== entry.locationName
+      entry.location !==
+        entry.locationName
     ) {
 
-      html += promoRow(
-        "Placement",
-        entry.location
-      );
+      html +=
+        promoLine(
+          "Placement",
+          entry.location
+        );
 
     }
 
 
-    if (entry.storeCategories) {
+    if (
+      entry.categories
+    ) {
 
-      html += promoRow(
-        "Store Categories",
-        entry.storeCategories
-      );
-
-    }
-
-
-    if (entry.code) {
-
-      html += promoRow(
-        "Product Code",
-        entry.code
-      );
+      html +=
+        promoLine(
+          "Store Categories",
+          entry.categories
+        );
 
     }
 
 
-    if (entry.barcode) {
+    if (
+      entry.code
+    ) {
 
-      html += promoRow(
-        "Barcode",
-        entry.barcode
-      );
-
-    }
-
-
-    if (entry.product) {
-
-      html += promoRow(
-        "Product",
-        entry.product
-      );
+      html +=
+        promoLine(
+          "Product Code",
+          entry.code
+        );
 
     }
 
 
-    if (entry.promoPrice) {
+    if (
+      entry.barcode
+    ) {
 
-      html += promoRow(
-        "Promotional Price",
-        entry.promoPrice
-      );
-
-    }
-
-
-    if (entry.offer) {
-
-      html += promoRow(
-        "Offer",
-        entry.offer
-      );
+      html +=
+        promoLine(
+          "Barcode",
+          entry.barcode
+        );
 
     }
 
 
-    if (entry.bay) {
+    if (
+      entry.product
+    ) {
 
-      html += promoRow(
-        "Bay",
-        entry.bay
-      );
-
-    }
-
-
-    if (entry.shelf) {
-
-      html += promoRow(
-        "Shelf",
-        entry.shelf
-      );
+      html +=
+        promoLine(
+          "Product",
+          entry.product
+        );
 
     }
 
 
-    if (entry.supplierFunded) {
-
-      html += promoRow(
-        "Supplier Funded",
-        entry.supplierFunded
-      );
-
-    }
+    const promotionalPrice =
+      entry.promoPrice ||
+      entry.price;
 
 
-    if (entry.comments) {
+    if (
+      promotionalPrice
+    ) {
 
-      html += promoRow(
-        "Comments",
-        entry.comments
-      );
+      html +=
+        promoLine(
+          "Promotional Price",
+          promotionalPrice
+        );
 
     }
 
 
-    if (entry.instructions) {
+    if (
+      entry.offer
+    ) {
 
-      html += promoRow(
-        "Instructions",
-        entry.instructions
-      );
+      html +=
+        promoLine(
+          "Offer",
+          entry.offer
+        );
+
+    }
+
+
+    if (
+      entry.bay
+    ) {
+
+      html +=
+        promoLine(
+          "Bay",
+          entry.bay
+        );
+
+    }
+
+
+    if (
+      entry.shelf
+    ) {
+
+      html +=
+        promoLine(
+          "Shelf",
+          entry.shelf
+        );
+
+    }
+
+
+    if (
+      entry.comments
+    ) {
+
+      html +=
+        promoLine(
+          "Comments",
+          entry.comments
+        );
+
+    }
+
+
+    if (
+      entry.details
+    ) {
+
+      html +=
+        promoLine(
+          "Details",
+          entry.details
+        );
 
     }
 
@@ -2451,82 +3542,112 @@
   }
 
 
-  function promoRow(
+  function promoLine(
     label,
     value
   ) {
 
     return `
-      <div class="promo-row">
 
-        <div class="promo-row-label">
+      <div class="promo-line">
+
+        <div class="promo-line-label">
           ${escapeHtml(label)}
         </div>
 
-        <div class="promo-row-value">
+        <div class="promo-line-value">
           ${escapeHtml(value)}
         </div>
 
       </div>
+
     `;
 
   }
 
 
-  /* ============================================================
-     NATURAL SORTING
-  ============================================================ */
+  /* =========================================================
+     NATURAL SORT
+  ========================================================= */
 
-  function naturalLocationSort(a, b) {
+  function naturalSort(
+    a,
+    b
+  ) {
+
+    const aText =
+      String(a);
+
+    const bText =
+      String(b);
+
 
     const aMatch =
-      String(a).match(/(\d+)/);
+      aText.match(
+        /(\d+)/
+      );
 
     const bMatch =
-      String(b).match(/(\d+)/);
+      bText.match(
+        /(\d+)/
+      );
 
 
-    if (aMatch && bMatch) {
+    if (
+      aMatch &&
+      bMatch
+    ) {
 
       const aNumber =
-        Number(aMatch[1]);
+        Number(
+          aMatch[1]
+        );
 
       const bNumber =
-        Number(bMatch[1]);
+        Number(
+          bMatch[1]
+        );
 
 
-      if (aNumber !== bNumber) {
+      if (
+        aNumber !==
+        bNumber
+      ) {
 
-        return aNumber - bNumber;
+        return (
+          aNumber -
+          bNumber
+        );
 
       }
 
     }
 
 
-    return String(a)
-      .localeCompare(
-        String(b),
-        undefined,
-        {
-          numeric: true,
-          sensitivity: "base"
-        }
-      );
+    return aText.localeCompare(
+      bText,
+      undefined,
+      {
+        numeric: true,
+        sensitivity: "base"
+      }
+    );
 
   }
 
 
-  /* ============================================================
-     PRICE FORMAT
-  ============================================================ */
+  /* =========================================================
+     PRICE
+  ========================================================= */
 
-  function formatPrice(price) {
+  function formatPrice(
+    value
+  ) {
 
     if (
-      price === null ||
-      price === undefined ||
-      price === ""
+      value === null ||
+      value === undefined ||
+      value === ""
     ) {
 
       return "—";
@@ -2535,28 +3656,35 @@
 
 
     const number =
-      Number(price);
+      Number(value);
 
 
-    if (Number.isNaN(number)) {
+    if (
+      Number.isNaN(number)
+    ) {
 
       return escapeHtml(
-        String(price)
+        String(value)
       );
 
     }
 
 
-    return `£${number.toFixed(2)}`;
+    return (
+      "£" +
+      number.toFixed(2)
+    );
 
   }
 
 
-  /* ============================================================
-     SECURITY / HTML ESCAPING
-  ============================================================ */
+  /* =========================================================
+     CLEAN
+  ========================================================= */
 
-  function escapeHtml(value) {
+  function clean(
+    value
+  ) {
 
     if (
       value === null ||
@@ -2569,31 +3697,73 @@
 
 
     return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(
+        /\r/g,
+        ""
+      )
+      .trim();
 
   }
 
 
-  function escapeAttribute(value) {
+  /* =========================================================
+     ESCAPE
+  ========================================================= */
+
+  function escapeHtml(
+    value
+  ) {
+
+    if (
+      value === null ||
+      value === undefined
+    ) {
+
+      return "";
+
+    }
+
 
     return String(value)
-      .replace(/\\/g, "\\\\")
-      .replace(/'/g, "\\'");
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
 
   }
 
 
-  /* ============================================================
-     START
-  ============================================================ */
+  function escapeAttribute(
+    value
+  ) {
 
-  console.log(
-    "One Beyond Price Checker loaded."
-  );
+    return String(value)
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+      .replace(
+        /'/g,
+        "\\'"
+      );
+
+  }
 
 </script>
 

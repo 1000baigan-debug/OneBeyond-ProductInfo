@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Beyond - Pricing Update</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  min-height: 100vh;
+  background: white;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+.card {
+  background: #f1f1f1;
+  padding: 20px;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+input[type="file"] {
+  width: 100%;
+  margin: 20px 0;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #111;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#preview {
+  margin-top: 20px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>ONE BEYOND</h1>
+
+<h2>Pricing Update</h2>
+
+<div class="card">
+
+<p>
+Upload your weekly TXT pricing file.
+</p>
+
+<input
+  type="file"
+  id="file"
+  accept=".txt"
+>
+
+<button onclick="readFile()">
+Read Pricing File
+</button>
+
+</div>
+
+<div id="preview"></div>
+
+</div>
+
+<script>
+
+function readFile() {
+
+  const fileInput = document.getElementById("file");
+
+  if (!fileInput.files.length) {
+    alert("Please select a TXT file.");
+    return;
+  }
+
+  const file = fileInput.files[0];
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+
+    const text = event.target.result;
+
+    const lines = text
+      .split(/\r?\n/)
+      .filter(line => line.trim() !== "");
+
+    document.getElementById("preview").innerHTML =
+      "<h3>File loaded</h3>" +
+      "<p>Total lines: " + lines.length + "</p>" +
+      "<pre>" +
+      lines.slice(0, 20)
+        .join("\n")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;") +
+      "</pre>";
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+</script>
+
+</body>
+</html>

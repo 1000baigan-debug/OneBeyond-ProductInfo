@@ -3,329 +3,446 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>One Beyond - Weekly Price Update</title>
+<title>One Beyond - Admin</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f4f4;
+  color:#111;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f4f4;
-  color: #111;
+.header{
+  background:#0057b8;
+  color:#fff;
+  text-align:center;
+  padding:22px 18px;
+  border-bottom:7px solid #ffd500;
 }
 
-.header {
-  background: #0057b8;
-  color: white;
-  text-align: center;
-  padding: 22px 18px;
-  border-bottom: 7px solid #ffd500;
+.header h1{
+  margin:0;
+  font-size:27px;
+  font-weight:900;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 27px;
-  font-weight: 900;
+.header p{
+  margin:7px 0 0;
+  font-size:14px;
 }
 
-.header p {
-  margin: 7px 0 0;
-  font-size: 14px;
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:18px;
 }
 
-.container {
-  max-width: 1150px;
-  margin: auto;
-  padding: 18px;
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-.card {
-  background: white;
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 18px;
-  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+.login-card{
+  max-width:500px;
+  margin:40px auto;
 }
 
-.login-card {
-  max-width: 500px;
-  margin: 40px auto;
+h2{
+  margin:0 0 12px;
+  color:#0057b8;
+  font-size:20px;
 }
 
-h2 {
-  margin-top: 0;
-  color: #0057b8;
-  font-size: 20px;
+h3{
+  color:#0057b8;
+  margin-top:22px;
 }
 
-input {
-  width: 100%;
-  padding: 13px;
-  margin-top: 8px;
-  margin-bottom: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
+.small{
+  color:#666;
+  font-size:13px;
+  line-height:1.5;
 }
 
-label {
-  font-weight: 700;
-  font-size: 14px;
+label{
+  font-weight:700;
+  font-size:14px;
 }
 
-button {
-  border: none;
-  border-radius: 9px;
-  padding: 14px 18px;
-  margin-top: 12px;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  width: 100%;
+input[type=email],
+input[type=password],
+input[type=text],
+input[type=number],
+input[type=file]{
+  width:100%;
+  padding:12px;
+  margin-top:7px;
+  margin-bottom:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+  background:#fff;
 }
 
-button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
+button{
+  border:0;
+  border-radius:9px;
+  padding:13px 17px;
+  margin-top:10px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
 }
 
-.login-button {
-  background: #0057b8;
-  color: white;
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
-.upload-button {
-  background: #ffd500;
-  color: #111;
+.login-button{
+  background:#0057b8;
+  color:#fff;
+  width:100%;
 }
 
-.clear-button {
-  background: #222;
-  color: white;
+.upload-button{
+  background:#ffd500;
+  color:#111;
+  width:100%;
 }
 
-.upload-box {
-  border: 2px dashed #0057b8;
-  border-radius: 12px;
-  padding: 25px;
-  text-align: center;
-  background: #f8fbff;
+.secondary-button{
+  background:#0057b8;
+  color:#fff;
+  width:100%;
 }
 
-input[type="file"] {
-  background: white;
+.clear-button{
+  background:#222;
+  color:#fff;
+  width:100%;
 }
 
-.small {
-  color: #666;
-  font-size: 13px;
-  margin-top: 8px;
+.danger-button{
+  background:#b00020;
+  color:#fff;
+  width:100%;
 }
 
-.file-info {
-  display: none;
-  margin-top: 15px;
-  padding: 12px;
-  background: #f7f7f7;
-  border-radius: 9px;
-  font-size: 14px;
-  line-height: 1.6;
+.upload-box{
+  border:2px dashed #0057b8;
+  border-radius:12px;
+  padding:22px;
+  text-align:center;
+  background:#f8fbff;
 }
 
-.message {
-  display: none;
-  margin-top: 15px;
-  padding: 14px;
-  border-radius: 9px;
-  font-weight: 700;
-  line-height: 1.5;
+.message{
+  display:none;
+  margin-top:15px;
+  padding:13px;
+  border-radius:9px;
+  font-weight:700;
+  line-height:1.5;
 }
 
-.success {
-  background: #e4f7e4;
-  color: #176b17;
+.success{
+  background:#e4f7e4;
+  color:#176b17;
 }
 
-.error {
-  background: #ffe2e2;
-  color: #a00000;
+.error{
+  background:#ffe2e2;
+  color:#a00000;
 }
 
-.warning {
-  background: #fff5cc;
-  color: #765c00;
+.warning{
+  background:#fff5cc;
+  color:#765c00;
 }
 
-.info {
-  background: #e8f1ff;
-  color: #064a9b;
+.info{
+  background:#e8f1ff;
+  color:#064a9b;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-top: 18px;
+.file-info{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  background:#f7f7f7;
+  border-radius:9px;
+  font-size:14px;
+  line-height:1.6;
 }
 
-.stat {
-  background: #0057b8;
-  color: white;
-  padding: 16px;
-  border-radius: 10px;
-  text-align: center;
+.user-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  padding:12px 15px;
+  background:#e8f1ff;
+  border-radius:9px;
+  font-size:14px;
 }
 
-.stat strong {
-  display: block;
-  font-size: 24px;
-  margin-bottom: 4px;
+.logout-button{
+  width:auto;
+  margin:0;
+  padding:8px 13px;
+  background:#222;
+  color:#fff;
+  font-size:13px;
 }
 
-.success-stat {
-  background: #197b30;
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:18px;
 }
 
-.warning-stat {
-  background: #d49b00;
+.stat{
+  background:#0057b8;
+  color:#fff;
+  padding:16px;
+  border-radius:10px;
+  text-align:center;
 }
 
-.error-stat {
-  background: #b00020;
+.stat strong{
+  display:block;
+  font-size:24px;
+  margin-bottom:4px;
 }
 
-.table-wrapper {
-  overflow-x: auto;
-  margin-top: 18px;
+.stat.success-stat{
+  background:#197b30;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 900px;
+.stat.warning-stat{
+  background:#d49b00;
 }
 
-th {
-  background: #0057b8;
-  color: white;
-  padding: 11px;
-  text-align: left;
-  font-size: 14px;
+.stat.error-stat{
+  background:#b00020;
 }
 
-td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
-  vertical-align: top;
+.progress-container{
+  display:none;
+  margin-top:18px;
 }
 
-tr:nth-child(even) {
-  background: #f8f8f8;
+.progress-bg{
+  height:25px;
+  background:#ddd;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.price {
-  font-weight: 800;
-  white-space: nowrap;
+.progress-bar{
+  width:0;
+  height:100%;
+  background:#0057b8;
+  transition:width .2s;
 }
 
-.promo {
-  font-weight: 700;
+.progress-text{
+  text-align:center;
+  margin-top:8px;
+  font-weight:700;
 }
 
-.badge {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 800;
-  background: #e4f7e4;
-  color: #176b17;
+.checkbox-row{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin:10px 0;
+  font-size:14px;
 }
 
-.badge.duplicate {
-  background: #fff5cc;
-  color: #765c00;
+.checkbox-row input{
+  width:auto;
+  margin:3px 0 0;
 }
 
-.badge.invalid {
-  background: #ffe2e2;
-  color: #a00000;
+.preview-toolbar{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:10px;
+  margin-top:15px;
 }
 
-.progress-container {
-  display: none;
-  margin-top: 18px;
+.virtual-header{
+  display:grid;
+  grid-template-columns:170px minmax(260px,1fr) 180px 100px 240px 110px;
+  background:#0057b8;
+  color:#fff;
+  font-weight:800;
+  font-size:13px;
+  border-radius:9px 9px 0 0;
 }
 
-.progress-bar-background {
-  width: 100%;
-  height: 25px;
-  background: #ddd;
-  border-radius: 20px;
-  overflow: hidden;
+.virtual-header>div{
+  padding:11px 8px;
 }
 
-.progress-bar {
-  width: 0%;
-  height: 100%;
-  background: #0057b8;
-  transition: width .2s ease;
+.virtual-viewport{
+  height:620px;
+  overflow:auto;
+  border:1px solid #ccc;
+  border-radius:0 0 9px 9px;
+  background:#fff;
+  position:relative;
 }
 
-.progress-text {
-  text-align: center;
-  margin-top: 8px;
-  font-weight: 700;
+.virtual-inner{
+  position:relative;
+  width:100%;
 }
 
-.user-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  padding: 12px 15px;
-  background: #e8f1ff;
-  border-radius: 9px;
-  font-size: 14px;
+.virtual-row{
+  position:absolute;
+  left:0;
+  right:0;
+  height:42px;
+  display:grid;
+  grid-template-columns:170px minmax(260px,1fr) 180px 100px 240px 110px;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  background:#fff;
+  font-size:13px;
 }
 
-.logout-button {
-  width: auto;
-  margin: 0;
-  padding: 8px 13px;
-  background: #222;
-  color: white;
-  font-size: 13px;
+.virtual-row:nth-child(even){
+  background:#fafafa;
 }
 
-@media (max-width: 800px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
+.virtual-row>div{
+  padding:6px 8px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.valid{
+  background:#e4f7e4;
+  color:#176b17;
+}
+
+.invalid{
+  background:#ffe2e2;
+  color:#a00000;
+}
+
+.duplicate{
+  background:#fff5cc;
+  color:#765c00;
+}
+
+.promo-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.promo-table-wrap{
+  max-height:500px;
+  overflow:auto;
+  border:1px solid #ddd;
+  border-radius:9px;
+  margin-top:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1000px;
+}
+
+th{
+  position:sticky;
+  top:0;
+  background:#0057b8;
+  color:#fff;
+  padding:10px;
+  text-align:left;
+  font-size:13px;
+  z-index:2;
+}
+
+td{
+  padding:9px;
+  border-bottom:1px solid #ddd;
+  font-size:13px;
+  vertical-align:top;
+}
+
+.note{
+  padding:12px;
+  background:#f7f7f7;
+  border-radius:9px;
+  margin-top:12px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:900px){
+
+  .stats,
+  .promo-stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .preview-toolbar{
+    grid-template-columns:1fr;
+  }
+
+  .virtual-viewport{
+    height:550px;
   }
 }
 
-@media (max-width: 500px) {
-  .stats {
-    grid-template-columns: 1fr;
+@media(max-width:600px){
+
+  .stats,
+  .promo-stats{
+    grid-template-columns:1fr;
   }
 
-  .header h1 {
-    font-size: 23px;
+  .user-bar{
+    flex-direction:column;
+    align-items:stretch;
   }
 
-  .user-bar {
-    flex-direction: column;
-    align-items: stretch;
+  .logout-button{
+    width:100%;
   }
 
-  .logout-button {
-    width: 100%;
+  .virtual-row,
+  .virtual-header{
+    grid-template-columns:130px 230px 150px 90px 220px 100px;
   }
 }
 </style>
@@ -335,8 +452,9 @@ tr:nth-child(even) {
 
 <div class="header">
   <h1>ONE BEYOND</h1>
-  <p>Weekly Price Updates</p>
+  <p>Weekly Price & Promotional Updates</p>
 </div>
+
 
 <!-- LOGIN -->
 
@@ -347,12 +465,13 @@ tr:nth-child(even) {
     <h2>Admin Login</h2>
 
     <div class="small">
-      Sign in to update the weekly product pricing.
+      Sign in to update pricing and promotional information.
     </div>
 
     <br>
 
-    <label for="email">Email</label>
+    <label>Email</label>
+
     <input
       id="email"
       type="email"
@@ -360,7 +479,8 @@ tr:nth-child(even) {
       autocomplete="username"
     >
 
-    <label for="password">Password</label>
+    <label>Password</label>
+
     <input
       id="password"
       type="password"
@@ -385,7 +505,7 @@ tr:nth-child(even) {
 
 <!-- ADMIN -->
 
-<div id="adminSection" class="container" style="display:none;">
+<div id="adminSection" class="container hidden">
 
   <div class="user-bar">
 
@@ -404,16 +524,16 @@ tr:nth-child(even) {
   </div>
 
 
-  <!-- UPLOAD -->
+  <!-- PRICING -->
 
   <div class="card">
 
-    <h2>Upload Weekly Pricing File</h2>
+    <h2>1. Upload Weekly Pricing TXT</h2>
 
     <div class="upload-box">
 
       <strong>
-        Select your weekly pricing TXT file
+        Select the weekly Avery pricing TXT file
       </strong>
 
       <div class="small">
@@ -423,115 +543,410 @@ tr:nth-child(even) {
       </div>
 
       <input
-        id="fileInput"
+        id="priceFileInput"
         type="file"
         accept=".txt,.csv"
       >
 
     </div>
 
-    <div id="fileInfo" class="file-info"></div>
+    <div
+      id="priceFileInfo"
+      class="file-info"
+    ></div>
 
-    <div id="message" class="message"></div>
+    <div
+      id="priceMessage"
+      class="message"
+    ></div>
+
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <strong id="priceTotal">0</strong>
+
+        Total Records
+
+      </div>
+
+      <div class="stat success-stat">
+
+        <strong id="priceUploadable">0</strong>
+
+        Uploadable
+
+      </div>
+
+      <div class="stat warning-stat">
+
+        <strong id="priceDuplicates">0</strong>
+
+        Duplicate Keys
+
+      </div>
+
+      <div class="stat error-stat">
+
+        <strong id="priceInvalid">0</strong>
+
+        Invalid / Ignored
+
+      </div>
+
+    </div>
+
+
+    <div class="note">
+
+      Invalid rows are reported but
+      <strong>do not stop the upload</strong>.
+
+      Rows without a usable barcode,
+      description or price are ignored.
+
+      £0.00 is treated as a valid price.
+
+      Blank Product Code, PromoOffer and PricePer
+      are allowed.
+
+    </div>
+
+
+    <div class="preview-toolbar">
+
+      <input
+        id="priceSearch"
+        type="text"
+        placeholder="Search barcode, description or product code"
+      >
+
+      <input
+        id="priceJump"
+        type="number"
+        min="1"
+        placeholder="Jump to row"
+      >
+
+      <button
+        class="secondary-button"
+        onclick="jumpToPriceRow()"
+      >
+        Go to row
+      </button>
+
+    </div>
+
+
+    <div class="small">
+
+      The table below uses virtual scrolling,
+      so the complete pricing file can be viewed
+      without creating thousands of DOM rows.
+
+    </div>
+
+
+    <div class="virtual-header">
+
+      <div>Barcode</div>
+      <div>Description</div>
+      <div>Product Code</div>
+      <div>Price</div>
+      <div>Promo Offer</div>
+      <div>Status</div>
+
+    </div>
+
+
+    <div
+      id="priceViewport"
+      class="virtual-viewport"
+    >
+
+      <div
+        id="priceInner"
+        class="virtual-inner"
+      ></div>
+
+    </div>
+
 
     <button
-      id="uploadButton"
+      id="uploadPriceButton"
       class="upload-button"
-      onclick="uploadToSupabase()"
+      onclick="uploadPricing()"
       disabled
     >
-      Upload Pricing to Database
+      Upload Valid Pricing to Database
     </button>
 
-    <div id="progressContainer" class="progress-container">
 
-      <div class="progress-bar-background">
-        <div id="progressBar" class="progress-bar"></div>
+    <div
+      id="priceProgressContainer"
+      class="progress-container"
+    >
+
+      <div class="progress-bg">
+
+        <div
+          id="priceProgressBar"
+          class="progress-bar"
+        ></div>
+
       </div>
 
-      <div id="progressText" class="progress-text">
+      <div
+        id="priceProgressText"
+        class="progress-text"
+      >
         Preparing upload...
       </div>
+
+    </div>
+
+
+    <h3>Invalid / Ignored Records</h3>
+
+    <div class="small">
+      These records are not uploaded.
+      They do not prevent the valid records
+      from being uploaded.
+    </div>
+
+    <div class="promo-table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Line</th>
+            <th>Barcode</th>
+            <th>Description</th>
+            <th>Product Code</th>
+            <th>Price</th>
+            <th>Reason</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="invalidBody"></tbody>
+
+      </table>
 
     </div>
 
   </div>
 
 
-  <!-- RESULTS -->
+  <!-- PROMO PDF -->
 
-  <div
-    id="previewCard"
-    class="card"
-    style="display:none;"
-  >
+  <div class="card">
 
-    <h2>Pricing File Check</h2>
+    <h2>2. Upload Promotional Plan PDF</h2>
 
-    <div class="stats">
+    <div class="upload-box">
+
+      <strong>
+        Select the current promotional PDF
+      </strong>
+
+      <div class="small">
+        The PDF is read in the browser and
+        product barcodes are matched against
+        the pricing database.
+      </div>
+
+      <input
+        id="promoFileInput"
+        type="file"
+        accept=".pdf"
+      >
+
+    </div>
+
+
+    <div
+      id="promoFileInfo"
+      class="file-info"
+    ></div>
+
+
+    <div
+      id="promoMessage"
+      class="message"
+    ></div>
+
+
+    <div class="checkbox-row">
+
+      <input
+        id="clearPromoBeforeUpload"
+        type="checkbox"
+      >
+
+      <label>
+
+        Replace existing promotional information
+        before applying this PDF.
+
+        <div class="small">
+          Use this when the PDF is a new weekly
+          promotional plan.
+        </div>
+
+      </label>
+
+    </div>
+
+
+    <button
+      id="parsePromoButton"
+      class="secondary-button"
+      onclick="parsePromoPdf()"
+      disabled
+    >
+      Read Promotional PDF
+    </button>
+
+
+    <div class="promo-stats">
 
       <div class="stat">
-        <strong id="totalRecords">0</strong>
-        Total Records
+
+        <strong id="promoTotal">0</strong>
+
+        PDF Product Rows
+
       </div>
 
       <div class="stat success-stat">
-        <strong id="validRecords">0</strong>
-        Valid Records
+
+        <strong id="promoMatched">0</strong>
+
+        Matched
+
       </div>
 
       <div class="stat warning-stat">
-        <strong id="duplicateRecords">0</strong>
-        Duplicate Barcode Rows
+
+        <strong id="promoUnmatched">0</strong>
+
+        Not Matched
+
       </div>
 
-      <div class="stat error-stat">
-        <strong id="invalidRecords">0</strong>
-        Invalid Records
+      <div class="stat">
+
+        <strong id="promoSections">0</strong>
+
+        Plans / Sections
+
       </div>
 
     </div>
 
-    <div class="table-wrapper">
+
+    <div
+      id="promoPreviewWrap"
+      class="promo-table-wrap hidden"
+    >
 
       <table>
 
         <thead>
+
           <tr>
+
             <th>Barcode</th>
-            <th>Description</th>
             <th>Product Code</th>
-            <th>Price</th>
-            <th>Promo Offer</th>
-            <th>Status</th>
+            <th>Plan</th>
+            <th>Location</th>
+            <th>Store Category</th>
+            <th>Product / Details</th>
+            <th>Match</th>
+
           </tr>
+
         </thead>
 
-        <tbody id="previewBody"></tbody>
+        <tbody id="promoPreviewBody"></tbody>
 
       </table>
 
     </div>
 
+
     <button
-      class="clear-button"
-      onclick="clearFile()"
+      id="uploadPromoButton"
+      class="upload-button"
+      onclick="uploadPromoInformation()"
+      disabled
     >
-      Clear File
+      Apply Promotional Information
     </button>
+
+
+    <div
+      id="promoProgressContainer"
+      class="progress-container"
+    >
+
+      <div class="progress-bg">
+
+        <div
+          id="promoProgressBar"
+          class="progress-bar"
+        ></div>
+
+      </div>
+
+      <div
+        id="promoProgressText"
+        class="progress-text"
+      >
+        Preparing update...
+      </div>
+
+    </div>
+
+
+    <div class="note">
+
+      Promotional information can include:
+
+      <strong>END</strong>,
+      <strong>SIDE</strong>,
+      <strong>TILL END</strong>,
+      <strong>TILL FRONT</strong>,
+      <strong>FRONT OF STORE</strong>,
+      <strong>WINDOW BASKET</strong>,
+      <strong>BULK STACK</strong>,
+      <strong>PENCIL STACK</strong>,
+      <strong>FSDU / STAND</strong>,
+      <strong>DUMP BIN</strong>,
+      <strong>GIANT TIERED BASKET</strong>,
+      <strong>CLIP STRIP</strong>,
+      <strong>DRINKS CHILLER</strong>.
+
+    </div>
 
   </div>
 
 </div>
 
 
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
+<!-- PDF.JS -->
 
-/* ==========================================
-   SUPABASE
-   ========================================== */
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
 
 const SUPABASE_URL =
   "https://nmfjavzrxghvklkjtfaq.supabase.co";
@@ -540,61 +955,81 @@ const SUPABASE_KEY =
   "sb_publishable_dd_QRjavucCN4sG-kuFFUQ_0qfJGUsz";
 
 const supabaseClient =
-  window.supabase.createClient(
+  supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
 
-/* ==========================================
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+
+/* =========================================================
    VARIABLES
-   ========================================== */
+   ========================================================= */
 
 let pricingRows = [];
+
 let uploadRows = [];
 
-const BATCH_SIZE = 500;
+let invalidRows = [];
 
-const expectedColumns = [
-  ["barcode", "Barcode"],
-  ["description", "Description"],
-  ["productCode", "Product Code"],
-  ["price", "Price"],
-  ["promoOffer", "PromoOffer"],
-  ["pricePer", "PricePer"]
-];
+let filteredPriceIndexes = [];
+
+let promoRows = [];
+
+let promoMatchedRows = [];
+
+const PRICE_ROW_HEIGHT = 42;
+
+const PRICE_BUFFER = 10;
+
+const PRICE_UPLOAD_BATCH = 500;
+
+const PROMO_UPLOAD_BATCH = 500;
 
 
-/* ==========================================
-   LOGIN CHECK
-   ========================================== */
+/* =========================================================
+   LOGIN
+   ========================================================= */
 
 checkSession();
 
-async function checkSession() {
 
-  const { data } =
+async function checkSession(){
+
+  const result =
     await supabaseClient.auth.getSession();
 
-  if (data && data.session) {
-    showAdmin(data.session.user);
+  if(
+    result.data &&
+    result.data.session
+  ){
+
+    showAdmin(
+      result.data.session.user
+    );
+
   }
+
 }
 
 
-/* ==========================================
-   LOGIN
-   ========================================== */
-
-async function login() {
+async function login(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("password").value;
+    document
+      .getElementById("password")
+      .value;
 
-  if (!email || !password) {
+  if(!email || !password){
 
     showLoginMessage(
       "Please enter your email and password.",
@@ -604,510 +1039,339 @@ async function login() {
     return;
   }
 
+
   const button =
-    document.getElementById("loginButton");
+    document.getElementById(
+      "loginButton"
+    );
 
   button.disabled = true;
-  button.textContent = "Signing In...";
 
-  const { data, error } =
+  button.textContent =
+    "Signing In...";
+
+
+  const result =
     await supabaseClient.auth.signInWithPassword({
-      email,
-      password
+
+      email:email,
+
+      password:password
+
     });
 
+
   button.disabled = false;
-  button.textContent = "Sign In";
 
-  if (error) {
+  button.textContent =
+    "Sign In";
 
-    console.error(error);
+
+  if(result.error){
 
     showLoginMessage(
-      error.message,
+      result.error.message,
       "error"
     );
 
     return;
   }
 
-  showAdmin(data.user);
+
+  showAdmin(
+    result.data.user
+  );
+
 }
 
 
-/* ==========================================
-   SHOW ADMIN
-   ========================================== */
+function showAdmin(user){
 
-function showAdmin(user) {
+  document
+    .getElementById("loginSection")
+    .classList.add("hidden");
 
-  document.getElementById(
-    "loginSection"
-  ).style.display = "none";
+  document
+    .getElementById("adminSection")
+    .classList.remove("hidden");
 
-  document.getElementById(
-    "adminSection"
-  ).style.display = "block";
+  document
+    .getElementById("loggedInEmail")
+    .textContent =
+      user.email || "";
 
-  document.getElementById(
-    "loggedInEmail"
-  ).textContent = user.email || "";
 }
 
 
-/* ==========================================
-   LOGOUT
-   ========================================== */
-
-async function logout() {
+async function logout(){
 
   await supabaseClient.auth.signOut();
 
-  document.getElementById(
-    "adminSection"
-  ).style.display = "none";
+  document
+    .getElementById("adminSection")
+    .classList.add("hidden");
 
-  document.getElementById(
-    "loginSection"
-  ).style.display = "block";
+  document
+    .getElementById("loginSection")
+    .classList.remove("hidden");
 
-  clearFile();
+  clearPricing();
+
+  clearPromo();
+
 }
 
 
-/* ==========================================
-   MESSAGES
-   ========================================== */
-
-function showLoginMessage(text, type) {
+function showLoginMessage(text,type){
 
   const box =
-    document.getElementById("loginMessage");
+    document.getElementById(
+      "loginMessage"
+    );
 
   box.textContent = text;
-  box.className = "message " + type;
-  box.style.display = "block";
+
+  box.className =
+    "message " + type;
+
+  box.style.display =
+    "block";
+
 }
 
 
-function showMessage(text, type) {
+function showPriceMessage(text,type){
 
   const box =
-    document.getElementById("message");
+    document.getElementById(
+      "priceMessage"
+    );
 
   box.textContent = text;
-  box.className = "message " + type;
-  box.style.display = "block";
+
+  box.className =
+    "message " + type;
+
+  box.style.display =
+    "block";
+
 }
 
 
-/* ==========================================
-   FILE INPUT
-   ========================================== */
+function showPromoMessage(text,type){
 
-document
-  .getElementById("fileInput")
-  .addEventListener("change", handleFile);
+  const box =
+    document.getElementById(
+      "promoMessage"
+    );
+
+  box.textContent = text;
+
+  box.className =
+    "message " + type;
+
+  box.style.display =
+    "block";
+
+}
 
 
-/* ==========================================
-   CLEAN
-   ========================================== */
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
-function clean(value) {
+function clean(value){
 
-  if (
+  if(
     value === null ||
     value === undefined
-  ) {
+  ){
     return "";
   }
 
   return String(value)
-    .replace(/^\uFEFF/, "")
+    .replace(/^\uFEFF/,"")
     .trim();
+
 }
 
 
-/* ==========================================
-   HEADER
-   ========================================== */
+function escapeHtml(value){
 
-function normaliseHeader(value) {
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function normaliseHeader(value){
 
   return clean(value)
     .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/_/g, "");
+    .replace(/\s+/g,"")
+    .replace(/_/g,"");
+
 }
 
 
-/* ==========================================
-   PRICE
-   ========================================== */
+function normaliseCode(value){
 
-function parsePrice(value) {
+  return clean(value)
+    .toUpperCase()
+    .replace(/\s+/g,"")
+    .replace(/["']/g,"");
+
+}
+
+
+function parsePrice(value){
 
   let text =
     clean(value)
-      .replace(/£/g, "")
-      .replace(/\s/g, "");
+      .replace(/£/g,"")
+      .replace(/\s/g,"");
 
-  if (!text) {
+  if(!text){
     return null;
   }
 
-  if (
+
+  if(
     text.includes(",") &&
     text.includes(".")
-  ) {
+  ){
 
-    if (
+    if(
       text.lastIndexOf(",") >
       text.lastIndexOf(".")
-    ) {
+    ){
 
       text =
         text
-          .replace(/\./g, "")
-          .replace(",", ".");
-
-    } else {
+          .replace(/\./g,"")
+          .replace(",",".");
+          
+    }else{
 
       text =
-        text.replace(/,/g, "");
+        text.replace(/,/g,"");
 
     }
 
-  } else if (text.includes(",")) {
+  }else if(
+    text.includes(",")
+  ){
 
-    const parts = text.split(",");
+    const parts =
+      text.split(",");
 
-    if (
+    if(
       parts.length === 2 &&
       parts[1].length <= 2
-    ) {
+    ){
 
       text =
         parts[0] +
         "." +
         parts[1];
 
-    } else {
+    }else{
 
       text =
-        text.replace(/,/g, "");
+        text.replace(/,/g,"");
 
     }
+
   }
 
-  const cleaned =
-    text.replace(/[^0-9.-]/g, "");
-
-  if (
-    cleaned === "" ||
-    cleaned === "-" ||
-    cleaned === "."
-  ) {
-    return null;
-  }
 
   const number =
-    Number(cleaned);
+    Number(
+      text.replace(
+        /[^0-9.-]/g,
+        ""
+      )
+    );
 
-  if (!Number.isFinite(number)) {
-    return null;
-  }
 
-  return number;
+  return Number.isFinite(number)
+    ? number
+    : null;
+
 }
 
 
-/* ==========================================
-   PARSE LINE
-   ========================================== */
+/* =========================================================
+   PRICING FILE
+   ========================================================= */
 
-function parseLine(line, delimiter) {
-
-  // Avery pricing files use TAB separators.
-  // Quotation marks can appear normally inside
-  // product descriptions, for example:
-  // DOUBLE ENDED HOOK - 4" (100MM)
-  //
-  // Therefore, do not treat a quotation mark as
-  // a field boundary.
-
-  return line
-    .split(delimiter)
-    .map(value => clean(value));
-}
-    const character = line[i];
-    const next = line[i + 1];
-
-    if (
-      character === '"' &&
-      next === '"'
-    ) {
-
-      current += '"';
-      i++;
-      continue;
-    }
-
-    if (character === '"') {
-
-      insideQuotes =
-        !insideQuotes;
-
-      continue;
-    }
-
-    if (
-      character === delimiter &&
-      !insideQuotes
-    ) {
-
-      result.push(clean(current));
-      current = "";
-
-      continue;
-    }
-
-    current += character;
-  }
-
-  result.push(clean(current));
-
-  return result;
-}
+document
+  .getElementById("priceFileInput")
+  .addEventListener(
+    "change",
+    handlePricingFile
+  );
 
 
-/* ==========================================
-   DELIMITER
-   ========================================== */
-
-function detectDelimiter(line) {
-
-  const delimiters = [
-    "\t",
-    "|",
-    ",",
-    ";"
-  ];
-
-  let best = "\t";
-  let bestCount = -1;
-
-  for (const delimiter of delimiters) {
-
-    const count =
-      line.split(delimiter).length - 1;
-
-    if (count > bestCount) {
-
-      bestCount = count;
-      best = delimiter;
-    }
-  }
-
-  return best;
-}
+document
+  .getElementById("priceSearch")
+  .addEventListener(
+    "input",
+    filterPricingView
+  );
 
 
-/* ==========================================
-   HTML ESCAPE
-   ========================================== */
-
-function escapeHtml(value) {
-
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+document
+  .getElementById("priceViewport")
+  .addEventListener(
+    "scroll",
+    renderPriceRows
+  );
 
 
-/* ==========================================
-   NORMALISE DATA ROW
-   ========================================== */
-
-/*
-  Avery files can contain some rows with an
-  extra TAB inside the product-code area.
-
-  Normal 6-column row:
-
-  Barcode
-  Description
-  Product Code
-  Price
-  PromoOffer
-  PricePer
-
-  Some real rows contain 7 columns, for example:
-
-  Barcode
-  Description
-  452658
-  DISC
-  1.75
-  blank
-  blank
-
-  This function detects the actual price and
-  rebuilds the six expected fields.
-*/
-
-function normaliseDataRow(values) {
-
-  const fields =
-    values.map(value => clean(value));
-
-  /* Normal row */
-  if (fields.length === 6) {
-    return {
-      barcode: fields[0],
-      description: fields[1],
-      productCode: fields[2],
-      price: fields[3],
-      promoOffer: fields[4],
-      pricePer: fields[5]
-    };
-  }
-
-
-  /* Too few columns - pad safely */
-
-  if (fields.length < 6) {
-
-    while (fields.length < 6) {
-      fields.push("");
-    }
-
-    return {
-      barcode: fields[0],
-      description: fields[1],
-      productCode: fields[2],
-      price: fields[3],
-      promoOffer: fields[4],
-      pricePer: fields[5]
-    };
-  }
-
-
-  /*
-    More than 6 columns.
-
-    Find the first valid price starting from
-    column 4. Everything before the price,
-    after barcode + description, belongs to
-    the product code.
-  */
-
-  let priceIndex = -1;
-
-  for (
-    let i = 3;
-    i < fields.length;
-    i++
-  ) {
-
-    if (parsePrice(fields[i]) !== null) {
-      priceIndex = i;
-      break;
-    }
-  }
-
-
-  /*
-    If a price cannot be found, return the
-    first six fields so the validation can
-    report the row as invalid.
-  */
-
-  if (priceIndex === -1) {
-
-    return {
-      barcode: fields[0] || "",
-      description: fields[1] || "",
-      productCode: fields[2] || "",
-      price: fields[3] || "",
-      promoOffer: fields[4] || "",
-      pricePer: fields[5] || ""
-    };
-  }
-
-
-  const productCode =
-    fields
-      .slice(2, priceIndex)
-      .filter(value => value !== "")
-      .join(" ")
-      .trim();
-
-  const price =
-    fields[priceIndex];
-
-  const remaining =
-    fields.slice(priceIndex + 1);
-
-  return {
-    barcode: fields[0] || "",
-    description: fields[1] || "",
-    productCode: productCode,
-    price: price,
-    promoOffer: remaining[0] || "",
-    pricePer: remaining[1] || ""
-  };
-}
-
-
-/* ==========================================
-   READ FILE
-   ========================================== */
-
-async function handleFile(event) {
+async function handlePricingFile(event){
 
   const file =
     event.target.files[0];
 
-  if (!file) {
+  if(!file){
     return;
   }
 
-  pricingRows = [];
-  uploadRows = [];
 
-  document.getElementById(
-    "previewCard"
-  ).style.display = "none";
+  clearPricing(false);
 
-  document.getElementById(
-    "uploadButton"
-  ).disabled = true;
 
-  showMessage(
-    "Reading pricing file...",
+  showPriceMessage(
+    "Reading the complete pricing file...",
     "warning"
   );
 
-  try {
+
+  try{
 
     const text =
       await file.text();
 
+
     const lines =
       text
-        .replace(/\r\n/g, "\n")
-        .replace(/\r/g, "\n")
+        .replace(/\r\n/g,"\n")
+        .replace(/\r/g,"\n")
         .split("\n")
-        .filter(line => line.trim() !== "");
+        .filter(
+          line =>
+            line.trim() !== ""
+        );
 
-    if (lines.length < 2) {
 
-      showMessage(
+    if(lines.length < 2){
+
+      showPriceMessage(
         "The file does not contain enough data.",
         "error"
       );
@@ -1116,48 +1380,54 @@ async function handleFile(event) {
     }
 
 
-    const delimiter =
-      detectDelimiter(lines[0]);
-
+    /*
+      Avery TXT files are tab separated.
+    */
 
     const headers =
-      parseLine(
-        lines[0],
-        delimiter
-      );
+      lines[0]
+        .replace(/^\uFEFF/,"")
+        .split("\t")
+        .map(clean);
+
+
+    const required = [
+
+      "Barcode",
+      "Description",
+      "Product Code",
+      "Price",
+      "PromoOffer",
+      "PricePer"
+
+    ];
 
 
     const indexes = {};
 
-    for (
-      const [key, wanted]
-      of expectedColumns
-    ) {
 
-      indexes[key] =
+    required.forEach(name => {
+
+      indexes[name] =
         headers.findIndex(
-          header =>
-            normaliseHeader(header) ===
-            normaliseHeader(wanted)
+          h =>
+            normaliseHeader(h) ===
+            normaliseHeader(name)
         );
-    }
+
+    });
 
 
     const missing =
-      expectedColumns
-        .filter(
-          ([key]) =>
-            indexes[key] === -1
-        )
-        .map(
-          ([, wanted]) =>
-            wanted
-        );
+      required.filter(
+        name =>
+          indexes[name] === -1
+      );
 
 
-    if (missing.length) {
+    if(missing.length){
 
-      showMessage(
+      showPriceMessage(
         "Wrong file structure. Missing: " +
         missing.join(", "),
         "error"
@@ -1167,373 +1437,659 @@ async function handleFile(event) {
     }
 
 
-    /*
-      Read every record.
-    */
-
-    for (
+    for(
       let i = 1;
       i < lines.length;
       i++
-    ) {
+    ){
 
       const values =
-        parseLine(
-          lines[i],
-          delimiter
-        );
+        lines[i]
+          .split("\t")
+          .map(clean);
+
+
+      let barcode =
+        values[indexes["Barcode"]] || "";
+
+      let description =
+        values[indexes["Description"]] || "";
+
+      let productCode =
+        values[indexes["Product Code"]] || "";
+
+      let priceValue =
+        values[indexes["Price"]] || "";
+
+      let promoOffer =
+        values[indexes["PromoOffer"]] || "";
+
+      let pricePer =
+        values[indexes["PricePer"]] || "";
 
 
       /*
-        Rebuild malformed rows before
-        applying the normal column indexes.
+        If an unexpected TAB appears inside
+        a product code, find the first usable
+        price and rebuild the fields.
       */
 
-      const normalised =
-        normaliseDataRow(values);
+      if(values.length > 6){
+
+        let priceIndex = -1;
 
 
-      pricingRows.push({
+        for(
+          let p = 3;
+          p < values.length;
+          p++
+        ){
 
-        lineNumber: i + 1,
+          if(
+            parsePrice(values[p]) !== null
+          ){
+
+            priceIndex = p;
+
+            break;
+          }
+
+        }
+
+
+        if(priceIndex !== -1){
+
+          barcode =
+            values[0] || "";
+
+          description =
+            values[1] || "";
+
+          productCode =
+            values
+              .slice(2,priceIndex)
+              .filter(Boolean)
+              .join(" ")
+              .trim();
+
+          priceValue =
+            values[priceIndex] || "";
+
+          promoOffer =
+            values[priceIndex + 1] || "";
+
+          pricePer =
+            values[priceIndex + 2] || "";
+
+        }
+
+      }
+
+
+      const price =
+        parsePrice(priceValue);
+
+
+      const row = {
+
+        lineNumber:i + 1,
 
         barcode:
-          clean(normalised.barcode),
+          clean(barcode),
 
         description:
-          clean(normalised.description),
+          clean(description),
 
         productCode:
-          clean(normalised.productCode),
+          clean(productCode),
 
-        price:
-          parsePrice(normalised.price),
+        price:price,
 
         promoOffer:
-          clean(normalised.promoOffer),
+          clean(promoOffer),
 
         pricePer:
-          clean(normalised.pricePer)
+          clean(pricePer),
 
-      });
+        valid:
+          clean(barcode) !== "" &&
+          clean(description) !== "" &&
+          price !== null,
+
+        duplicate:false,
+
+        reason:""
+
+      };
+
+
+      if(!row.barcode){
+
+        row.reason =
+          "Missing barcode";
+
+      }else if(!row.description){
+
+        row.reason =
+          "Missing description";
+
+      }else if(
+        row.price === null
+      ){
+
+        row.reason =
+          "Invalid or missing price";
+
+      }
+
+
+      pricingRows.push(row);
+
     }
 
 
-    const fileInfo =
-      document.getElementById("fileInfo");
+    /*
+      Duplicate product key.
 
-    fileInfo.innerHTML =
+      Barcode + Product Code is used rather
+      than barcode alone.
+    */
+
+    const keyCounts =
+      new Map();
+
+
+    pricingRows.forEach(row => {
+
+      if(!row.valid){
+        return;
+      }
+
+
+      const key =
+        row.barcode +
+        "|" +
+        (row.productCode || "");
+
+
+      keyCounts.set(
+        key,
+        (keyCounts.get(key) || 0) + 1
+      );
+
+    });
+
+
+    pricingRows.forEach(row => {
+
+      if(!row.valid){
+        return;
+      }
+
+
+      const key =
+        row.barcode +
+        "|" +
+        (row.productCode || "");
+
+
+      row.duplicate =
+        (keyCounts.get(key) || 0) > 1;
+
+    });
+
+
+    uploadRows =
+      pricingRows.filter(
+        row => row.valid
+      );
+
+
+    invalidRows =
+      pricingRows.filter(
+        row => !row.valid
+      );
+
+
+    filteredPriceIndexes =
+      pricingRows.map(
+        (_,index) => index
+      );
+
+
+    document
+      .getElementById("priceTotal")
+      .textContent =
+        pricingRows.length.toLocaleString();
+
+
+    document
+      .getElementById("priceUploadable")
+      .textContent =
+        uploadRows.length.toLocaleString();
+
+
+    document
+      .getElementById("priceDuplicates")
+      .textContent =
+        pricingRows
+          .filter(
+            row =>
+              row.valid &&
+              row.duplicate
+          )
+          .length
+          .toLocaleString();
+
+
+    document
+      .getElementById("priceInvalid")
+      .textContent =
+        invalidRows.length.toLocaleString();
+
+
+    const info =
+      document.getElementById(
+        "priceFileInfo"
+      );
+
+
+    info.innerHTML =
       "<strong>File:</strong> " +
       escapeHtml(file.name) +
 
       "<br><strong>Records read:</strong> " +
       pricingRows.length.toLocaleString() +
 
-      "<br><strong>Delimiter:</strong> " +
-      (
-        delimiter === "\t"
-          ? "TAB"
-          : escapeHtml(delimiter)
-      );
+      "<br><strong>Uploadable:</strong> " +
+      uploadRows.length.toLocaleString() +
 
-    fileInfo.style.display = "block";
+      "<br><strong>Invalid / ignored:</strong> " +
+      invalidRows.length.toLocaleString();
 
 
-    validateFile();
+    info.style.display =
+      "block";
 
-  } catch (error) {
+
+    renderInvalidRows();
+
+    setupPriceVirtualList();
+
+
+    document
+      .getElementById(
+        "uploadPriceButton"
+      )
+      .disabled =
+        uploadRows.length === 0;
+
+
+    showPriceMessage(
+      "Pricing file read successfully. " +
+      uploadRows.length.toLocaleString() +
+      " valid records are ready to upload. " +
+      invalidRows.length.toLocaleString() +
+      " invalid records will be ignored.",
+      "success"
+    );
+
+
+  }catch(error){
 
     console.error(error);
 
-    showMessage(
-      "Could not read the pricing file.",
+    showPriceMessage(
+      "Could not read the pricing file: " +
+      error.message,
       "error"
     );
+
   }
+
 }
 
 
-/* ==========================================
-   VALIDATE
-   ========================================== */
+/* =========================================================
+   INVALID RECORDS
+   ========================================================= */
 
-function validateFile() {
+function renderInvalidRows(){
 
-  const barcodeCounts =
-    new Map();
-
-
-  pricingRows.forEach(row => {
-
-    if (row.barcode) {
-
-      barcodeCounts.set(
-        row.barcode,
-        (
-          barcodeCounts.get(row.barcode) || 0
-        ) + 1
-      );
-    }
-
-  });
-
-
-  let valid = 0;
-  let invalid = 0;
-  let duplicateRows = 0;
-
-
-  pricingRows.forEach(row => {
-
-    row.duplicate =
-      (
-        barcodeCounts.get(row.barcode) || 0
-      ) > 1;
-
-
-    /*
-      Price 0 is VALID.
-
-      Product Code is allowed to be blank.
-      PromoOffer is allowed to be blank.
-      PricePer is allowed to be blank.
-    */
-
-    row.valid =
-      row.barcode !== "" &&
-      row.description !== "" &&
-      row.price !== null;
-
-
-    if (row.valid) {
-      valid++;
-    } else {
-      invalid++;
-    }
-
-
-    if (row.duplicate) {
-      duplicateRows++;
-    }
-
-  });
-
-
-  document.getElementById(
-    "totalRecords"
-  ).textContent =
-    pricingRows.length.toLocaleString();
-
-
-  document.getElementById(
-    "validRecords"
-  ).textContent =
-    valid.toLocaleString();
-
-
-  document.getElementById(
-    "duplicateRecords"
-  ).textContent =
-    duplicateRows.toLocaleString();
-
-
-  document.getElementById(
-    "invalidRecords"
-  ).textContent =
-    invalid.toLocaleString();
-
-
-  renderPreview();
-
-
-  document.getElementById(
-    "previewCard"
-  ).style.display = "block";
-
-
-  /*
-    Only stop upload if a genuinely unusable
-    record remains.
-  */
-
-  if (invalid > 0) {
-
-    showMessage(
-      invalid.toLocaleString() +
-      " record(s) still need attention. " +
-      "Upload is disabled.",
-      "error"
+  const body =
+    document.getElementById(
+      "invalidBody"
     );
 
+
+  body.innerHTML = "";
+
+
+  invalidRows.forEach(row => {
+
+    const tr =
+      document.createElement("tr");
+
+
+    tr.innerHTML = `
+
+      <td>${row.lineNumber}</td>
+
+      <td>${escapeHtml(row.barcode)}</td>
+
+      <td>${escapeHtml(row.description)}</td>
+
+      <td>${escapeHtml(row.productCode)}</td>
+
+      <td>
+        ${
+          row.price === null
+            ? "-"
+            : Number(row.price).toFixed(2)
+        }
+      </td>
+
+      <td>
+        <span class="badge invalid">
+          ${escapeHtml(row.reason)}
+        </span>
+      </td>
+
+    `;
+
+
+    body.appendChild(tr);
+
+  });
+
+}
+
+
+/* =========================================================
+   VIRTUAL PRICE TABLE
+   ========================================================= */
+
+function setupPriceVirtualList(){
+
+  const inner =
     document.getElementById(
-      "uploadButton"
-    ).disabled = true;
+      "priceInner"
+    );
+
+
+  inner.style.height =
+    (
+      filteredPriceIndexes.length *
+      PRICE_ROW_HEIGHT
+    ) + "px";
+
+
+  const viewport =
+    document.getElementById(
+      "priceViewport"
+    );
+
+
+  viewport.scrollTop = 0;
+
+
+  renderPriceRows();
+
+}
+
+
+function filterPricingView(){
+
+  const search =
+    document
+      .getElementById("priceSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!search){
+
+    filteredPriceIndexes =
+      pricingRows.map(
+        (_,index) => index
+      );
+
+  }else{
+
+    filteredPriceIndexes =
+      pricingRows
+        .map(
+          (row,index) => ({
+            row,
+            index
+          })
+        )
+        .filter(item => {
+
+          const row =
+            item.row;
+
+
+          const text =
+            (
+              row.barcode +
+              " " +
+              row.description +
+              " " +
+              row.productCode
+            )
+              .toLowerCase();
+
+
+          return text.includes(search);
+
+        })
+        .map(
+          item => item.index
+        );
+
+  }
+
+
+  setupPriceVirtualList();
+
+}
+
+
+function renderPriceRows(){
+
+  const viewport =
+    document.getElementById(
+      "priceViewport"
+    );
+
+  const inner =
+    document.getElementById(
+      "priceInner"
+    );
+
+
+  const scrollTop =
+    viewport.scrollTop;
+
+
+  const viewportHeight =
+    viewport.clientHeight;
+
+
+  const first =
+    Math.max(
+      0,
+      Math.floor(
+        scrollTop /
+        PRICE_ROW_HEIGHT
+      ) -
+      PRICE_BUFFER
+    );
+
+
+  const visible =
+    Math.ceil(
+      viewportHeight /
+      PRICE_ROW_HEIGHT
+    ) +
+    PRICE_BUFFER * 2;
+
+
+  const last =
+    Math.min(
+      filteredPriceIndexes.length,
+      first + visible
+    );
+
+
+  inner.innerHTML = "";
+
+
+  for(
+    let displayIndex = first;
+    displayIndex < last;
+    displayIndex++
+  ){
+
+    const realIndex =
+      filteredPriceIndexes[
+        displayIndex
+      ];
+
+
+    const row =
+      pricingRows[realIndex];
+
+
+    const div =
+      document.createElement("div");
+
+
+    div.className =
+      "virtual-row";
+
+
+    div.style.top =
+      (
+        displayIndex *
+        PRICE_ROW_HEIGHT
+      ) + "px";
+
+
+    let status;
+
+
+    if(!row.valid){
+
+      status =
+        '<span class="badge invalid">INVALID</span>';
+
+    }else if(row.duplicate){
+
+      status =
+        '<span class="badge duplicate">DUPLICATE KEY</span>';
+
+    }else{
+
+      status =
+        '<span class="badge valid">VALID</span>';
+
+    }
+
+
+    div.innerHTML = `
+
+      <div title="${escapeHtml(row.barcode)}">
+        ${escapeHtml(row.barcode)}
+      </div>
+
+      <div title="${escapeHtml(row.description)}">
+        ${escapeHtml(row.description)}
+      </div>
+
+      <div title="${escapeHtml(row.productCode)}">
+        ${escapeHtml(row.productCode)}
+      </div>
+
+      <div>
+        ${
+          row.price === null
+            ? "-"
+            : "£" +
+              Number(row.price).toFixed(2)
+        }
+      </div>
+
+      <div title="${escapeHtml(row.promoOffer)}">
+        ${escapeHtml(row.promoOffer)}
+      </div>
+
+      <div>
+        ${status}
+      </div>
+
+    `;
+
+
+    inner.appendChild(div);
+
+  }
+
+}
+
+
+function jumpToPriceRow(){
+
+  const value =
+    Number(
+      document
+        .getElementById("priceJump")
+        .value
+    );
+
+
+  if(!value || value < 1){
+    return;
+  }
+
+
+  const displayIndex =
+    value - 1;
+
+
+  if(
+    displayIndex >=
+    filteredPriceIndexes.length
+  ){
+
+    alert(
+      "That row does not exist."
+    );
 
     return;
   }
 
 
-  uploadRows =
-    pricingRows.filter(
-      row => row.valid
-    );
+  document
+    .getElementById("priceViewport")
+    .scrollTop =
+      displayIndex *
+      PRICE_ROW_HEIGHT;
 
-
-  document.getElementById(
-    "uploadButton"
-  ).disabled = false;
-
-
-  if (duplicateRows > 0) {
-
-    showMessage(
-      "File is ready. " +
-      valid.toLocaleString() +
-      " valid records found. " +
-      duplicateRows.toLocaleString() +
-      " duplicate barcode rows detected. " +
-      "They will be kept separately using the product code.",
-      "warning"
-    );
-
-  } else {
-
-    showMessage(
-      "File is ready. " +
-      valid.toLocaleString() +
-      " records passed validation.",
-      "success"
-    );
-  }
 }
 
 
-/* ==========================================
-   PREVIEW
-   ========================================== */
+/* =========================================================
+   UPLOAD PRICING
+   ========================================================= */
 
-function renderPreview() {
+async function uploadPricing(){
 
-  const body =
-    document.getElementById(
-      "previewBody"
-    );
+  if(!uploadRows.length){
 
-  body.innerHTML = "";
-
-
-  /*
-    Only display the first 20 rows so the
-    browser does not try to render 122,000
-    rows.
-  */
-
-  pricingRows
-    .slice(0, 20)
-    .forEach(row => {
-
-      let status;
-
-      if (!row.valid) {
-
-        status =
-          '<span class="badge invalid">INVALID</span>';
-
-      } else if (row.duplicate) {
-
-        status =
-          '<span class="badge duplicate">DUPLICATE</span>';
-
-      } else {
-
-        status =
-          '<span class="badge">VALID</span>';
-      }
-
-
-      const tr =
-        document.createElement("tr");
-
-
-      tr.innerHTML = `
-
-        <td>
-          ${escapeHtml(row.barcode)}
-        </td>
-
-        <td>
-          ${escapeHtml(row.description)}
-        </td>
-
-        <td>
-          ${escapeHtml(row.productCode || "-")}
-        </td>
-
-        <td class="price">
-          ${
-            row.price === null
-              ? "INVALID"
-              : "£" + row.price.toFixed(2)
-          }
-        </td>
-
-        <td class="promo">
-          ${escapeHtml(row.promoOffer || "-")}
-        </td>
-
-        <td>
-          ${status}
-        </td>
-
-      `;
-
-      body.appendChild(tr);
-
-    });
-}
-
-
-/* ==========================================
-   DATABASE RECORD
-   ========================================== */
-
-function databaseRecord(row) {
-
-  return {
-
-    barcode:
-      row.barcode,
-
-    name:
-      row.description,
-
-    product_code:
-      row.productCode || null,
-
-    price:
-      row.price,
-
-    promo_offer:
-      row.promoOffer || null,
-
-    product_key:
-      row.barcode +
-      "|" +
-      (row.productCode || "")
-
-  };
-}
-
-
-/* ==========================================
-   UPLOAD
-   ========================================== */
-
-async function uploadToSupabase() {
-
-  if (!uploadRows.length) {
-
-    showMessage(
+    showPriceMessage(
       "There are no valid records to upload.",
       "error"
     );
@@ -1542,18 +2098,16 @@ async function uploadToSupabase() {
   }
 
 
-  const {
-    data: sessionData
-  } =
+  const sessionResult =
     await supabaseClient.auth.getSession();
 
 
-  if (
-    !sessionData ||
-    !sessionData.session
-  ) {
+  if(
+    !sessionResult.data ||
+    !sessionResult.data.session
+  ){
 
-    showMessage(
+    showPriceMessage(
       "Your login session has expired. Please sign in again.",
       "error"
     );
@@ -1562,70 +2116,87 @@ async function uploadToSupabase() {
   }
 
 
-  const uploadButton =
+  const button =
     document.getElementById(
-      "uploadButton"
+      "uploadPriceButton"
     );
 
-  uploadButton.disabled = true;
+
+  button.disabled = true;
 
 
-  document.getElementById(
-    "progressContainer"
-  ).style.display = "block";
+  document
+    .getElementById(
+      "priceProgressContainer"
+    )
+    .style.display =
+      "block";
 
 
-  const total =
-    uploadRows.length;
+  try{
 
-  const totalBatches =
-    Math.ceil(
-      total / BATCH_SIZE
-    );
+    const records =
+      uploadRows.map(row => ({
 
-  let uploaded = 0;
+        barcode:
+          row.barcode,
+
+        name:
+          row.description,
+
+        product_code:
+          row.productCode,
+
+        price:
+          row.price,
+
+        promo_offer:
+          row.promoOffer || null,
+
+        product_key:
+          row.barcode +
+          "|" +
+          (row.productCode || "")
+
+      }));
 
 
-  try {
+    const total =
+      records.length;
 
-    for (
+
+    let uploaded = 0;
+
+
+    for(
       let start = 0;
       start < total;
-      start += BATCH_SIZE
-    ) {
+      start += PRICE_UPLOAD_BATCH
+    ){
 
       const batch =
-        uploadRows.slice(
+        records.slice(
           start,
-          start + BATCH_SIZE
+          start + PRICE_UPLOAD_BATCH
         );
 
 
-      const records =
-        batch.map(
-          databaseRecord
-        );
-
-
-      const {
-        error
-      } =
+      const result =
         await supabaseClient
           .from("products")
           .upsert(
-            records,
+            batch,
             {
-              onConflict: "product_key",
-              ignoreDuplicates: false
+              onConflict:
+                "product_key",
+              ignoreDuplicates:
+                false
             }
           );
 
 
-      if (error) {
-
-        console.error(error);
-
-        throw error;
+      if(result.error){
+        throw result.error;
       }
 
 
@@ -1636,127 +2207,1591 @@ async function uploadToSupabase() {
       const percent =
         Math.round(
           (
-            uploaded / total
-          ) * 100
+            uploaded /
+            total
+          ) *
+          100
         );
 
 
-      document.getElementById(
-        "progressBar"
-      ).style.width =
-        percent + "%";
+      document
+        .getElementById(
+          "priceProgressBar"
+        )
+        .style.width =
+          percent + "%";
 
 
-      document.getElementById(
-        "progressText"
-      ).textContent =
-        "Uploading batch " +
-        Math.ceil(
-          uploaded / BATCH_SIZE
-        ) +
-        " of " +
-        totalBatches +
-        " — " +
-        uploaded.toLocaleString() +
-        " / " +
-        total.toLocaleString() +
-        " products (" +
-        percent +
-        "%)";
+      document
+        .getElementById(
+          "priceProgressText"
+        )
+        .textContent =
+          "Uploading " +
+          uploaded.toLocaleString() +
+          " / " +
+          total.toLocaleString() +
+          " (" +
+          percent +
+          "%)";
 
     }
 
 
-    document.getElementById(
-      "progressBar"
-    ).style.width = "100%";
+    document
+      .getElementById(
+        "priceProgressBar"
+      )
+      .style.width =
+        "100%";
 
 
-    document.getElementById(
-      "progressText"
-    ).textContent =
-      "Upload complete — " +
+    document
+      .getElementById(
+        "priceProgressText"
+      )
+      .textContent =
+        "Upload complete.";
+
+
+    showPriceMessage(
+      "Pricing upload completed successfully. " +
       uploaded.toLocaleString() +
-      " products updated.";
-
-
-    showMessage(
-      "Weekly pricing upload completed successfully. " +
-      uploaded.toLocaleString() +
-      " products are now in the database.",
+      " valid records were uploaded. " +
+      invalidRows.length.toLocaleString() +
+      " invalid records were ignored.",
       "success"
     );
 
 
-  } catch (error) {
+  }catch(error){
 
     console.error(error);
 
-    showMessage(
-      "The upload stopped because Supabase returned an error: " +
+
+    showPriceMessage(
+      "Pricing upload stopped: " +
       (
         error.message ||
-        "Unknown error"
+        "Unknown Supabase error"
       ),
       "error"
     );
 
+  }
 
+
+  button.disabled = false;
+
+}
+
+
+/* =========================================================
+   PROMO PDF
+   ========================================================= */
+
+document
+  .getElementById("promoFileInput")
+  .addEventListener(
+    "change",
+    function(){
+
+      const file =
+        this.files[0];
+
+
+      const button =
+        document.getElementById(
+          "parsePromoButton"
+        );
+
+
+      if(!file){
+
+        button.disabled = true;
+
+        return;
+      }
+
+
+      const info =
+        document.getElementById(
+          "promoFileInfo"
+        );
+
+
+      info.innerHTML =
+        "<strong>File:</strong> " +
+        escapeHtml(file.name) +
+        "<br><strong>Size:</strong> " +
+        (
+          file.size /
+          1024 /
+          1024
+        ).toFixed(2) +
+        " MB";
+
+
+      info.style.display =
+        "block";
+
+
+      button.disabled = false;
+
+
+      showPromoMessage(
+        "PDF selected. Click Read Promotional PDF.",
+        "info"
+      );
+
+    }
+  );
+
+
+async function parsePromoPdf(){
+
+  const input =
     document.getElementById(
-      "progressText"
-    ).textContent =
-      "Upload stopped. " +
-      uploaded.toLocaleString() +
-      " products were uploaded before the error.";
+      "promoFileInput"
+    );
+
+
+  const file =
+    input.files[0];
+
+
+  if(!file){
+
+    showPromoMessage(
+      "Please select a PDF first.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById(
+      "parsePromoButton"
+    );
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Reading PDF...";
+
+
+  promoRows = [];
+
+  promoMatchedRows = [];
+
+
+  showPromoMessage(
+    "Reading the promotional PDF...",
+    "warning"
+  );
+
+
+  try{
+
+    const buffer =
+      await file.arrayBuffer();
+
+
+    const pdf =
+      await pdfjsLib.getDocument({
+        data:buffer
+      }).promise;
+
+
+    let allRows = [];
+
+
+    for(
+      let pageNumber = 1;
+      pageNumber <= pdf.numPages;
+      pageNumber++
+    ){
+
+      const page =
+        await pdf.getPage(
+          pageNumber
+        );
+
+
+      const content =
+        await page.getTextContent();
+
+
+      const lines =
+        buildPdfLines(
+          content.items
+        );
+
+
+      const pageRows =
+        parsePromoPage(
+          lines,
+          pageNumber
+        );
+
+
+      allRows =
+        allRows.concat(
+          pageRows
+        );
+
+    }
+
+
+    promoRows =
+      allRows;
+
+
+    /*
+      Remove exact duplicate rows.
+    */
+
+    const unique = [];
+
+    const seen =
+      new Set();
+
+
+    promoRows.forEach(row => {
+
+      const key =
+        [
+          row.barcode,
+          row.code,
+          row.plan,
+          row.location,
+          row.description
+        ].join("|");
+
+
+      if(!seen.has(key)){
+
+        seen.add(key);
+
+        unique.push(row);
+
+      }
+
+    });
+
+
+    promoRows =
+      unique;
+
+
+    await matchPromoProducts();
+
+
+    const plans =
+      new Set(
+        promoRows
+          .map(row => row.plan)
+          .filter(Boolean)
+      );
+
+
+    document
+      .getElementById("promoTotal")
+      .textContent =
+        promoRows.length.toLocaleString();
+
+
+    document
+      .getElementById("promoSections")
+      .textContent =
+        plans.size.toLocaleString();
+
+
+    renderPromoPreview();
+
+
+    if(promoMatchedRows.length){
+
+      document
+        .getElementById(
+          "uploadPromoButton"
+        )
+        .disabled = false;
+
+      showPromoMessage(
+        "Promotional PDF read successfully. " +
+        promoMatchedRows.length.toLocaleString() +
+        " products matched.",
+        "success"
+      );
+
+    }else{
+
+      showPromoMessage(
+        "The PDF was read, but no products could be matched by barcode.",
+        "warning"
+      );
+
+    }
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showPromoMessage(
+      "Could not read the promotional PDF: " +
+      error.message,
+      "error"
+    );
 
   }
 
 
-  uploadButton.disabled = false;
+  button.disabled = false;
+
+  button.textContent =
+    "Read Promotional PDF";
+
 }
 
 
-/* ==========================================
-   CLEAR
-   ========================================== */
+/* =========================================================
+   BUILD PDF LINES
+   ========================================================= */
 
-function clearFile() {
+function buildPdfLines(items){
+
+  const words =
+    items
+      .map(item => ({
+
+        text:
+          clean(item.str),
+
+        x:
+          item.transform[4],
+
+        y:
+          item.transform[5]
+
+      }))
+      .filter(
+        item =>
+          item.text !== ""
+      );
+
+
+  words.sort(
+    (a,b) =>
+      b.y - a.y ||
+      a.x - b.x
+  );
+
+
+  const lines = [];
+
+
+  words.forEach(word => {
+
+    let line =
+      lines.find(
+        existing =>
+          Math.abs(
+            existing.y -
+            word.y
+          ) < 3
+      );
+
+
+    if(!line){
+
+      line = {
+        y:word.y,
+        words:[]
+      };
+
+      lines.push(line);
+
+    }
+
+
+    line.words.push(word);
+
+  });
+
+
+  lines.sort(
+    (a,b) =>
+      b.y - a.y
+  );
+
+
+  return lines.map(line => {
+
+    line.words.sort(
+      (a,b) =>
+        a.x - b.x
+    );
+
+
+    return line.words
+      .map(
+        word =>
+          word.text
+      )
+      .join(" ")
+      .replace(/\s+/g," ")
+      .trim();
+
+  });
+
+}
+
+
+/* =========================================================
+   PARSE PROMO PAGE
+   ========================================================= */
+
+function parsePromoPage(lines,pageNumber){
+
+  const rows = [];
+
+  let currentPlan =
+    "PROMOTIONAL PLAN";
+
+  let currentLocation =
+    "";
+
+  let currentCategory =
+    "";
+
+
+  const planPatterns = [
+
+    /PROMOTIONAL PLANS\s*-\s*(.+)/i,
+
+    /PROMOTIONAL PLAN\s*-\s*(.+)/i,
+
+    /END GONDOLAS/i,
+
+    /SIDE GONDOLAS/i,
+
+    /TILL ENDS/i,
+
+    /TILL FRONTS/i,
+
+    /FRONT OF STORE/i,
+
+    /WINDOW BASKET/i,
+
+    /BULK STACK/i,
+
+    /PENCIL STACK/i,
+
+    /FSDU/i,
+
+    /DUMP BIN/i,
+
+    /GIANT TIERED/i,
+
+    /REAR HALF/i,
+
+    /CLIP STRIP/i,
+
+    /DRINKS CHILLER/i
+
+  ];
+
+
+  for(
+    let i = 0;
+    i < lines.length;
+    i++
+  ){
+
+    const line =
+      clean(lines[i]);
+
+
+    if(!line){
+      continue;
+    }
+
+
+    /*
+      Detect major promotional sections.
+    */
+
+    for(
+      const pattern of planPatterns
+    ){
+
+      if(pattern.test(line)){
+
+        currentPlan =
+          line;
+
+        break;
+
+      }
+
+    }
+
+
+    /*
+      Detect locations such as:
+      END 1
+      END 2
+      SIDE 1
+      SIDE 2
+      TILL END
+      TILL FRONT
+      DUMP BIN
+      etc.
+    */
+
+    if(
+      /^(END|SIDE|TILL END|TILL FRONT|DUMP BIN|CLIP STRIP|FSDU|STAND|WINDOW|BASKET|STACK|CHILLER)\b/i.test(line)
+    ){
+
+      currentLocation =
+        line;
+
+    }
+
+
+    /*
+      Category headings.
+    */
+
+    if(
+      /^(GHI|GROCERY|HOUSEHOLD|STATIONERY|TOYS|CHRISTMAS|HALLOWEEN|PARTY|HEALTH|BEAUTY|CLEANING|KITCHEN|FOOD|DRINKS|PET|SEASONAL)\b/i.test(line)
+    ){
+
+      currentCategory =
+        line;
+
+    }
+
+
+    /*
+      Find barcodes.
+    */
+
+    const barcodeMatch =
+      line.match(
+        /\b\d{8,14}\b/g
+      );
+
+
+    if(!barcodeMatch){
+      continue;
+    }
+
+
+    /*
+      Use the first barcode on the line.
+    */
+
+    const barcode =
+      barcodeMatch[0];
+
+
+    /*
+      Remove barcode from the line.
+    */
+
+    let remaining =
+      line
+        .replace(
+          barcode,
+          ""
+        )
+        .replace(/\s+/g," ")
+        .trim();
+
+
+    /*
+      Price.
+    */
+
+    let price = "";
+
+
+    const priceMatch =
+      remaining.match(
+        /(?:£|�)?\s*\d+(?:\.\d{1,2})?/g
+      );
+
+
+    if(priceMatch){
+
+      price =
+        priceMatch[
+          priceMatch.length - 1
+        ];
+
+    }
+
+
+    /*
+      Product code.
+
+      Try to recognise common code formats.
+    */
+
+    let code = "";
+
+
+    const codeMatch =
+      remaining.match(
+        /\b[A-Z0-9][A-Z0-9\/._-]{2,}\b/gi
+      );
+
+
+    if(codeMatch){
+
+      const possible =
+        codeMatch.filter(
+          value =>
+            !/^\d+(\.\d+)?$/.test(
+              value
+            )
+        );
+
+
+      if(possible.length){
+
+        code =
+          possible[0];
+
+      }
+
+    }
+
+
+    /*
+      Description is the remaining text.
+    */
+
+    let description =
+      remaining;
+
+
+    if(code){
+
+      description =
+        description
+          .replace(
+            code,
+            ""
+          )
+          .trim();
+
+    }
+
+
+    if(price){
+
+      description =
+        description
+          .replace(
+            price,
+            ""
+          )
+          .trim();
+
+    }
+
+
+    /*
+      Ignore obvious headers.
+    */
+
+    if(
+      /^(NO|CODE|BARCODE|DESCRIPTION|CATEGORIES|PRICE|OFFER|COMMENTS)$/i.test(
+        description
+      )
+    ){
+
+      continue;
+
+    }
+
+
+    rows.push({
+
+      page:pageNumber,
+
+      barcode:
+        barcode,
+
+      code:
+        clean(code),
+
+      description:
+        clean(description),
+
+      categories:
+        clean(currentCategory),
+
+      price:
+        clean(price),
+
+      details:
+        clean(line),
+
+      plan:
+        clean(currentPlan),
+
+      location:
+        clean(currentLocation),
+
+      matchedProduct:null
+
+    });
+
+  }
+
+
+  return rows;
+
+}
+
+
+/* =========================================================
+   MATCH PROMO PRODUCTS
+   ========================================================= */
+
+async function matchPromoProducts(){
+
+  if(!promoRows.length){
+    return;
+  }
+
+
+  const barcodes =
+    [
+      ...new Set(
+        promoRows
+          .map(row => row.barcode)
+          .filter(Boolean)
+      )
+    ];
+
+
+  const productMap =
+    new Map();
+
+
+  /*
+    Supabase has URL/query limits, so process
+    barcode searches in batches.
+  */
+
+  const QUERY_BATCH = 500;
+
+
+  for(
+    let start = 0;
+    start < barcodes.length;
+    start += QUERY_BATCH
+  ){
+
+    const batch =
+      barcodes.slice(
+        start,
+        start + QUERY_BATCH
+      );
+
+
+    const result =
+      await supabaseClient
+        .from("products")
+        .select(
+          "barcode,name,product_code,price,promo_offer,product_key"
+        )
+        .in(
+          "barcode",
+          batch
+        );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    (result.data || [])
+      .forEach(product => {
+
+        if(
+          !productMap.has(
+            product.barcode
+          )
+        ){
+
+          productMap.set(
+            product.barcode,
+            []
+          );
+
+        }
+
+
+        productMap
+          .get(product.barcode)
+          .push(product);
+
+      });
+
+  }
+
+
+  promoMatchedRows = [];
+
+
+  promoRows.forEach(row => {
+
+    const products =
+      productMap.get(
+        row.barcode
+      ) || [];
+
+
+    let matched = null;
+
+
+    /*
+      First try exact Product Code.
+    */
+
+    if(row.code){
+
+      const wanted =
+        normaliseCode(
+          row.code
+        );
+
+
+      matched =
+        products.find(
+          product =>
+            normaliseCode(
+              product.product_code
+            ) === wanted
+        );
+
+    }
+
+
+    /*
+      If only one product has the barcode,
+      use that product.
+    */
+
+    if(
+      !matched &&
+      products.length === 1
+    ){
+
+      matched =
+        products[0];
+
+    }
+
+
+    if(matched){
+
+      row.matchedProduct =
+        matched;
+
+      promoMatchedRows.push(row);
+
+    }
+
+  });
+
+
+  document
+    .getElementById("promoMatched")
+    .textContent =
+      promoMatchedRows.length.toLocaleString();
+
+
+  document
+    .getElementById("promoUnmatched")
+    .textContent =
+      (
+        promoRows.length -
+        promoMatchedRows.length
+      ).toLocaleString();
+
+}
+
+
+/* =========================================================
+   PROMO PREVIEW
+   ========================================================= */
+
+function renderPromoPreview(){
+
+  const wrap =
+    document.getElementById(
+      "promoPreviewWrap"
+    );
+
+
+  const body =
+    document.getElementById(
+      "promoPreviewBody"
+    );
+
+
+  body.innerHTML = "";
+
+
+  /*
+    Show up to 500 preview rows.
+    The actual matched data is not limited.
+  */
+
+  promoRows
+    .slice(0,500)
+    .forEach(row => {
+
+      const tr =
+        document.createElement("tr");
+
+
+      const matched =
+        !!row.matchedProduct;
+
+
+      tr.innerHTML = `
+
+        <td>
+          ${escapeHtml(row.barcode)}
+        </td>
+
+        <td>
+          ${escapeHtml(row.code || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(row.plan || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(row.location || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(row.categories || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            row.description +
+            (
+              row.details
+                ? " | " +
+                  row.details
+                : ""
+            )
+          )}
+        </td>
+
+        <td>
+          ${
+            matched
+              ? '<span class="badge valid">MATCHED</span>'
+              : '<span class="badge invalid">NOT MATCHED</span>'
+          }
+        </td>
+
+      `;
+
+
+      body.appendChild(tr);
+
+    });
+
+
+  wrap.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================================
+   UPDATE PROMOTIONAL INFORMATION
+   ========================================================= */
+
+async function uploadPromoInformation(){
+
+  if(!promoMatchedRows.length){
+
+    showPromoMessage(
+      "There are no matched promotional products to update.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const sessionResult =
+    await supabaseClient.auth.getSession();
+
+
+  if(
+    !sessionResult.data ||
+    !sessionResult.data.session
+  ){
+
+    showPromoMessage(
+      "Your login session has expired. Please sign in again.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById(
+      "uploadPromoButton"
+    );
+
+
+  button.disabled = true;
+
+
+  document
+    .getElementById(
+      "promoProgressContainer"
+    )
+    .style.display =
+      "block";
+
+
+  try{
+
+    /*
+      Optional clear.
+    */
+
+    if(
+      document
+        .getElementById(
+          "clearPromoBeforeUpload"
+        )
+        .checked
+    ){
+
+      showPromoMessage(
+        "Clearing previous promotional information...",
+        "warning"
+      );
+
+
+      const result =
+        await supabaseClient
+          .from("products")
+          .update({
+            promo_offer:null
+          })
+          .not(
+            "barcode",
+            "is",
+            null
+          );
+
+
+      if(result.error){
+        throw result.error;
+      }
+
+    }
+
+
+    /*
+      Group all placements for the same product.
+    */
+
+    const grouped =
+      new Map();
+
+
+    promoMatchedRows.forEach(row => {
+
+      const product =
+        row.matchedProduct;
+
+
+      const key =
+        product.product_key;
+
+
+      if(!grouped.has(key)){
+
+        grouped.set(
+          key,
+          {
+            product:product,
+            entries:[]
+          }
+        );
+
+      }
+
+
+      const entry =
+        [
+
+          row.plan
+            ? "PLAN: " +
+              row.plan
+            : "",
+
+          row.location
+            ? "LOCATION: " +
+              row.location
+            : "",
+
+          row.categories
+            ? "STORE CATEGORIES: " +
+              row.categories
+            : "",
+
+          row.code
+            ? "CODE: " +
+              row.code
+            : "",
+
+          row.description
+            ? "PRODUCT: " +
+              row.description
+            : "",
+
+          row.price
+            ? "PROMO PRICE: " +
+              row.price
+            : "",
+
+          row.details
+            ? "DETAILS: " +
+              row.details
+            : ""
+
+        ]
+          .filter(Boolean)
+          .join(" | ");
+
+
+      grouped
+        .get(key)
+        .entries
+        .push(entry);
+
+    });
+
+
+    const updates = [];
+
+
+    grouped.forEach(group => {
+
+      const product =
+        group.product;
+
+
+      const clearFirst =
+        document
+          .getElementById(
+            "clearPromoBeforeUpload"
+          )
+          .checked;
+
+
+      const existing =
+        clearFirst
+          ? ""
+          : (
+              product.promo_offer ||
+              ""
+            );
+
+
+      const newPromo =
+        group.entries.join("\n");
+
+
+      const combined =
+        existing
+          ? existing +
+            "\n" +
+            newPromo
+          : newPromo;
+
+
+      updates.push({
+
+        barcode:
+          product.barcode,
+
+        name:
+          product.name,
+
+        product_code:
+          product.product_code,
+
+        price:
+          product.price,
+
+        promo_offer:
+          combined,
+
+        product_key:
+          product.product_key
+
+      });
+
+    });
+
+
+    const total =
+      updates.length;
+
+
+    let uploaded = 0;
+
+
+    for(
+      let start = 0;
+      start < total;
+      start += PROMO_UPLOAD_BATCH
+    ){
+
+      const batch =
+        updates.slice(
+          start,
+          start +
+          PROMO_UPLOAD_BATCH
+        );
+
+
+      const result =
+        await supabaseClient
+          .from("products")
+          .upsert(
+            batch,
+            {
+              onConflict:
+                "product_key",
+              ignoreDuplicates:
+                false
+            }
+          );
+
+
+      if(result.error){
+        throw result.error;
+      }
+
+
+      uploaded +=
+        batch.length;
+
+
+      const percent =
+        Math.round(
+          (
+            uploaded /
+            total
+          ) *
+          100
+        );
+
+
+      document
+        .getElementById(
+          "promoProgressBar"
+        )
+        .style.width =
+          percent + "%";
+
+
+      document
+        .getElementById(
+          "promoProgressText"
+        )
+        .textContent =
+          "Updating promo information " +
+          uploaded.toLocaleString() +
+          " / " +
+          total.toLocaleString() +
+          " (" +
+          percent +
+          "%)";
+
+    }
+
+
+    document
+      .getElementById(
+        "promoProgressBar"
+      )
+      .style.width =
+        "100%";
+
+
+    document
+      .getElementById(
+        "promoProgressText"
+      )
+      .textContent =
+        "Promotional update complete.";
+
+
+    showPromoMessage(
+      "Promotional information updated for " +
+      uploaded.toLocaleString() +
+      " products.",
+      "success"
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    showPromoMessage(
+      "Promotional update stopped: " +
+      (
+        error.message ||
+        "Unknown Supabase error"
+      ),
+      "error"
+    );
+
+  }
+
+
+  button.disabled = false;
+
+}
+
+
+/* =========================================================
+   CLEAR PRICING
+   ========================================================= */
+
+function clearPricing(){
 
   pricingRows = [];
+
   uploadRows = [];
 
-  document.getElementById(
-    "fileInput"
-  ).value = "";
+  invalidRows = [];
 
-  document.getElementById(
-    "previewCard"
-  ).style.display = "none";
+  filteredPriceIndexes = [];
 
-  document.getElementById(
-    "fileInfo"
-  ).style.display = "none";
 
-  document.getElementById(
-    "message"
-  ).style.display = "none";
+  const fileInput =
+    document.getElementById(
+      "priceFileInput"
+    );
 
-  document.getElementById(
-    "uploadButton"
-  ).disabled = true;
 
-  document.getElementById(
-    "progressContainer"
-  ).style.display = "none";
+  if(fileInput){
+    fileInput.value = "";
+  }
 
-  document.getElementById(
-    "progressBar"
-  ).style.width = "0%";
 
-  document.getElementById(
-    "progressText"
-  ).textContent =
-    "Preparing upload...";
+  document
+    .getElementById(
+      "priceFileInfo"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "priceMessage"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "uploadPriceButton"
+    )
+    .disabled =
+      true;
+
+
+  document
+    .getElementById(
+      "priceInner"
+    )
+    .innerHTML =
+      "";
+
+
+  document
+    .getElementById(
+      "priceInner"
+    )
+    .style.height =
+      "0px";
+
+
+  document
+    .getElementById(
+      "invalidBody"
+    )
+    .innerHTML =
+      "";
+
+
+  [
+    "priceTotal",
+    "priceUploadable",
+    "priceDuplicates",
+    "priceInvalid"
+  ].forEach(id => {
+
+    document
+      .getElementById(id)
+      .textContent =
+        "0";
+
+  });
+
+
+  document
+    .getElementById(
+      "priceProgressContainer"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "priceProgressBar"
+    )
+    .style.width =
+      "0%";
+
+
+  document
+    .getElementById(
+      "priceProgressText"
+    )
+    .textContent =
+      "Preparing upload...";
+
+}
+
+
+/* =========================================================
+   CLEAR PROMO
+   ========================================================= */
+
+function clearPromo(){
+
+  promoRows = [];
+
+  promoMatchedRows = [];
+
+
+  const fileInput =
+    document.getElementById(
+      "promoFileInput"
+    );
+
+
+  if(fileInput){
+    fileInput.value = "";
+  }
+
+
+  document
+    .getElementById(
+      "promoFileInfo"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "promoMessage"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "promoPreviewWrap"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "promoPreviewBody"
+    )
+    .innerHTML =
+      "";
+
+
+  document
+    .getElementById(
+      "parsePromoButton"
+    )
+    .disabled =
+      true;
+
+
+  document
+    .getElementById(
+      "uploadPromoButton"
+    )
+    .disabled =
+      true;
+
+
+  [
+    "promoTotal",
+    "promoMatched",
+    "promoUnmatched",
+    "promoSections"
+  ].forEach(id => {
+
+    document
+      .getElementById(id)
+      .textContent =
+        "0";
+
+  });
+
 }
 
 </script>

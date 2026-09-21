@@ -1,365 +1,699 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>One Beyond Weekly Price Updates</title>
 
-<title>One Beyond - Pricing Update</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #111;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    .app {
+      max-width: 900px;
+      margin: auto;
+      min-height: 100vh;
+      background: white;
+      padding: 24px;
+    }
 
-body {
-  margin: 0;
-  font-family: -apple-system,
-               BlinkMacSystemFont,
-               "Segoe UI",
-               sans-serif;
-  background: #f4f4f4;
-  color: #111;
-}
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
 
-.container {
-  max-width: 600px;
-  margin: auto;
-  min-height: 100vh;
-  background: white;
-  padding: 22px;
-}
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+    }
 
-h1 {
-  text-align: center;
-  margin-bottom: 5px;
-}
+    .box {
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-.subtitle {
-  text-align: center;
-  color: #666;
-}
+    .box h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
 
-.card {
-  margin-top: 22px;
-  padding: 20px;
-  background: #f1f1f1;
-  border-radius: 16px;
-}
+    input[type="file"] {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: white;
+    }
 
-input,
-select {
-  width: 100%;
-  padding: 14px;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 16px;
-  background: white;
-}
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
 
-button {
-  width: 100%;
-  padding: 16px;
-  border: 0;
-  border-radius: 12px;
-  background: #111;
-  color: white;
-  font-size: 17px;
-  font-weight: 700;
-}
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
 
-button:disabled {
-  opacity: 0.4;
-}
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      background: white;
+    }
 
-.hidden {
-  display: none;
-}
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 15px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
-.stats {
-  margin-top: 20px;
-  padding: 15px;
-  background: #eee;
-  border-radius: 12px;
-}
+    .preview-button {
+      background: #111;
+      color: white;
+      width: 100%;
+      margin-top: 20px;
+    }
 
-.success {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background: #e4f7e8;
-}
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
 
-.error {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background: #ffe4e4;
-}
+    .stat {
+      background: #f1f1f1;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
 
-.preview {
-  overflow-x: auto;
-  margin-top: 20px;
-}
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      margin-top: 5px;
+    }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 13px;
-}
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+    }
 
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
 
-th {
-  background: #eee;
-}
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      white-space: nowrap;
+    }
 
-</style>
+    th {
+      background: #111;
+      color: white;
+    }
+
+    .price {
+      font-weight: 700;
+    }
+
+    .error {
+      color: #b00020;
+      background: #ffe5e5;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .success {
+      color: #155724;
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 700px) {
+
+      .columns {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .app {
+        padding: 16px;
+      }
+
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>ONE BEYOND</h1>
+  <h1>ONE BEYOND WEEKLY PRICE UPDATES</h1>
 
-<div class="subtitle">
-Weekly Pricing Update
-</div>
-
-<div class="card">
-
-<h3>1. Upload TXT file</h3>
-
-<input
-  type="file"
-  id="file"
-  accept=".txt,.csv"
->
-
-</div>
+  <div class="subtitle">
+    Upload the weekly TXT pricing file and preview the products.
+  </div>
 
 
-<div
-  id="mapping"
-  class="card hidden"
->
+  <!-- FILE -->
 
-<h3>2. Check columns</h3>
+  <div class="box">
 
-<label>Barcode column</label>
+    <h2>1. Upload TXT File</h2>
 
-<select id="barcodeColumn"></select>
+    <input
+      id="fileInput"
+      type="file"
+      accept=".txt,.csv"
+    >
 
+    <div id="fileInfo"></div>
 
-<label>Product name column</label>
-
-<select id="nameColumn"></select>
-
-
-<label>Price column</label>
-
-<select id="priceColumn"></select>
+  </div>
 
 
-<button onclick="previewData()">
-Preview Pricing
-</button>
+  <!-- COLUMNS -->
 
-</div>
+  <div class="box">
 
+    <h2>2. Check Columns</h2>
 
-<div
-  id="previewSection"
-  class="card hidden"
->
+    <div class="columns">
 
-<h3>3. Preview</h3>
+      <div>
 
-<div id="stats"></div>
+        <label for="barcodeColumn">
+          Barcode Column
+        </label>
 
-<div
-  id="table"
-  class="preview"
-></div>
+        <select id="barcodeColumn"></select>
 
-<button
-  onclick="processPricing()"
-  style="margin-top:20px;"
->
-Process Pricing File
-</button>
-
-</div>
+      </div>
 
 
-<div id="message"></div>
+      <div>
+
+        <label for="nameColumn">
+          Product Name Column
+        </label>
+
+        <select id="nameColumn"></select>
+
+      </div>
+
+
+      <div>
+
+        <label for="priceColumn">
+          Price Column
+        </label>
+
+        <select id="priceColumn"></select>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="preview-button"
+      onclick="previewPricing()"
+    >
+      Preview Pricing
+    </button>
+
+  </div>
+
+
+  <!-- RESULTS -->
+
+  <div
+    id="results"
+    style="display:none;"
+  >
+
+    <div class="box">
+
+      <h2>3. Preview Pricing</h2>
+
+      <div class="stats">
+
+        <div class="stat">
+          Total Records
+          <strong id="totalRecords">0</strong>
+        </div>
+
+        <div class="stat">
+          Preview Valid
+          <strong id="validRecords">0</strong>
+        </div>
+
+        <div class="stat">
+          Preview Invalid
+          <strong id="invalidRecords">0</strong>
+        </div>
+
+      </div>
+
+
+      <div
+        id="message"
+      ></div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Barcode</th>
+              <th>Product Name</th>
+              <th>Price</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="previewBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <script>
 
-let rows = [];
-
-let headers = [];
-
-let delimiter = ",";
+  let fileText = "";
+  let rows = [];
+  let headers = [];
 
 
-document
-  .getElementById("file")
-  .addEventListener(
-    "change",
-    loadFile
-  );
+  /* =========================
+     FILE UPLOAD
+     ========================= */
 
+  document
+    .getElementById("fileInput")
+    .addEventListener("change", function(event) {
 
-function detectDelimiter(line) {
+      const file = event.target.files[0];
 
-  const delimiters = [
-    "\t",
-    "|",
-    ",",
-    ";"
-  ];
-
-  let best = ",";
-
-  let highest = 0;
-
-  for (const d of delimiters) {
-
-    const count =
-      line.split(d).length - 1;
-
-    if (count > highest) {
-
-      highest = count;
-
-      best = d;
-
-    }
-
-  }
-
-  return best;
-}
-
-
-function loadFile(event) {
-
-  const file =
-    event.target.files[0];
-
-  if (!file) return;
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    function(e) {
-
-      const text =
-        e.target.result
-          .replace(/^\uFEFF/, "");
-
-
-      const lines =
-        text
-          .split(/\r?\n/)
-          .filter(
-            line =>
-              line.trim() !== ""
-          );
-
-
-      if (!lines.length) {
-
-        showError(
-          "The file is empty."
-        );
-
+      if (!file) {
         return;
-
       }
 
 
-      delimiter =
-        detectDelimiter(
-          lines[0]
+      const reader = new FileReader();
+
+
+      reader.onload = function(e) {
+
+        fileText = e.target.result;
+
+        parseFile();
+
+      };
+
+
+      reader.onerror = function() {
+
+        alert(
+          "Unable to read the file."
         );
 
-
-      rows =
-        lines.map(
-          line =>
-            parseLine(
-              line,
-              delimiter
-            )
-        );
+      };
 
 
-      headers =
-        rows[0];
+      reader.readAsText(file);
+
+    });
 
 
-      createColumnSelectors();
+  /* =========================
+     CLEAN FIELD
+     ========================= */
+
+  function cleanField(value) {
+
+    if (value === undefined || value === null) {
+      return "";
+    }
 
 
-      document
-        .getElementById(
-          "mapping"
-        )
-        .classList
-        .remove("hidden");
-
-    };
+    let text = String(value).trim();
 
 
-  reader.readAsText(file);
+    /*
+      Remove surrounding quotation marks.
+    */
 
-}
+    if (
+      text.length >= 2 &&
+      (
+        (text.startsWith('"') && text.endsWith('"')) ||
+        (text.startsWith("'") && text.endsWith("'"))
+      )
+    ) {
+
+      text = text.substring(
+        1,
+        text.length - 1
+      );
+
+    }
 
 
-function parseLine(
-  line,
-  delimiter
-) {
+    return text.trim();
 
-  return line.split(
+  }
+
+
+  /* =========================
+     PRICE CLEANING
+     ========================= */
+
+  function cleanPrice(value) {
+
+    let text = cleanField(value);
+
+
+    /*
+      Remove pound signs.
+    */
+
+    text = text.replace(/£/g, "");
+
+
+    /*
+      Remove spaces.
+    */
+
+    text = text.replace(/\s/g, "");
+
+
+    /*
+      Handle common decimal formats.
+    */
+
+    if (
+      text.includes(",") &&
+      text.includes(".")
+    ) {
+
+      /*
+        Example:
+        1,234.50
+      */
+
+      text = text.replace(/,/g, "");
+
+    } else if (
+      text.includes(",")
+    ) {
+
+      /*
+        Example:
+        2,50
+      */
+
+      text = text.replace(",", ".");
+
+    }
+
+
+    /*
+      Keep only numbers and decimal point.
+    */
+
+    text = text.replace(
+      /[^0-9.-]/g,
+      ""
+    );
+
+
+    const number =
+      Number.parseFloat(text);
+
+
+    if (!Number.isFinite(number)) {
+      return null;
+    }
+
+
+    return number;
+
+  }
+
+
+  /* =========================
+     DETECT DELIMITER
+     ========================= */
+
+  function detectDelimiter(line) {
+
+    const delimiters = [
+      "\t",
+      "|",
+      ",",
+      ";"
+    ];
+
+
+    let bestDelimiter = "\t";
+    let bestCount = 0;
+
+
+    for (
+      const delimiter of delimiters
+    ) {
+
+      const count =
+        line.split(delimiter).length - 1;
+
+
+      if (count > bestCount) {
+
+        bestCount = count;
+        bestDelimiter = delimiter;
+
+      }
+
+    }
+
+
+    return bestDelimiter;
+
+  }
+
+
+  /* =========================
+     PARSE LINE
+     ========================= */
+
+  function parseLine(
+    line,
     delimiter
-  );
+  ) {
 
-}
-
-
-function createColumnSelectors() {
-
-  const selectors = [
-    "barcodeColumn",
-    "nameColumn",
-    "priceColumn"
-  ];
+    const result = [];
+    let current = "";
+    let insideQuotes = false;
 
 
-  selectors.forEach(
-    id => {
+    for (
+      let i = 0;
+      i < line.length;
+      i++
+    ) {
 
-      const select =
-        document
-          .getElementById(id);
+      const char = line[i];
 
+
+      if (char === '"') {
+
+        if (
+          insideQuotes &&
+          line[i + 1] === '"'
+        ) {
+
+          current += '"';
+          i++;
+
+        } else {
+
+          insideQuotes =
+            !insideQuotes;
+
+        }
+
+      } else if (
+        char === delimiter &&
+        !insideQuotes
+      ) {
+
+        result.push(
+          cleanField(current)
+        );
+
+        current = "";
+
+      } else {
+
+        current += char;
+
+      }
+
+    }
+
+
+    result.push(
+      cleanField(current)
+    );
+
+
+    return result;
+
+  }
+
+
+  /* =========================
+     PARSE FILE
+     ========================= */
+
+  function parseFile() {
+
+    const lines =
+      fileText
+        .replace(/\r\n/g, "\n")
+        .replace(/\r/g, "\n")
+        .split("\n")
+        .filter(line => line.trim() !== "");
+
+
+    if (lines.length === 0) {
+
+      alert(
+        "The file appears to be empty."
+      );
+
+      return;
+
+    }
+
+
+    const delimiter =
+      detectDelimiter(lines[0]);
+
+
+    headers =
+      parseLine(
+        lines[0],
+        delimiter
+      );
+
+
+    rows = [];
+
+
+    for (
+      let i = 1;
+      i < lines.length;
+      i++
+    ) {
+
+      const row =
+        parseLine(
+          lines[i],
+          delimiter
+        );
+
+
+      if (row.length > 0) {
+
+        rows.push(row);
+
+      }
+
+    }
+
+
+    populateColumnSelectors();
+
+
+    document.getElementById(
+      "fileInfo"
+    ).innerHTML = `
+      <div class="success">
+        File loaded successfully.
+        ${rows.length.toLocaleString()}
+        records detected.
+      </div>
+    `;
+
+  }
+
+
+  /* =========================
+     COLUMN SELECTORS
+     ========================= */
+
+  function populateColumnSelectors() {
+
+    const selects = [
+      document.getElementById(
+        "barcodeColumn"
+      ),
+
+      document.getElementById(
+        "nameColumn"
+      ),
+
+      document.getElementById(
+        "priceColumn"
+      )
+    ];
+
+
+    selects.forEach(select => {
 
       select.innerHTML = "";
 
@@ -368,18 +702,16 @@ function createColumnSelectors() {
         (header, index) => {
 
           const option =
-            document
-              .createElement(
-                "option"
-              );
+            document.createElement(
+              "option"
+            );
 
 
-          option.value =
-            index;
-
+          option.value = index;
 
           option.textContent =
-            `${index + 1}: ${header}`;
+            header ||
+            `Column ${index + 1}`;
 
 
           select.appendChild(
@@ -389,172 +721,166 @@ function createColumnSelectors() {
         }
       );
 
-    }
-  );
+    });
 
 
-  autoSelect(
-    "barcodeColumn",
-    [
-      "barcode",
-      "ean",
-      "ean13",
-      "upc",
-      "product code",
-      "item code"
-    ]
-  );
+    /*
+      Automatically detect likely columns.
+    */
 
+    const findColumn = names => {
 
-  autoSelect(
-    "nameColumn",
-    [
-      "product",
-      "description",
-      "name",
-      "product name"
-    ]
-  );
-
-
-  autoSelect(
-    "priceColumn",
-    [
-      "price",
-      "selling price",
-      "retail price",
-      "sale price"
-    ]
-  );
-
-}
-
-
-function autoSelect(
-  selectId,
-  keywords
-) {
-
-  const select =
-    document
-      .getElementById(
-        selectId
+      return headers.findIndex(
+        header =>
+          names.includes(
+            cleanField(
+              header
+            ).toLowerCase()
+          )
       );
 
-
-  for (
-    let i = 0;
-    i < headers.length;
-    i++
-  ) {
-
-    const header =
-      String(
-        headers[i]
-      )
-      .toLowerCase()
-      .trim();
+    };
 
 
-    if (
-      keywords.some(
-        keyword =>
-          header.includes(
-            keyword
-          )
-      )
-    ) {
+    const barcodeIndex =
+      findColumn([
+        "barcode",
+        "ean",
+        "ean13",
+        "upc"
+      ]);
 
-      select.value = i;
 
-      break;
+    const nameIndex =
+      findColumn([
+        "description",
+        "product name",
+        "name",
+        "product"
+      ]);
+
+
+    const priceIndex =
+      findColumn([
+        "price",
+        "selling price",
+        "sell price",
+        "retail price"
+      ]);
+
+
+    if (barcodeIndex >= 0) {
+
+      document.getElementById(
+        "barcodeColumn"
+      ).value =
+        barcodeIndex;
+
+    }
+
+
+    if (nameIndex >= 0) {
+
+      document.getElementById(
+        "nameColumn"
+      ).value =
+        nameIndex;
+
+    }
+
+
+    if (priceIndex >= 0) {
+
+      document.getElementById(
+        "priceColumn"
+      ).value =
+        priceIndex;
 
     }
 
   }
 
-}
+
+  /* =========================
+     PREVIEW
+     ========================= */
+
+  function previewPricing() {
+
+    if (
+      !rows.length ||
+      !headers.length
+    ) {
+
+      alert(
+        "Please choose a pricing file first."
+      );
+
+      return;
+
+    }
 
 
-function previewData() {
-
-  const barcodeIndex =
-    Number(
-      document
-        .getElementById(
+    const barcodeIndex =
+      Number(
+        document.getElementById(
           "barcodeColumn"
         ).value
-    );
+      );
 
 
-  const nameIndex =
-    Number(
-      document
-        .getElementById(
+    const nameIndex =
+      Number(
+        document.getElementById(
           "nameColumn"
         ).value
-    );
+      );
 
 
-  const priceIndex =
-    Number(
-      document
-        .getElementById(
+    const priceIndex =
+      Number(
+        document.getElementById(
           "priceColumn"
         ).value
-    );
+      );
 
 
-  const data =
-    rows.slice(1);
+    let valid = 0;
+    let invalid = 0;
 
 
-  let valid = 0;
-
-  let invalid = 0;
+    const previewRows = [];
 
 
-  const previewRows =
-    data.slice(
-      0,
-      20
-    );
+    /*
+      Only inspect the first 20 rows
+      for the preview.
+    */
 
-
-  let html =
-    "<table><tr>" +
-    "<th>Barcode</th>" +
-    "<th>Product</th>" +
-    "<th>Price</th>" +
-    "</tr>";
-
-
-  previewRows.forEach(
-    row => {
+    rows.slice(0, 20).forEach(row => {
 
       const barcode =
-        String(
-          row[barcodeIndex] || ""
-        ).trim();
+        cleanField(
+          row[barcodeIndex]
+        );
 
 
       const name =
-        String(
-          row[nameIndex] || ""
-        ).trim();
+        cleanField(
+          row[nameIndex]
+        );
 
 
       const price =
-        String(
-          row[priceIndex] || ""
-        )
-        .replace("£", "")
-        .trim();
+        cleanPrice(
+          row[priceIndex]
+        );
 
 
       if (
         barcode &&
-        price
+        name &&
+        price !== null
       ) {
 
         valid++;
@@ -566,224 +892,130 @@ function previewData() {
       }
 
 
-      html +=
-        "<tr>" +
-        "<td>" +
-        escapeHtml(
-          barcode
-        ) +
-        "</td>" +
-        "<td>" +
-        escapeHtml(
-          name
-        ) +
-        "</td>" +
-        "<td>£" +
-        escapeHtml(
-          price
-        ) +
-        "</td>" +
-        "</tr>";
+      previewRows.push({
+        barcode,
+        name,
+        price
+      });
 
-    }
-  );
+    });
 
 
-  html += "</table>";
+    document.getElementById(
+      "totalRecords"
+    ).textContent =
+      rows.length.toLocaleString();
 
 
-  document
-    .getElementById(
-      "table"
-    )
-    .innerHTML = html;
+    document.getElementById(
+      "validRecords"
+    ).textContent =
+      valid;
 
 
-  document
-    .getElementById(
-      "stats"
-    )
-    .innerHTML =
-      `<div class="stats">
-        Total records: ${data.length}<br>
-        Preview valid: ${valid}<br>
-        Preview invalid: ${invalid}
-      </div>`;
+    document.getElementById(
+      "invalidRecords"
+    ).textContent =
+      invalid;
 
 
-  document
-    .getElementById(
-      "previewSection"
-    )
-    .classList
-    .remove("hidden");
-
-}
+    const body =
+      document.getElementById(
+        "previewBody"
+      );
 
 
-function processPricing() {
-
-  /*
-    Temporary local processing.
-
-    In the next stage this data
-    will be sent to the central
-    database instead.
-  */
+    body.innerHTML = "";
 
 
-  const barcodeIndex =
-    Number(
-      document
-        .getElementById(
-          "barcodeColumn"
-        ).value
-    );
+    previewRows.forEach(item => {
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
 
 
-  const nameIndex =
-    Number(
-      document
-        .getElementById(
-          "nameColumn"
-        ).value
-    );
+      const barcodeCell =
+        document.createElement(
+          "td"
+        );
 
 
-  const priceIndex =
-    Number(
-      document
-        .getElementById(
-          "priceColumn"
-        ).value
-    );
+      barcodeCell.textContent =
+        item.barcode;
 
 
-  const products = {};
+      const nameCell =
+        document.createElement(
+          "td"
+        );
 
 
-  rows
-    .slice(1)
-    .forEach(
-      row => {
-
-        const barcode =
-          String(
-            row[barcodeIndex] || ""
-          ).trim();
+      nameCell.textContent =
+        item.name;
 
 
-        const name =
-          String(
-            row[nameIndex] || ""
-          ).trim();
+      const priceCell =
+        document.createElement(
+          "td"
+        );
 
 
-        const price =
-          String(
-            row[priceIndex] || ""
-          )
-          .replace("£", "")
-          .trim();
+      if (item.price === null) {
 
+        priceCell.textContent =
+          "INVALID";
 
-        if (
-          barcode &&
-          price
-        ) {
+      } else {
 
-          products[
-            barcode
-          ] = {
-
-            name: name,
-
-            price:
-              "£" +
-              price
-
-          };
-
-        }
+        priceCell.textContent =
+          "£" +
+          item.price.toFixed(2);
 
       }
-    );
 
 
-  localStorage.setItem(
-    "oneBeyondProducts",
-    JSON.stringify(
-      products
-    )
-  );
+      priceCell.className =
+        "price";
 
 
-  showSuccess(
-    `Pricing processed successfully. ${Object.keys(products).length.toLocaleString()} products loaded on this device.`
-  );
+      tr.appendChild(
+        barcodeCell
+      );
 
-}
+      tr.appendChild(
+        nameCell
+      );
 
-
-function escapeHtml(
-  text
-) {
-
-  return String(text)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
+      tr.appendChild(
+        priceCell
+      );
 
 
-function showError(
-  message
-) {
+      body.appendChild(
+        tr
+      );
 
-  document
-    .getElementById(
+    });
+
+
+    document.getElementById(
+      "results"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
       "message"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${message}
-      </div>`;
+    ).innerHTML = `
+      <div class="success">
+        Preview generated successfully.
+        Showing the first 20 records.
+      </div>
+    `;
 
-}
-
-
-function showSuccess(
-  message
-) {
-
-  document
-    .getElementById(
-      "message"
-    )
-    .innerHTML =
-      `<div class="success">
-        ${message}
-      </div>`;
-
-}
+  }
 
 </script>
 

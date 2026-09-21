@@ -3,38 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>One Beyond - Pricing Update</title>
 
 <style>
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f5f5f5;
+  font-family: -apple-system,
+               BlinkMacSystemFont,
+               "Segoe UI",
+               sans-serif;
+  background: #f4f4f4;
+  color: #111;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
   min-height: 100vh;
   background: white;
-  padding: 25px;
-  box-sizing: border-box;
+  padding: 22px;
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
 }
 
 .card {
-  background: #f1f1f1;
+  margin-top: 22px;
   padding: 20px;
+  background: #f1f1f1;
   border-radius: 16px;
-  margin-top: 20px;
 }
 
-input[type="file"] {
+input,
+select {
   width: 100%;
-  margin: 20px 0;
+  padding: 14px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  background: white;
 }
 
 button {
@@ -48,11 +70,57 @@ button {
   font-weight: 700;
 }
 
-#preview {
-  margin-top: 20px;
-  white-space: pre-wrap;
-  overflow-x: auto;
+button:disabled {
+  opacity: 0.4;
 }
+
+.hidden {
+  display: none;
+}
+
+.stats {
+  margin-top: 20px;
+  padding: 15px;
+  background: #eee;
+  border-radius: 12px;
+}
+
+.success {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #e4f7e8;
+}
+
+.error {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #ffe4e4;
+}
+
+.preview {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #eee;
+}
+
 </style>
 </head>
 
@@ -62,66 +130,658 @@ button {
 
 <h1>ONE BEYOND</h1>
 
-<h2>Pricing Update</h2>
+<div class="subtitle">
+Weekly Pricing Update
+</div>
 
 <div class="card">
 
-<p>
-Upload your weekly TXT pricing file.
-</p>
+<h3>1. Upload TXT file</h3>
 
 <input
   type="file"
   id="file"
-  accept=".txt"
+  accept=".txt,.csv"
 >
 
-<button onclick="readFile()">
-Read Pricing File
+</div>
+
+
+<div
+  id="mapping"
+  class="card hidden"
+>
+
+<h3>2. Check columns</h3>
+
+<label>Barcode column</label>
+
+<select id="barcodeColumn"></select>
+
+
+<label>Product name column</label>
+
+<select id="nameColumn"></select>
+
+
+<label>Price column</label>
+
+<select id="priceColumn"></select>
+
+
+<button onclick="previewData()">
+Preview Pricing
 </button>
 
 </div>
 
-<div id="preview"></div>
+
+<div
+  id="previewSection"
+  class="card hidden"
+>
+
+<h3>3. Preview</h3>
+
+<div id="stats"></div>
+
+<div
+  id="table"
+  class="preview"
+></div>
+
+<button
+  onclick="processPricing()"
+  style="margin-top:20px;"
+>
+Process Pricing File
+</button>
 
 </div>
 
+
+<div id="message"></div>
+
+</div>
+
+
 <script>
 
-function readFile() {
+let rows = [];
 
-  const fileInput = document.getElementById("file");
+let headers = [];
 
-  if (!fileInput.files.length) {
-    alert("Please select a TXT file.");
-    return;
+let delimiter = ",";
+
+
+document
+  .getElementById("file")
+  .addEventListener(
+    "change",
+    loadFile
+  );
+
+
+function detectDelimiter(line) {
+
+  const delimiters = [
+    "\t",
+    "|",
+    ",",
+    ";"
+  ];
+
+  let best = ",";
+
+  let highest = 0;
+
+  for (const d of delimiters) {
+
+    const count =
+      line.split(d).length - 1;
+
+    if (count > highest) {
+
+      highest = count;
+
+      best = d;
+
+    }
+
   }
 
-  const file = fileInput.files[0];
+  return best;
+}
 
-  const reader = new FileReader();
 
-  reader.onload = function(event) {
+function loadFile(event) {
 
-    const text = event.target.result;
+  const file =
+    event.target.files[0];
 
-    const lines = text
-      .split(/\r?\n/)
-      .filter(line => line.trim() !== "");
+  if (!file) return;
 
-    document.getElementById("preview").innerHTML =
-      "<h3>File loaded</h3>" +
-      "<p>Total lines: " + lines.length + "</p>" +
-      "<pre>" +
-      lines.slice(0, 20)
-        .join("\n")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;") +
-      "</pre>";
 
-  };
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function(e) {
+
+      const text =
+        e.target.result
+          .replace(/^\uFEFF/, "");
+
+
+      const lines =
+        text
+          .split(/\r?\n/)
+          .filter(
+            line =>
+              line.trim() !== ""
+          );
+
+
+      if (!lines.length) {
+
+        showError(
+          "The file is empty."
+        );
+
+        return;
+
+      }
+
+
+      delimiter =
+        detectDelimiter(
+          lines[0]
+        );
+
+
+      rows =
+        lines.map(
+          line =>
+            parseLine(
+              line,
+              delimiter
+            )
+        );
+
+
+      headers =
+        rows[0];
+
+
+      createColumnSelectors();
+
+
+      document
+        .getElementById(
+          "mapping"
+        )
+        .classList
+        .remove("hidden");
+
+    };
+
 
   reader.readAsText(file);
+
+}
+
+
+function parseLine(
+  line,
+  delimiter
+) {
+
+  return line.split(
+    delimiter
+  );
+
+}
+
+
+function createColumnSelectors() {
+
+  const selectors = [
+    "barcodeColumn",
+    "nameColumn",
+    "priceColumn"
+  ];
+
+
+  selectors.forEach(
+    id => {
+
+      const select =
+        document
+          .getElementById(id);
+
+
+      select.innerHTML = "";
+
+
+      headers.forEach(
+        (header, index) => {
+
+          const option =
+            document
+              .createElement(
+                "option"
+              );
+
+
+          option.value =
+            index;
+
+
+          option.textContent =
+            `${index + 1}: ${header}`;
+
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  autoSelect(
+    "barcodeColumn",
+    [
+      "barcode",
+      "ean",
+      "ean13",
+      "upc",
+      "product code",
+      "item code"
+    ]
+  );
+
+
+  autoSelect(
+    "nameColumn",
+    [
+      "product",
+      "description",
+      "name",
+      "product name"
+    ]
+  );
+
+
+  autoSelect(
+    "priceColumn",
+    [
+      "price",
+      "selling price",
+      "retail price",
+      "sale price"
+    ]
+  );
+
+}
+
+
+function autoSelect(
+  selectId,
+  keywords
+) {
+
+  const select =
+    document
+      .getElementById(
+        selectId
+      );
+
+
+  for (
+    let i = 0;
+    i < headers.length;
+    i++
+  ) {
+
+    const header =
+      String(
+        headers[i]
+      )
+      .toLowerCase()
+      .trim();
+
+
+    if (
+      keywords.some(
+        keyword =>
+          header.includes(
+            keyword
+          )
+      )
+    ) {
+
+      select.value = i;
+
+      break;
+
+    }
+
+  }
+
+}
+
+
+function previewData() {
+
+  const barcodeIndex =
+    Number(
+      document
+        .getElementById(
+          "barcodeColumn"
+        ).value
+    );
+
+
+  const nameIndex =
+    Number(
+      document
+        .getElementById(
+          "nameColumn"
+        ).value
+    );
+
+
+  const priceIndex =
+    Number(
+      document
+        .getElementById(
+          "priceColumn"
+        ).value
+    );
+
+
+  const data =
+    rows.slice(1);
+
+
+  let valid = 0;
+
+  let invalid = 0;
+
+
+  const previewRows =
+    data.slice(
+      0,
+      20
+    );
+
+
+  let html =
+    "<table><tr>" +
+    "<th>Barcode</th>" +
+    "<th>Product</th>" +
+    "<th>Price</th>" +
+    "</tr>";
+
+
+  previewRows.forEach(
+    row => {
+
+      const barcode =
+        String(
+          row[barcodeIndex] || ""
+        ).trim();
+
+
+      const name =
+        String(
+          row[nameIndex] || ""
+        ).trim();
+
+
+      const price =
+        String(
+          row[priceIndex] || ""
+        )
+        .replace("£", "")
+        .trim();
+
+
+      if (
+        barcode &&
+        price
+      ) {
+
+        valid++;
+
+      } else {
+
+        invalid++;
+
+      }
+
+
+      html +=
+        "<tr>" +
+        "<td>" +
+        escapeHtml(
+          barcode
+        ) +
+        "</td>" +
+        "<td>" +
+        escapeHtml(
+          name
+        ) +
+        "</td>" +
+        "<td>£" +
+        escapeHtml(
+          price
+        ) +
+        "</td>" +
+        "</tr>";
+
+    }
+  );
+
+
+  html += "</table>";
+
+
+  document
+    .getElementById(
+      "table"
+    )
+    .innerHTML = html;
+
+
+  document
+    .getElementById(
+      "stats"
+    )
+    .innerHTML =
+      `<div class="stats">
+        Total records: ${data.length}<br>
+        Preview valid: ${valid}<br>
+        Preview invalid: ${invalid}
+      </div>`;
+
+
+  document
+    .getElementById(
+      "previewSection"
+    )
+    .classList
+    .remove("hidden");
+
+}
+
+
+function processPricing() {
+
+  /*
+    Temporary local processing.
+
+    In the next stage this data
+    will be sent to the central
+    database instead.
+  */
+
+
+  const barcodeIndex =
+    Number(
+      document
+        .getElementById(
+          "barcodeColumn"
+        ).value
+    );
+
+
+  const nameIndex =
+    Number(
+      document
+        .getElementById(
+          "nameColumn"
+        ).value
+    );
+
+
+  const priceIndex =
+    Number(
+      document
+        .getElementById(
+          "priceColumn"
+        ).value
+    );
+
+
+  const products = {};
+
+
+  rows
+    .slice(1)
+    .forEach(
+      row => {
+
+        const barcode =
+          String(
+            row[barcodeIndex] || ""
+          ).trim();
+
+
+        const name =
+          String(
+            row[nameIndex] || ""
+          ).trim();
+
+
+        const price =
+          String(
+            row[priceIndex] || ""
+          )
+          .replace("£", "")
+          .trim();
+
+
+        if (
+          barcode &&
+          price
+        ) {
+
+          products[
+            barcode
+          ] = {
+
+            name: name,
+
+            price:
+              "£" +
+              price
+
+          };
+
+        }
+
+      }
+    );
+
+
+  localStorage.setItem(
+    "oneBeyondProducts",
+    JSON.stringify(
+      products
+    )
+  );
+
+
+  showSuccess(
+    `Pricing processed successfully. ${Object.keys(products).length.toLocaleString()} products loaded on this device.`
+  );
+
+}
+
+
+function escapeHtml(
+  text
+) {
+
+  return String(text)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function showError(
+  message
+) {
+
+  document
+    .getElementById(
+      "message"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${message}
+      </div>`;
+
+}
+
+
+function showSuccess(
+  message
+) {
+
+  document
+    .getElementById(
+      "message"
+    )
+    .innerHTML =
+      `<div class="success">
+        ${message}
+      </div>`;
 
 }
 

@@ -2,11 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>One Beyond - Weekly Price Update</title>
 
@@ -42,7 +38,7 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: auto;
       padding: 18px;
     }
@@ -78,59 +74,9 @@
       background: white;
     }
 
-    .columns {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .column-box {
-      background: #f7f7f7;
-      padding: 14px;
-      border-radius: 10px;
-    }
-
-    .column-box label {
-      display: block;
-      font-weight: 800;
-      margin-bottom: 7px;
-    }
-
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: white;
-      font-size: 15px;
-    }
-
-    button {
-      border: none;
-      border-radius: 9px;
-      padding: 14px 18px;
-      margin-top: 18px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .preview-button {
-      background: #ffd500;
-      color: #111;
-      width: 100%;
-    }
-
-    .clear-button {
-      background: #222;
-      color: white;
-      width: 100%;
-    }
-
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-top: 18px;
     }
@@ -145,8 +91,16 @@
 
     .stat strong {
       display: block;
-      font-size: 25px;
+      font-size: 24px;
       margin-bottom: 4px;
+    }
+
+    .stat.warning {
+      background: #d49b00;
+    }
+
+    .stat.error {
+      background: #b00020;
     }
 
     .table-wrapper {
@@ -157,7 +111,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 850px;
+      min-width: 900px;
     }
 
     th {
@@ -201,7 +155,7 @@
       color: #176b17;
     }
 
-    .error {
+    .error-message {
       background: #ffe2e2;
       color: #a00000;
     }
@@ -211,18 +165,70 @@
       color: #765c00;
     }
 
+    .info {
+      background: #e8f1ff;
+      color: #064a9b;
+    }
+
     .small {
       color: #666;
       font-size: 13px;
       margin-top: 8px;
     }
 
-    @media (max-width: 700px) {
+    .file-info {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      background: #f7f7f7;
+      border-radius: 9px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
-      .columns {
-        grid-template-columns: 1fr;
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #e4f7e4;
+      color: #176b17;
+    }
+
+    .badge.duplicate {
+      background: #fff5cc;
+      color: #765c00;
+    }
+
+    .badge.invalid {
+      background: #ffe2e2;
+      color: #a00000;
+    }
+
+    button {
+      border: none;
+      border-radius: 9px;
+      padding: 14px 18px;
+      margin-top: 18px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .clear-button {
+      background: #222;
+      color: white;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
       }
+    }
 
+    @media (max-width: 500px) {
       .stats {
         grid-template-columns: 1fr;
       }
@@ -245,7 +251,7 @@
 
     <div class="card">
 
-      <h2>Update the TXT file</h2>
+      <h2>Upload Weekly Pricing File</h2>
 
       <div class="upload-box">
 
@@ -254,8 +260,8 @@
         </strong>
 
         <div class="small">
-          The file should contain Barcode, Description,
-          Product Code, Pricing and Promo Offers.
+          Expected columns:
+          Barcode, Description, Product Code, Price, PromoOffer, PricePer
         </div>
 
         <input
@@ -266,84 +272,15 @@
 
       </div>
 
-      <div id="message" class="message"></div>
+      <div
+        id="fileInfo"
+        class="file-info"
+      ></div>
 
-    </div>
-
-
-    <div
-      id="columnCard"
-      class="card"
-      style="display:none;"
-    >
-
-      <h2>Check the columns</h2>
-
-      <div class="columns">
-
-        <div class="column-box">
-
-          <label for="barcodeColumn">
-            Barcode
-          </label>
-
-          <select id="barcodeColumn"></select>
-
-        </div>
-
-
-        <div class="column-box">
-
-          <label for="descriptionColumn">
-            Description
-          </label>
-
-          <select id="descriptionColumn"></select>
-
-        </div>
-
-
-        <div class="column-box">
-
-          <label for="productCodeColumn">
-            Product Code
-          </label>
-
-          <select id="productCodeColumn"></select>
-
-        </div>
-
-
-        <div class="column-box">
-
-          <label for="priceColumn">
-            Pricing
-          </label>
-
-          <select id="priceColumn"></select>
-
-        </div>
-
-
-        <div class="column-box">
-
-          <label for="promoColumn">
-            Promo Offers
-          </label>
-
-          <select id="promoColumn"></select>
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="preview-button"
-        onclick="previewPricing()"
-      >
-        Preview Pricing
-      </button>
+      <div
+        id="message"
+        class="message"
+      ></div>
 
     </div>
 
@@ -354,7 +291,9 @@
       style="display:none;"
     >
 
-      <h2>Pricing Preview</h2>
+      <h2>
+        Pricing File Check
+      </h2>
 
       <div class="stats">
 
@@ -365,12 +304,17 @@
 
         <div class="stat">
           <strong id="validRecords">0</strong>
-          Valid Preview
+          Valid Records
         </div>
 
-        <div class="stat">
+        <div class="stat warning">
+          <strong id="duplicateRecords">0</strong>
+          Duplicate Barcodes
+        </div>
+
+        <div class="stat error">
           <strong id="invalidRecords">0</strong>
-          Invalid Preview
+          Invalid Records
         </div>
 
       </div>
@@ -386,8 +330,9 @@
               <th>Barcode</th>
               <th>Description</th>
               <th>Product Code</th>
-              <th>Pricing</th>
+              <th>Price</th>
               <th>Promo Offer</th>
+              <th>Status</th>
             </tr>
 
           </thead>
@@ -397,6 +342,7 @@
         </table>
 
       </div>
+
 
       <button
         class="clear-button"
@@ -412,25 +358,28 @@
 
   <script>
 
-    let rawRows = [];
-    let headers = [];
+    let pricingRows = [];
 
 
-    function showMessage(text, type) {
-
-      const message =
-        document.getElementById("message");
-
-      message.textContent = text;
-
-      message.className =
-        "message " + type;
-
-      message.style.display = "block";
-    }
+    const expectedColumns = [
+      ["barcode", "Barcode"],
+      ["description", "Description"],
+      ["productCode", "Product Code"],
+      ["price", "Price"],
+      ["promoOffer", "PromoOffer"],
+      ["pricePer", "PricePer"]
+    ];
 
 
-    function cleanText(value) {
+    document
+      .getElementById("fileInput")
+      .addEventListener(
+        "change",
+        handleFile
+      );
+
+
+    function clean(value) {
 
       if (
         value === null ||
@@ -439,78 +388,37 @@
         return "";
       }
 
-      let text = String(value).trim();
-
-      /*
-        Remove surrounding quotation marks.
-      */
-
-      if (
-        text.length >= 2 &&
-        (
-          (
-            text.startsWith('"') &&
-            text.endsWith('"')
-          ) ||
-          (
-            text.startsWith("'") &&
-            text.endsWith("'")
-          )
-        )
-      ) {
-        text = text.slice(1, -1);
-      }
-
-      return text.trim();
+      return String(value).trim();
     }
 
 
-    function cleanHeader(value) {
+    function normaliseHeader(value) {
 
-      return cleanText(value)
+      return clean(value)
+        .replace(/^\uFEFF/, "")
         .toLowerCase()
-        .replace(/\s+/g, " ")
-        .trim();
+        .replace(/\s+/g, "")
+        .replace(/_/g, "");
     }
 
 
-    function cleanPrice(value) {
+    function parsePrice(value) {
 
       let text =
-        cleanText(value);
+        clean(value)
+          .replace(/£/g, "")
+          .replace(/\s/g, "");
+
 
       if (!text) {
         return null;
       }
 
-      /*
-        Remove currency symbols and spaces.
-      */
-
-      text =
-        text
-          .replace(/£/g, "")
-          .replace(/\s/g, "")
-          .trim();
-
-      /*
-        Handle common formats such as:
-
-        1.99
-        1,99
-        £1.99
-        "1.99"
-      */
 
       if (
         text.includes(",") &&
         text.includes(".")
       ) {
-
-        /*
-          If comma comes after the dot,
-          assume comma is the decimal separator.
-        */
 
         if (
           text.lastIndexOf(",") >
@@ -526,12 +434,16 @@
 
           text =
             text.replace(/,/g, "");
+
         }
 
-      } else if (text.includes(",")) {
+      } else if (
+        text.includes(",")
+      ) {
 
         const parts =
           text.split(",");
+
 
         if (
           parts.length === 2 &&
@@ -547,38 +459,31 @@
 
           text =
             text.replace(/,/g, "");
+
         }
+
       }
 
-      /*
-        Keep only numbers and decimal point.
-      */
-
-      text =
-        text.replace(
-          /[^0-9.-]/g,
-          ""
-        );
 
       const number =
-        parseFloat(text);
+        Number(
+          text.replace(
+            /[^0-9.-]/g,
+            ""
+          )
+        );
 
-      if (
-        Number.isNaN(number) ||
-        !Number.isFinite(number)
-      ) {
-        return null;
-      }
 
-      return number;
+      return Number.isFinite(number)
+        ? number
+        : null;
     }
 
 
-    /*
-      CSV/TXT parser that understands quoted fields.
-    */
-
-    function parseLine(line, delimiter) {
+    function parseLine(
+      line,
+      delimiter
+    ) {
 
       const result = [];
 
@@ -586,13 +491,14 @@
 
       let insideQuotes = false;
 
+
       for (
         let i = 0;
         i < line.length;
         i++
       ) {
 
-        const char =
+        const character =
           line[i];
 
         const next =
@@ -600,7 +506,7 @@
 
 
         if (
-          char === '"' &&
+          character === '"' &&
           next === '"'
         ) {
 
@@ -612,7 +518,9 @@
         }
 
 
-        if (char === '"') {
+        if (
+          character === '"'
+        ) {
 
           insideQuotes =
             !insideQuotes;
@@ -622,12 +530,12 @@
 
 
         if (
-          char === delimiter &&
+          character === delimiter &&
           !insideQuotes
         ) {
 
           result.push(
-            cleanText(current)
+            clean(current)
           );
 
           current = "";
@@ -636,12 +544,13 @@
         }
 
 
-        current += char;
+        current += character;
+
       }
 
 
       result.push(
-        cleanText(current)
+        clean(current)
       );
 
 
@@ -651,7 +560,7 @@
 
     function detectDelimiter(line) {
 
-      const possible = [
+      const delimiters = [
         "\t",
         "|",
         ",",
@@ -663,25 +572,29 @@
         "\t";
 
       let bestCount =
-        0;
+        -1;
 
 
       for (
-        const delimiter of possible
+        const delimiter of delimiters
       ) {
 
         const count =
           line.split(delimiter).length - 1;
 
 
-        if (count > bestCount) {
+        if (
+          count > bestCount
+        ) {
 
           bestCount =
             count;
 
           best =
             delimiter;
+
         }
+
       }
 
 
@@ -689,96 +602,56 @@
     }
 
 
-    function findColumn(possibleNames) {
+    function escapeHtml(value) {
 
-      for (
-        const name of possibleNames
-      ) {
-
-        const index =
-          headers.findIndex(
-            header =>
-              cleanHeader(header) ===
-              cleanHeader(name)
-          );
-
-
-        if (index !== -1) {
-          return index;
-        }
-      }
-
-
-      /*
-        Try partial matching.
-      */
-
-      for (
-        const name of possibleNames
-      ) {
-
-        const index =
-          headers.findIndex(
-            header =>
-              cleanHeader(header)
-                .includes(cleanHeader(name))
-          );
-
-
-        if (index !== -1) {
-          return index;
-        }
-      }
-
-
-      return -1;
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
     }
 
 
-    function fillSelect(
-      selectId,
-      selectedIndex
+    function showMessage(
+      text,
+      type
     ) {
 
-      const select =
-        document.getElementById(selectId);
+      const message =
+        document.getElementById(
+          "message"
+        );
 
-      select.innerHTML = "";
+
+      message.textContent =
+        text;
 
 
-      headers.forEach(
-        (header, index) => {
+      message.className =
+        "message " + type;
 
-          const option =
-            document.createElement("option");
 
-          option.value =
-            index;
-
-          option.textContent =
-            `${index + 1}. ${cleanText(header)}`;
-
-          if (
-            index === selectedIndex
-          ) {
-
-            option.selected =
-              true;
-          }
-
-          select.appendChild(option);
-
-        }
-      );
+      message.style.display =
+        "block";
     }
-
-
-    document
-      .getElementById("fileInput")
-      .addEventListener(
-        "change",
-        handleFile
-      );
 
 
     async function handleFile(event) {
@@ -792,8 +665,21 @@
       }
 
 
+      pricingRows = [];
+
+
+      document.getElementById(
+        "previewCard"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "fileInfo"
+      ).style.display = "none";
+
+
       showMessage(
-        "Reading file...",
+        "Reading pricing file...",
         "warning"
       );
 
@@ -806,8 +692,14 @@
 
         const lines =
           text
-            .replace(/\r\n/g, "\n")
-            .replace(/\r/g, "\n")
+            .replace(
+              /\r\n/g,
+              "\n"
+            )
+            .replace(
+              /\r/g,
+              "\n"
+            )
             .split("\n")
             .filter(
               line =>
@@ -815,11 +707,13 @@
             );
 
 
-        if (lines.length < 2) {
+        if (
+          lines.length < 2
+        ) {
 
           showMessage(
             "The file does not contain enough data.",
-            "error"
+            "error-message"
           );
 
           return;
@@ -832,14 +726,61 @@
           );
 
 
-        headers =
+        const headers =
           parseLine(
             lines[0],
             delimiter
           );
 
 
-        rawRows = [];
+        const indexes = {};
+
+
+        for (
+          const [
+            key,
+            wanted
+          ] of expectedColumns
+        ) {
+
+          indexes[key] =
+            headers.findIndex(
+              header =>
+                normaliseHeader(
+                  header
+                ) ===
+                normaliseHeader(
+                  wanted
+                )
+            );
+
+        }
+
+
+        const missing =
+          expectedColumns
+            .filter(
+              ([key]) =>
+                indexes[key] === -1
+            )
+            .map(
+              ([, wanted]) =>
+                wanted
+            );
+
+
+        if (
+          missing.length > 0
+        ) {
+
+          showMessage(
+            "Wrong file structure. Missing: " +
+            missing.join(", "),
+            "error-message"
+          );
+
+          return;
+        }
 
 
         for (
@@ -848,202 +789,258 @@
           i++
         ) {
 
-          const row =
+          const values =
             parseLine(
               lines[i],
               delimiter
             );
 
 
-          if (
-            row.some(
-              value =>
-                cleanText(value) !== ""
-            )
-          ) {
+          pricingRows.push({
 
-            rawRows.push(row);
-          }
+            barcode:
+              clean(
+                values[
+                  indexes.barcode
+                ]
+              ),
+
+            description:
+              clean(
+                values[
+                  indexes.description
+                ]
+              ),
+
+            productCode:
+              clean(
+                values[
+                  indexes.productCode
+                ]
+              ),
+
+            price:
+              parsePrice(
+                values[
+                  indexes.price
+                ]
+              ),
+
+            promoOffer:
+              clean(
+                values[
+                  indexes.promoOffer
+                ]
+              ),
+
+            pricePer:
+              clean(
+                values[
+                  indexes.pricePer
+                ]
+              )
+
+          });
+
         }
 
 
-        const barcodeIndex =
-          findColumn([
-            "barcode",
-            "ean",
-            "ean13",
-            "upc"
-          ]);
+        const fileInfo =
+          document.getElementById(
+            "fileInfo"
+          );
 
 
-        const descriptionIndex =
-          findColumn([
-            "description",
-            "product description",
-            "product name",
-            "name"
-          ]);
+        fileInfo.innerHTML =
+          "<strong>File:</strong> " +
+          escapeHtml(
+            file.name
+          ) +
+          "<br><strong>Records read:</strong> " +
+          pricingRows.length.toLocaleString() +
+          "<br><strong>Delimiter:</strong> " +
+          (
+            delimiter === "\t"
+              ? "TAB"
+              : escapeHtml(
+                  delimiter
+                )
+          );
 
 
-        const productCodeIndex =
-          findColumn([
-            "product code",
-            "productcode",
-            "item code",
-            "itemcode",
-            "sku",
-            "code"
-          ]);
+        fileInfo.style.display =
+          "block";
 
 
-        const priceIndex =
-          findColumn([
-            "pricing",
-            "price",
-            "selling price",
-            "sell price",
-            "retail price"
-          ]);
-
-
-        const promoIndex =
-          findColumn([
-            "promo offers",
-            "promo offer",
-            "promo",
-            "offer",
-            "promotion",
-            "promotional offer"
-          ]);
-
-
-        fillSelect(
-          "barcodeColumn",
-          barcodeIndex >= 0
-            ? barcodeIndex
-            : 0
-        );
-
-
-        fillSelect(
-          "descriptionColumn",
-          descriptionIndex >= 0
-            ? descriptionIndex
-            : 1
-        );
-
-
-        fillSelect(
-          "productCodeColumn",
-          productCodeIndex >= 0
-            ? productCodeIndex
-            : 2
-        );
-
-
-        fillSelect(
-          "priceColumn",
-          priceIndex >= 0
-            ? priceIndex
-            : 3
-        );
-
-
-        fillSelect(
-          "promoColumn",
-          promoIndex >= 0
-            ? promoIndex
-            : 4
-        );
-
-
-        document
-          .getElementById("columnCard")
-          .style.display = "block";
-
-
-        document
-          .getElementById("previewCard")
-          .style.display = "none";
-
-
-        showMessage(
-          `${rawRows.length.toLocaleString()} records loaded. Check the columns below.`,
-          "success"
-        );
+        validateFile();
 
 
       } catch (error) {
 
         console.error(error);
 
+
         showMessage(
-          "Could not read the file.",
-          "error"
+          "Could not read the pricing file.",
+          "error-message"
         );
+
       }
+
     }
 
 
-    function previewPricing() {
+    function validateFile() {
+
+      const barcodeCounts =
+        new Map();
+
+
+      pricingRows.forEach(
+        row => {
+
+          if (
+            row.barcode
+          ) {
+
+            barcodeCounts.set(
+              row.barcode,
+              (
+                barcodeCounts.get(
+                  row.barcode
+                ) || 0
+              ) + 1
+            );
+
+          }
+
+        }
+      );
+
+
+      let valid =
+        0;
+
+      let invalid =
+        0;
+
+      let duplicateRows =
+        0;
+
+
+      pricingRows.forEach(
+        row => {
+
+          row.duplicate =
+            (
+              barcodeCounts.get(
+                row.barcode
+              ) || 0
+            ) > 1;
+
+
+          row.valid =
+            row.barcode !== "" &&
+            row.description !== "" &&
+            row.price !== null;
+
+
+          if (
+            row.valid
+          ) {
+
+            valid++;
+
+          } else {
+
+            invalid++;
+
+          }
+
+
+          if (
+            row.duplicate
+          ) {
+
+            duplicateRows++;
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        "totalRecords"
+      ).textContent =
+        pricingRows.length.toLocaleString();
+
+
+      document.getElementById(
+        "validRecords"
+      ).textContent =
+        valid.toLocaleString();
+
+
+      document.getElementById(
+        "duplicateRecords"
+      ).textContent =
+        duplicateRows.toLocaleString();
+
+
+      document.getElementById(
+        "invalidRecords"
+      ).textContent =
+        invalid.toLocaleString();
+
+
+      renderPreview();
+
+
+      document.getElementById(
+        "previewCard"
+      ).style.display =
+        "block";
+
 
       if (
-        !rawRows.length ||
-        !headers.length
+        invalid > 0
       ) {
 
         showMessage(
-          "Please select a pricing file first.",
-          "error"
+          invalid.toLocaleString() +
+          " invalid record(s) found. Nothing has been uploaded.",
+          "error-message"
         );
 
-        return;
+      } else if (
+        duplicateRows > 0
+      ) {
+
+        showMessage(
+          "All " +
+          valid.toLocaleString() +
+          " records passed basic validation. " +
+          duplicateRows.toLocaleString() +
+          " duplicate barcode row(s) detected.",
+          "warning"
+        );
+
+      } else {
+
+        showMessage(
+          "All " +
+          valid.toLocaleString() +
+          " records passed basic validation.",
+          "success"
+        );
+
       }
 
-
-      const barcodeIndex =
-        Number(
-          document.getElementById(
-            "barcodeColumn"
-          ).value
-        );
+    }
 
 
-      const descriptionIndex =
-        Number(
-          document.getElementById(
-            "descriptionColumn"
-          ).value
-        );
-
-
-      const productCodeIndex =
-        Number(
-          document.getElementById(
-            "productCodeColumn"
-          ).value
-        );
-
-
-      const priceIndex =
-        Number(
-          document.getElementById(
-            "priceColumn"
-          ).value
-        );
-
-
-      const promoIndex =
-        Number(
-          document.getElementById(
-            "promoColumn"
-          ).value
-        );
-
-
-      const previewRows =
-        rawRows.slice(0, 20);
-
+    function renderPreview() {
 
       const body =
         document.getElementById(
@@ -1054,146 +1051,104 @@
       body.innerHTML = "";
 
 
-      let valid = 0;
-      let invalid = 0;
+      const previewRows =
+        pricingRows.slice(
+          0,
+          20
+        );
 
 
-      previewRows.forEach(row => {
+      previewRows.forEach(
+        row => {
 
-        const barcode =
-          cleanText(
-            row[barcodeIndex] || ""
+          let status;
+
+
+          if (
+            !row.valid
+          ) {
+
+            status =
+              '<span class="badge invalid">INVALID</span>';
+
+          } else if (
+            row.duplicate
+          ) {
+
+            status =
+              '<span class="badge duplicate">DUPLICATE</span>';
+
+          } else {
+
+            status =
+              '<span class="badge">VALID</span>';
+
+          }
+
+
+          const tr =
+            document.createElement(
+              "tr"
+            );
+
+
+          tr.innerHTML = `
+
+            <td>
+              ${escapeHtml(
+                row.barcode
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                row.description
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                row.productCode ||
+                "-"
+              )}
+            </td>
+
+            <td class="price">
+              ${
+                row.price === null
+                  ? "INVALID"
+                  : "£" +
+                    row.price.toFixed(2)
+              }
+            </td>
+
+            <td class="promo">
+              ${escapeHtml(
+                row.promoOffer ||
+                "-"
+              )}
+            </td>
+
+            <td>
+              ${status}
+            </td>
+
+          `;
+
+
+          body.appendChild(
+            tr
           );
 
-
-        const description =
-          cleanText(
-            row[descriptionIndex] || ""
-          );
-
-
-        const productCode =
-          cleanText(
-            row[productCodeIndex] || ""
-          );
-
-
-        const price =
-          cleanPrice(
-            row[priceIndex] || ""
-          );
-
-
-        const promo =
-          cleanText(
-            row[promoIndex] || ""
-          );
-
-
-        const isValid =
-          barcode !== "" &&
-          description !== "" &&
-          price !== null;
-
-
-        if (isValid) {
-          valid++;
-        } else {
-          invalid++;
         }
-
-
-        const tr =
-          document.createElement("tr");
-
-
-        tr.innerHTML = `
-
-          <td>
-            ${escapeHtml(barcode)}
-          </td>
-
-          <td>
-            ${escapeHtml(description)}
-          </td>
-
-          <td>
-            ${escapeHtml(productCode || "-")}
-          </td>
-
-          <td class="price">
-            ${
-              price !== null
-                ? "£" + price.toFixed(2)
-                : "INVALID"
-            }
-          </td>
-
-          <td class="promo">
-            ${escapeHtml(promo || "-")}
-          </td>
-
-        `;
-
-
-        body.appendChild(tr);
-
-      });
-
-
-      document.getElementById(
-        "totalRecords"
-      ).textContent =
-        rawRows.length.toLocaleString();
-
-
-      document.getElementById(
-        "validRecords"
-      ).textContent =
-        valid;
-
-
-      document.getElementById(
-        "invalidRecords"
-      ).textContent =
-        invalid;
-
-
-      document.getElementById(
-        "previewCard"
-      ).style.display = "block";
-
-
-      showMessage(
-        "Preview created successfully.",
-        "success"
       );
-    }
 
-
-    function escapeHtml(value) {
-
-      if (
-        value === null ||
-        value === undefined
-      ) {
-        return "";
-      }
-
-
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
     }
 
 
     function clearFile() {
 
-      rawRows = [];
-      headers = [];
+      pricingRows = [];
 
 
       document.getElementById(
@@ -1202,18 +1157,22 @@
 
 
       document.getElementById(
-        "columnCard"
-      ).style.display = "none";
+        "previewCard"
+      ).style.display =
+        "none";
 
 
       document.getElementById(
-        "previewCard"
-      ).style.display = "none";
+        "fileInfo"
+      ).style.display =
+        "none";
 
 
       document.getElementById(
         "message"
-      ).style.display = "none";
+      ).style.display =
+        "none";
+
     }
 
   </script>

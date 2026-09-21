@@ -171,7 +171,7 @@
 </div>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
   /*
@@ -181,25 +181,73 @@
     in the next stages.
   */
 
-  const products = {
-    "5012345678901": {
-      name: "Example Product",
-      price: "£2.50"
-    }
-  };
+  const SUPABASE_URL = "YOUR_PROJECT_URL";
+const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
 
+  const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
   let scanner = null;
 
-  function searchBarcode(code) {
+  async function searchBarcode(code) {
 
-    code = String(code).trim();
+  code = String(code).trim();
 
-    const result = document.getElementById("result");
+  const result = document.getElementById("result");
 
-    if (!code) {
-      result.innerHTML = "";
-      return;
-    }
+  if (!code) {
+    result.innerHTML = "";
+    return;
+  }
+
+  result.innerHTML = `
+    <div class="result">
+      <h2>Checking price...</h2>
+    </div>
+  `;
+
+  const { data, error } = await supabase
+    .from("products")
+    .select("barcode, name, price")
+    .eq("barcode", code)
+    .maybeSingle();
+
+  if (error) {
+
+    console.error(error);
+
+    result.innerHTML = `
+      <div class="not-found">
+        <h2>Database error</h2>
+        <p>Please try again.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  if (data) {
+
+    result.innerHTML = `
+      <div class="result">
+        <h2>${escapeHtml(data.name)}</h2>
+        <div>Barcode: ${escapeHtml(data.barcode)}</div>
+        <div class="price">£${escapeHtml(data.price)}</div>
+      </div>
+    `;
+
+  } else {
+
+    result.innerHTML = `
+      <div class="not-found">
+        <h2>Product not found</h2>
+        <p>Barcode: ${escapeHtml(code)}</p>
+      </div>
+    `;
+
+  }
+}
 
     const product = products[code];
 
@@ -225,7 +273,78 @@
     }
   }
 
-  function searchBarcode() {
+  async function searchBarcode(code) {
+
+  code = String(code).trim();
+
+  const result = document.getElementById("result");
+
+  if (!code) {
+    result.innerHTML = "";
+    return;
+  }
+
+  result.innerHTML = `
+    <div class="result">
+      <h2>Checking price...</h2>
+    </div>
+  `;
+
+  try {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("barcode, name, price")
+      .eq("barcode", code)
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+
+      result.innerHTML = `
+        <div class="not-found">
+          <h2>Database error</h2>
+          <p>Please try again.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+    if (data) {
+
+      result.innerHTML = `
+        <div class="result">
+          <h2>${escapeHtml(data.name)}</h2>
+          <div>Barcode: ${escapeHtml(data.barcode)}</div>
+          <div class="price">£${escapeHtml(data.price)}</div>
+        </div>
+      `;
+
+    } else {
+
+      result.innerHTML = `
+        <div class="not-found">
+          <h2>Product not found</h2>
+          <p>Barcode: ${escapeHtml(code)}</p>
+        </div>
+      `;
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    result.innerHTML = `
+      <div class="not-found">
+        <h2>Something went wrong</h2>
+        <p>Please try again.</p>
+      </div>
+    `;
+
+  }
+}
 
     const code = document.getElementById("barcodeInput").value;
 

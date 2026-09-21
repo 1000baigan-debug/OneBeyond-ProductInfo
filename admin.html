@@ -829,17 +829,18 @@ function parsePrice(value) {
 
 function parseLine(line, delimiter) {
 
-  const result = [];
+  // Avery pricing files use TAB separators.
+  // Quotation marks can appear normally inside
+  // product descriptions, for example:
+  // DOUBLE ENDED HOOK - 4" (100MM)
+  //
+  // Therefore, do not treat a quotation mark as
+  // a field boundary.
 
-  let current = "";
-  let insideQuotes = false;
-
-  for (
-    let i = 0;
-    i < line.length;
-    i++
-  ) {
-
+  return line
+    .split(delimiter)
+    .map(value => clean(value));
+}
     const character = line[i];
     const next = line[i + 1];
 

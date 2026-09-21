@@ -57,6 +57,57 @@
       font-size: 20px;
     }
 
+    .login-card {
+      max-width: 500px;
+      margin: 40px auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin-top: 8px;
+      margin-bottom: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    button {
+      border: none;
+      border-radius: 9px;
+      padding: 14px 18px;
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .login-button {
+      background: #0057b8;
+      color: white;
+    }
+
+    .upload-button {
+      background: #ffd500;
+      color: #111;
+    }
+
+    .clear-button {
+      background: #222;
+      color: white;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .upload-box {
       border: 2px dashed #0057b8;
       border-radius: 12px;
@@ -66,11 +117,6 @@
     }
 
     input[type="file"] {
-      width: 100%;
-      margin-top: 15px;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
       background: white;
     }
 
@@ -95,12 +141,16 @@
       margin-bottom: 4px;
     }
 
-    .stat.warning {
+    .warning-stat {
       background: #d49b00;
     }
 
-    .stat.error {
+    .error-stat {
       background: #b00020;
+    }
+
+    .success-stat {
+      background: #197b30;
     }
 
     .table-wrapper {
@@ -148,6 +198,7 @@
       padding: 14px;
       border-radius: 9px;
       font-weight: 700;
+      line-height: 1.5;
     }
 
     .success {
@@ -155,7 +206,7 @@
       color: #176b17;
     }
 
-    .error-message {
+    .error {
       background: #ffe2e2;
       color: #a00000;
     }
@@ -186,6 +237,53 @@
       line-height: 1.6;
     }
 
+    .progress-container {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .progress-bar-background {
+      width: 100%;
+      height: 25px;
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #0057b8;
+      transition: width 0.2s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: 8px;
+      font-weight: 700;
+    }
+
+    .user-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 15px;
+      background: #e8f1ff;
+      border-radius: 9px;
+      font-size: 14px;
+    }
+
+    .logout-button {
+      width: auto;
+      margin: 0;
+      padding: 8px 13px;
+      background: #222;
+      color: white;
+      font-size: 13px;
+    }
+
     .badge {
       display: inline-block;
       padding: 5px 9px;
@@ -206,22 +304,6 @@
       color: #a00000;
     }
 
-    button {
-      border: none;
-      border-radius: 9px;
-      padding: 14px 18px;
-      margin-top: 18px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .clear-button {
-      background: #222;
-      color: white;
-    }
-
     @media (max-width: 800px) {
       .stats {
         grid-template-columns: repeat(2, 1fr);
@@ -236,6 +318,15 @@
       .header h1 {
         font-size: 23px;
       }
+
+      .user-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .logout-button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -247,11 +338,99 @@
     <p>Weekly Price Updates</p>
   </div>
 
-  <div class="container">
+
+  <!-- LOGIN -->
+
+  <div
+    id="loginSection"
+    class="container"
+  >
+
+    <div class="card login-card">
+
+      <h2>Admin Login</h2>
+
+      <div class="small">
+        Sign in to update the weekly product pricing.
+      </div>
+
+      <br>
+
+      <label for="email">
+        Email
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="Admin email"
+        autocomplete="username"
+      >
+
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+
+
+      <button
+        id="loginButton"
+        class="login-button"
+        onclick="login()"
+      >
+        Sign In
+      </button>
+
+
+      <div
+        id="loginMessage"
+        class="message"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ADMIN -->
+
+  <div
+    id="adminSection"
+    class="container"
+    style="display:none;"
+  >
+
+    <div class="user-bar">
+
+      <div>
+        Logged in as:
+        <strong id="loggedInEmail"></strong>
+      </div>
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        Sign Out
+      </button>
+
+    </div>
+
+
+    <!-- UPLOAD -->
 
     <div class="card">
 
-      <h2>Upload Weekly Pricing File</h2>
+      <h2>
+        Upload Weekly Pricing File
+      </h2>
 
       <div class="upload-box">
 
@@ -261,7 +440,8 @@
 
         <div class="small">
           Expected columns:
-          Barcode, Description, Product Code, Price, PromoOffer, PricePer
+          Barcode, Description, Product Code,
+          Price, PromoOffer, PricePer
         </div>
 
         <input
@@ -272,18 +452,56 @@
 
       </div>
 
+
       <div
         id="fileInfo"
         class="file-info"
       ></div>
+
 
       <div
         id="message"
         class="message"
       ></div>
 
+
+      <button
+        id="uploadButton"
+        class="upload-button"
+        onclick="uploadToSupabase()"
+        disabled
+      >
+        Upload Pricing to Database
+      </button>
+
+
+      <div
+        id="progressContainer"
+        class="progress-container"
+      >
+
+        <div class="progress-bar-background">
+
+          <div
+            id="progressBar"
+            class="progress-bar"
+          ></div>
+
+        </div>
+
+        <div
+          id="progressText"
+          class="progress-text"
+        >
+          Preparing upload...
+        </div>
+
+      </div>
+
     </div>
 
+
+    <!-- RESULTS -->
 
     <div
       id="previewCard"
@@ -295,25 +513,37 @@
         Pricing File Check
       </h2>
 
+
       <div class="stats">
 
         <div class="stat">
-          <strong id="totalRecords">0</strong>
+          <strong id="totalRecords">
+            0
+          </strong>
           Total Records
         </div>
 
-        <div class="stat">
-          <strong id="validRecords">0</strong>
+
+        <div class="stat success-stat">
+          <strong id="validRecords">
+            0
+          </strong>
           Valid Records
         </div>
 
-        <div class="stat warning">
-          <strong id="duplicateRecords">0</strong>
-          Duplicate Barcodes
+
+        <div class="stat warning-stat">
+          <strong id="duplicateRecords">
+            0
+          </strong>
+          Duplicate Barcode Rows
         </div>
 
-        <div class="stat error">
-          <strong id="invalidRecords">0</strong>
+
+        <div class="stat error-stat">
+          <strong id="invalidRecords">
+            0
+          </strong>
           Invalid Records
         </div>
 
@@ -356,28 +586,298 @@
   </div>
 
 
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
   <script>
+
+    /* ==========================================
+       SUPABASE CONNECTION
+       ========================================== */
+
+    const SUPABASE_URL =
+      "https://nmfjavzrxghvklkjtfaq.supabase.co";
+
+
+    const SUPABASE_KEY =
+      "HIDDEN_KEY";
+
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    /* ==========================================
+       VARIABLES
+       ========================================== */
 
     let pricingRows = [];
 
+    let uploadRows = [];
+
+    const BATCH_SIZE = 500;
+
 
     const expectedColumns = [
+
       ["barcode", "Barcode"],
+
       ["description", "Description"],
+
       ["productCode", "Product Code"],
+
       ["price", "Price"],
+
       ["promoOffer", "PromoOffer"],
+
       ["pricePer", "PricePer"]
+
     ];
 
 
+    /* ==========================================
+       CHECK EXISTING LOGIN
+       ========================================== */
+
+    checkSession();
+
+
+    async function checkSession() {
+
+      const {
+        data
+      } =
+        await supabaseClient.auth.getSession();
+
+
+      if (
+        data &&
+        data.session
+      ) {
+
+        showAdmin(
+          data.session.user
+        );
+
+      }
+
+    }
+
+
+    /* ==========================================
+       LOGIN
+       ========================================== */
+
+    async function login() {
+
+      const email =
+        document.getElementById(
+          "email"
+        ).value.trim();
+
+
+      const password =
+        document.getElementById(
+          "password"
+        ).value;
+
+
+      if (
+        !email ||
+        !password
+      ) {
+
+        showLoginMessage(
+          "Please enter your email and password.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const button =
+        document.getElementById(
+          "loginButton"
+        );
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Signing In...";
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.signInWithPassword({
+
+          email:
+            email,
+
+          password:
+            password
+
+        });
+
+
+      button.disabled = false;
+
+      button.textContent =
+        "Sign In";
+
+
+      if (error) {
+
+        console.error(error);
+
+
+        showLoginMessage(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showAdmin(
+        data.user
+      );
+
+    }
+
+
+    /* ==========================================
+       SHOW ADMIN
+       ========================================== */
+
+    function showAdmin(user) {
+
+      document.getElementById(
+        "loginSection"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "adminSection"
+      ).style.display =
+        "block";
+
+
+      document.getElementById(
+        "loggedInEmail"
+      ).textContent =
+        user.email || "";
+
+    }
+
+
+    /* ==========================================
+       LOGOUT
+       ========================================== */
+
+    async function logout() {
+
+      await supabaseClient.auth.signOut();
+
+
+      document.getElementById(
+        "adminSection"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "loginSection"
+      ).style.display =
+        "block";
+
+
+      clearFile();
+
+    }
+
+
+    /* ==========================================
+       MESSAGES
+       ========================================== */
+
+    function showLoginMessage(
+      text,
+      type
+    ) {
+
+      const box =
+        document.getElementById(
+          "loginMessage"
+        );
+
+
+      box.textContent =
+        text;
+
+
+      box.className =
+        "message " + type;
+
+
+      box.style.display =
+        "block";
+
+    }
+
+
+    function showMessage(
+      text,
+      type
+    ) {
+
+      const box =
+        document.getElementById(
+          "message"
+        );
+
+
+      box.textContent =
+        text;
+
+
+      box.className =
+        "message " + type;
+
+
+      box.style.display =
+        "block";
+
+    }
+
+
+    /* ==========================================
+       FILE INPUT
+       ========================================== */
+
     document
-      .getElementById("fileInput")
+      .getElementById(
+        "fileInput"
+      )
       .addEventListener(
         "change",
         handleFile
       );
 
+
+    /* ==========================================
+       CLEAN TEXT
+       ========================================== */
 
     function clean(value) {
 
@@ -385,33 +885,75 @@
         value === null ||
         value === undefined
       ) {
+
         return "";
+
       }
 
-      return String(value).trim();
+
+      return String(
+        value
+      ).trim();
+
     }
 
 
-    function normaliseHeader(value) {
+    /* ==========================================
+       NORMALISE HEADER
+       ========================================== */
+
+    function normaliseHeader(
+      value
+    ) {
 
       return clean(value)
-        .replace(/^\uFEFF/, "")
+
+        .replace(
+          /^\uFEFF/,
+          ""
+        )
+
         .toLowerCase()
-        .replace(/\s+/g, "")
-        .replace(/_/g, "");
+
+        .replace(
+          /\s+/g,
+          ""
+        )
+
+        .replace(
+          /_/g,
+          ""
+        );
+
     }
 
 
-    function parsePrice(value) {
+    /* ==========================================
+       PRICE
+       ========================================== */
+
+    function parsePrice(
+      value
+    ) {
 
       let text =
         clean(value)
-          .replace(/£/g, "")
-          .replace(/\s/g, "");
+
+          .replace(
+            /£/g,
+            ""
+          )
+
+          .replace(
+            /\s/g,
+            ""
+          );
 
 
       if (!text) {
+
         return null;
+
       }
 
 
@@ -427,13 +969,22 @@
 
           text =
             text
-              .replace(/\./g, "")
-              .replace(",", ".");
+              .replace(
+                /\./g,
+                ""
+              )
+              .replace(
+                ",",
+                "."
+              );
 
         } else {
 
           text =
-            text.replace(/,/g, "");
+            text.replace(
+              /,/g,
+              ""
+            );
 
         }
 
@@ -458,7 +1009,10 @@
         } else {
 
           text =
-            text.replace(/,/g, "");
+            text.replace(
+              /,/g,
+              ""
+            );
 
         }
 
@@ -474,11 +1028,25 @@
         );
 
 
-      return Number.isFinite(number)
-        ? number
-        : null;
+      if (
+        !Number.isFinite(
+          number
+        )
+      ) {
+
+        return null;
+
+      }
+
+
+      return number;
+
     }
 
+
+    /* ==========================================
+       PARSE LINE
+       ========================================== */
 
     function parseLine(
       line,
@@ -489,7 +1057,8 @@
 
       let current = "";
 
-      let insideQuotes = false;
+      let insideQuotes =
+        false;
 
 
       for (
@@ -500,6 +1069,7 @@
 
         const character =
           line[i];
+
 
         const next =
           line[i + 1];
@@ -515,6 +1085,7 @@
           i++;
 
           continue;
+
         }
 
 
@@ -526,6 +1097,7 @@
             !insideQuotes;
 
           continue;
+
         }
 
 
@@ -535,56 +1107,81 @@
         ) {
 
           result.push(
-            clean(current)
+            clean(
+              current
+            )
           );
 
           current = "";
 
           continue;
+
         }
 
 
-        current += character;
+        current +=
+          character;
 
       }
 
 
       result.push(
-        clean(current)
+        clean(
+          current
+        )
       );
 
 
       return result;
+
     }
 
 
-    function detectDelimiter(line) {
+    /* ==========================================
+       DELIMITER
+       ========================================== */
+
+    function detectDelimiter(
+      line
+    ) {
 
       const delimiters = [
+
         "\t",
+
         "|",
+
         ",",
+
         ";"
+
       ];
 
 
       let best =
         "\t";
 
+
       let bestCount =
         -1;
 
 
       for (
-        const delimiter of delimiters
+        const delimiter
+        of delimiters
       ) {
 
         const count =
-          line.split(delimiter).length - 1;
+          line
+            .split(
+              delimiter
+            )
+            .length - 1;
 
 
         if (
-          count > bestCount
+          count >
+          bestCount
         ) {
 
           bestCount =
@@ -599,83 +1196,84 @@
 
 
       return best;
+
     }
 
 
-    function escapeHtml(value) {
+    /* ==========================================
+       ESCAPE HTML
+       ========================================== */
+
+    function escapeHtml(
+      value
+    ) {
 
       return String(
         value ?? ""
       )
+
         .replace(
           /&/g,
           "&amp;"
         )
+
         .replace(
           /</g,
           "&lt;"
         )
+
         .replace(
           />/g,
           "&gt;"
         )
+
         .replace(
           /"/g,
           "&quot;"
         )
+
         .replace(
           /'/g,
           "&#039;"
         );
+
     }
 
 
-    function showMessage(
-      text,
-      type
+    /* ==========================================
+       READ FILE
+       ========================================== */
+
+    async function handleFile(
+      event
     ) {
-
-      const message =
-        document.getElementById(
-          "message"
-        );
-
-
-      message.textContent =
-        text;
-
-
-      message.className =
-        "message " + type;
-
-
-      message.style.display =
-        "block";
-    }
-
-
-    async function handleFile(event) {
 
       const file =
         event.target.files[0];
 
 
       if (!file) {
+
         return;
+
       }
 
 
       pricingRows = [];
 
+      uploadRows = [];
+
 
       document.getElementById(
         "previewCard"
-      ).style.display = "none";
+      ).style.display =
+        "none";
 
 
       document.getElementById(
-        "fileInfo"
-      ).style.display = "none";
+        "uploadButton"
+      ).disabled =
+        true;
 
 
       showMessage(
@@ -692,15 +1290,19 @@
 
         const lines =
           text
+
             .replace(
               /\r\n/g,
               "\n"
             )
+
             .replace(
               /\r/g,
               "\n"
             )
+
             .split("\n")
+
             .filter(
               line =>
                 line.trim() !== ""
@@ -713,10 +1315,11 @@
 
           showMessage(
             "The file does not contain enough data.",
-            "error-message"
+            "error"
           );
 
           return;
+
         }
 
 
@@ -740,7 +1343,8 @@
           const [
             key,
             wanted
-          ] of expectedColumns
+          ]
+          of expectedColumns
         ) {
 
           indexes[key] =
@@ -759,10 +1363,12 @@
 
         const missing =
           expectedColumns
+
             .filter(
               ([key]) =>
                 indexes[key] === -1
             )
+
             .map(
               ([, wanted]) =>
                 wanted
@@ -770,16 +1376,17 @@
 
 
         if (
-          missing.length > 0
+          missing.length
         ) {
 
           showMessage(
             "Wrong file structure. Missing: " +
             missing.join(", "),
-            "error-message"
+            "error"
           );
 
           return;
+
         }
 
 
@@ -852,13 +1459,21 @@
 
 
         fileInfo.innerHTML =
+
           "<strong>File:</strong> " +
+
           escapeHtml(
             file.name
           ) +
+
           "<br><strong>Records read:</strong> " +
-          pricingRows.length.toLocaleString() +
+
+          pricingRows
+            .length
+            .toLocaleString() +
+
           "<br><strong>Delimiter:</strong> " +
+
           (
             delimiter === "\t"
               ? "TAB"
@@ -875,20 +1490,28 @@
         validateFile();
 
 
-      } catch (error) {
+      } catch (
+        error
+      ) {
 
-        console.error(error);
+        console.error(
+          error
+        );
 
 
         showMessage(
           "Could not read the pricing file.",
-          "error-message"
+          "error"
         );
 
       }
 
     }
 
+
+    /* ==========================================
+       VALIDATE
+       ========================================== */
 
     function validateFile() {
 
@@ -904,12 +1527,15 @@
           ) {
 
             barcodeCounts.set(
+
               row.barcode,
+
               (
                 barcodeCounts.get(
                   row.barcode
                 ) || 0
               ) + 1
+
             );
 
           }
@@ -938,6 +1564,11 @@
               ) || 0
             ) > 1;
 
+
+          /*
+            IMPORTANT:
+            Price 0 is VALID.
+          */
 
           row.valid =
             row.barcode !== "" &&
@@ -973,25 +1604,30 @@
       document.getElementById(
         "totalRecords"
       ).textContent =
-        pricingRows.length.toLocaleString();
+        pricingRows
+          .length
+          .toLocaleString();
 
 
       document.getElementById(
         "validRecords"
       ).textContent =
-        valid.toLocaleString();
+        valid
+          .toLocaleString();
 
 
       document.getElementById(
         "duplicateRecords"
       ).textContent =
-        duplicateRows.toLocaleString();
+        duplicateRows
+          .toLocaleString();
 
 
       document.getElementById(
         "invalidRecords"
       ).textContent =
-        invalid.toLocaleString();
+        invalid
+          .toLocaleString();
 
 
       renderPreview();
@@ -1009,29 +1645,54 @@
 
         showMessage(
           invalid.toLocaleString() +
-          " invalid record(s) found. Nothing has been uploaded.",
-          "error-message"
+          " invalid record(s) found. Upload is disabled until the file is corrected.",
+          "error"
         );
 
-      } else if (
+
+        document.getElementById(
+          "uploadButton"
+        ).disabled =
+          true;
+
+
+        return;
+
+      }
+
+
+      uploadRows =
+        pricingRows.filter(
+          row =>
+            row.valid
+        );
+
+
+      document.getElementById(
+        "uploadButton"
+      ).disabled =
+        false;
+
+
+      if (
         duplicateRows > 0
       ) {
 
         showMessage(
-          "All " +
+          "File is ready. " +
           valid.toLocaleString() +
-          " records passed basic validation. " +
+          " valid records found. " +
           duplicateRows.toLocaleString() +
-          " duplicate barcode row(s) detected.",
+          " duplicate barcode rows detected and will be kept separately using the product code.",
           "warning"
         );
 
       } else {
 
         showMessage(
-          "All " +
+          "File is ready. " +
           valid.toLocaleString() +
-          " records passed basic validation.",
+          " records passed validation.",
           "success"
         );
 
@@ -1039,6 +1700,10 @@
 
     }
 
+
+    /* ==========================================
+       PREVIEW
+       ========================================== */
 
     function renderPreview() {
 
@@ -1048,112 +1713,394 @@
         );
 
 
-      body.innerHTML = "";
+      body.innerHTML =
+        "";
 
 
-      const previewRows =
-        pricingRows.slice(
+      pricingRows
+        .slice(
           0,
           20
+        )
+        .forEach(
+          row => {
+
+            let status;
+
+
+            if (
+              !row.valid
+            ) {
+
+              status =
+                '<span class="badge invalid">INVALID</span>';
+
+            } else if (
+              row.duplicate
+            ) {
+
+              status =
+                '<span class="badge duplicate">DUPLICATE</span>';
+
+            } else {
+
+              status =
+                '<span class="badge">VALID</span>';
+
+            }
+
+
+            const tr =
+              document.createElement(
+                "tr"
+              );
+
+
+            tr.innerHTML = `
+
+              <td>
+                ${escapeHtml(
+                  row.barcode
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  row.description
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  row.productCode ||
+                  "-"
+                )}
+              </td>
+
+              <td class="price">
+
+                £${
+                  row.price === null
+                    ? "INVALID"
+                    : row.price.toFixed(2)
+                }
+
+              </td>
+
+              <td class="promo">
+
+                ${escapeHtml(
+                  row.promoOffer ||
+                  "-"
+                )}
+
+              </td>
+
+              <td>
+                ${status}
+              </td>
+
+            `;
+
+
+            body.appendChild(
+              tr
+            );
+
+          }
+        );
+
+    }
+
+
+    /* ==========================================
+       CREATE DATABASE RECORD
+       ========================================== */
+
+    function databaseRecord(
+      row
+    ) {
+
+      return {
+
+        barcode:
+          row.barcode,
+
+        name:
+          row.description,
+
+        product_code:
+          row.productCode || null,
+
+        price:
+          row.price,
+
+        promo_offer:
+          row.promoOffer || null,
+
+        product_key:
+          row.barcode +
+          "|" +
+          (
+            row.productCode || ""
+          )
+
+      };
+
+    }
+
+
+    /* ==========================================
+       UPLOAD TO SUPABASE
+       ========================================== */
+
+    async function uploadToSupabase() {
+
+      if (
+        !uploadRows.length
+      ) {
+
+        showMessage(
+          "There are no valid records to upload.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const {
+        data: sessionData
+      } =
+        await supabaseClient.auth.getSession();
+
+
+      if (
+        !sessionData ||
+        !sessionData.session
+      ) {
+
+        showMessage(
+          "Your login session has expired. Please sign in again.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const uploadButton =
+        document.getElementById(
+          "uploadButton"
         );
 
 
-      previewRows.forEach(
-        row => {
+      uploadButton.disabled =
+        true;
 
-          let status;
+
+      document.getElementById(
+        "progressContainer"
+      ).style.display =
+        "block";
+
+
+      const total =
+        uploadRows.length;
+
+
+      const totalBatches =
+        Math.ceil(
+          total /
+          BATCH_SIZE
+        );
+
+
+      let uploaded =
+        0;
+
+
+      try {
+
+        for (
+          let start = 0;
+          start < total;
+          start += BATCH_SIZE
+        ) {
+
+          const batch =
+            uploadRows.slice(
+              start,
+              start +
+              BATCH_SIZE
+            );
+
+
+          const records =
+            batch.map(
+              databaseRecord
+            );
+
+
+          const {
+            error
+          } =
+            await supabaseClient
+
+              .from(
+                "products"
+              )
+
+              .upsert(
+                records,
+                {
+                  onConflict:
+                    "product_key",
+                  ignoreDuplicates:
+                    false
+                }
+              );
 
 
           if (
-            !row.valid
+            error
           ) {
 
-            status =
-              '<span class="badge invalid">INVALID</span>';
+            console.error(
+              error
+            );
 
-          } else if (
-            row.duplicate
-          ) {
 
-            status =
-              '<span class="badge duplicate">DUPLICATE</span>';
-
-          } else {
-
-            status =
-              '<span class="badge">VALID</span>';
+            throw error;
 
           }
 
 
-          const tr =
-            document.createElement(
-              "tr"
+          uploaded +=
+            batch.length;
+
+
+          const percent =
+            Math.round(
+              (
+                uploaded /
+                total
+              ) * 100
             );
 
 
-          tr.innerHTML = `
-
-            <td>
-              ${escapeHtml(
-                row.barcode
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                row.description
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                row.productCode ||
-                "-"
-              )}
-            </td>
-
-            <td class="price">
-              ${
-                row.price === null
-                  ? "INVALID"
-                  : "£" +
-                    row.price.toFixed(2)
-              }
-            </td>
-
-            <td class="promo">
-              ${escapeHtml(
-                row.promoOffer ||
-                "-"
-              )}
-            </td>
-
-            <td>
-              ${status}
-            </td>
-
-          `;
+          document.getElementById(
+            "progressBar"
+          ).style.width =
+            percent + "%";
 
 
-          body.appendChild(
-            tr
-          );
+          document.getElementById(
+            "progressText"
+          ).textContent =
+
+            "Uploading batch " +
+
+            Math.ceil(
+              uploaded /
+              BATCH_SIZE
+            ) +
+
+            " of " +
+
+            totalBatches +
+
+            " — " +
+
+            uploaded.toLocaleString() +
+
+            " / " +
+
+            total.toLocaleString() +
+
+            " products (" +
+
+            percent +
+
+            "%)";
 
         }
-      );
+
+
+        document.getElementById(
+          "progressBar"
+        ).style.width =
+          "100%";
+
+
+        document.getElementById(
+          "progressText"
+        ).textContent =
+          "Upload complete — " +
+          uploaded.toLocaleString() +
+          " products updated.";
+
+
+        showMessage(
+          "Weekly pricing upload completed successfully. " +
+          uploaded.toLocaleString() +
+          " products are now in the database.",
+          "success"
+        );
+
+
+      } catch (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+
+        showMessage(
+          "The upload stopped because Supabase returned an error: " +
+          (
+            error.message ||
+            "Unknown error"
+          ),
+          "error"
+        );
+
+
+        document.getElementById(
+          "progressText"
+        ).textContent =
+          "Upload stopped. " +
+          uploaded.toLocaleString() +
+          " products were uploaded before the error.";
+
+      }
+
+
+      uploadButton.disabled =
+        false;
 
     }
 
+
+    /* ==========================================
+       CLEAR
+       ========================================== */
 
     function clearFile() {
 
       pricingRows = [];
 
+      uploadRows = [];
+
 
       document.getElementById(
         "fileInput"
-      ).value = "";
+      ).value =
+        "";
 
 
       document.getElementById(
@@ -1172,6 +2119,24 @@
         "message"
       ).style.display =
         "none";
+
+
+      document.getElementById(
+        "uploadButton"
+      ).disabled =
+        true;
+
+
+      document.getElementById(
+        "progressContainer"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "progressBar"
+      ).style.width =
+        "0%";
 
     }
 

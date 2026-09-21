@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111111">
-  <title>One Beyond Weekly Price Updates</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>One Beyond - Weekly Price Update</title>
 
   <style>
     * {
@@ -13,149 +17,204 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f4f4;
       color: #111;
     }
 
-    .app {
-      max-width: 900px;
+    .header {
+      background: #0057b8;
+      color: white;
+      text-align: center;
+      padding: 22px 18px;
+      border-bottom: 7px solid #ffd500;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 27px;
+      font-weight: 900;
+    }
+
+    .header p {
+      margin: 7px 0 0;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1100px;
       margin: auto;
-      min-height: 100vh;
+      padding: 18px;
+    }
+
+    .card {
       background: white;
-      padding: 24px;
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 26px;
-    }
-
-    .subtitle {
-      color: #666;
-      margin-bottom: 25px;
-    }
-
-    .box {
-      border: 1px solid #ddd;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .box h2 {
+    h2 {
       margin-top: 0;
+      color: #0057b8;
       font-size: 20px;
+    }
+
+    .upload-box {
+      border: 2px dashed #0057b8;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      background: #f8fbff;
     }
 
     input[type="file"] {
       width: 100%;
-      padding: 15px;
+      margin-top: 15px;
+      padding: 12px;
       border: 1px solid #ccc;
-      border-radius: 10px;
+      border-radius: 8px;
       background: white;
     }
 
     .columns {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      gap: 14px;
+      margin-top: 20px;
     }
 
-    label {
+    .column-box {
+      background: #f7f7f7;
+      padding: 14px;
+      border-radius: 10px;
+    }
+
+    .column-box label {
       display: block;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 7px;
     }
 
     select {
       width: 100%;
-      padding: 13px;
+      padding: 12px;
       border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
+      border-radius: 8px;
       background: white;
+      font-size: 15px;
     }
 
     button {
-      border: 0;
-      border-radius: 12px;
-      padding: 15px 20px;
+      border: none;
+      border-radius: 9px;
+      padding: 14px 18px;
+      margin-top: 18px;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
     }
 
     .preview-button {
-      background: #111;
+      background: #ffd500;
+      color: #111;
+      width: 100%;
+    }
+
+    .clear-button {
+      background: #222;
       color: white;
       width: 100%;
-      margin-top: 20px;
     }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin: 20px 0;
+      margin-top: 18px;
     }
 
     .stat {
-      background: #f1f1f1;
-      border-radius: 12px;
-      padding: 15px;
+      background: #0057b8;
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
       text-align: center;
     }
 
     .stat strong {
       display: block;
       font-size: 25px;
-      margin-top: 5px;
+      margin-bottom: 4px;
     }
 
     .table-wrapper {
       overflow-x: auto;
-      border: 1px solid #ddd;
-      border-radius: 12px;
+      margin-top: 18px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 600px;
-    }
-
-    th,
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-      white-space: nowrap;
+      min-width: 850px;
     }
 
     th {
-      background: #111;
+      background: #0057b8;
       color: white;
+      padding: 11px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+      background: #f8f8f8;
     }
 
     .price {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .promo {
       font-weight: 700;
     }
 
-    .error {
-      color: #b00020;
-      background: #ffe5e5;
-      padding: 15px;
-      border-radius: 10px;
+    .message {
+      display: none;
       margin-top: 15px;
+      padding: 14px;
+      border-radius: 9px;
+      font-weight: 700;
     }
 
     .success {
-      color: #155724;
-      background: #d4edda;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
+      background: #e4f7e4;
+      color: #176b17;
+    }
+
+    .error {
+      background: #ffe2e2;
+      color: #a00000;
+    }
+
+    .warning {
+      background: #fff5cc;
+      color: #765c00;
+    }
+
+    .small {
+      color: #666;
+      font-size: 13px;
+      margin-top: 8px;
     }
 
     @media (max-width: 700px) {
@@ -168,129 +227,153 @@
         grid-template-columns: 1fr;
       }
 
-      .app {
-        padding: 16px;
+      .header h1 {
+        font-size: 23px;
       }
-
     }
   </style>
 </head>
 
 <body>
 
-<div class="app">
-
-  <h1>ONE BEYOND WEEKLY PRICE UPDATES</h1>
-
-  <div class="subtitle">
-    Upload the weekly TXT pricing file and preview the products.
+  <div class="header">
+    <h1>ONE BEYOND</h1>
+    <p>Weekly Price Updates</p>
   </div>
 
+  <div class="container">
 
-  <!-- FILE -->
+    <div class="card">
 
-  <div class="box">
+      <h2>Update the TXT file</h2>
 
-    <h2>1. Upload TXT File</h2>
+      <div class="upload-box">
 
-    <input
-      id="fileInput"
-      type="file"
-      accept=".txt,.csv"
-    >
+        <strong>
+          Select your weekly pricing TXT file
+        </strong>
 
-    <div id="fileInfo"></div>
+        <div class="small">
+          The file should contain Barcode, Description,
+          Product Code, Pricing and Promo Offers.
+        </div>
 
-  </div>
-
-
-  <!-- COLUMNS -->
-
-  <div class="box">
-
-    <h2>2. Check Columns</h2>
-
-    <div class="columns">
-
-      <div>
-
-        <label for="barcodeColumn">
-          Barcode Column
-        </label>
-
-        <select id="barcodeColumn"></select>
+        <input
+          id="fileInput"
+          type="file"
+          accept=".txt,.csv"
+        >
 
       </div>
 
-
-      <div>
-
-        <label for="nameColumn">
-          Product Name Column
-        </label>
-
-        <select id="nameColumn"></select>
-
-      </div>
-
-
-      <div>
-
-        <label for="priceColumn">
-          Price Column
-        </label>
-
-        <select id="priceColumn"></select>
-
-      </div>
+      <div id="message" class="message"></div>
 
     </div>
 
 
-    <button
-      class="preview-button"
-      onclick="previewPricing()"
+    <div
+      id="columnCard"
+      class="card"
+      style="display:none;"
     >
-      Preview Pricing
-    </button>
 
-  </div>
+      <h2>Check the columns</h2>
 
+      <div class="columns">
 
-  <!-- RESULTS -->
+        <div class="column-box">
 
-  <div
-    id="results"
-    style="display:none;"
-  >
+          <label for="barcodeColumn">
+            Barcode
+          </label>
 
-    <div class="box">
+          <select id="barcodeColumn"></select>
 
-      <h2>3. Preview Pricing</h2>
-
-      <div class="stats">
-
-        <div class="stat">
-          Total Records
-          <strong id="totalRecords">0</strong>
         </div>
 
-        <div class="stat">
-          Preview Valid
-          <strong id="validRecords">0</strong>
+
+        <div class="column-box">
+
+          <label for="descriptionColumn">
+            Description
+          </label>
+
+          <select id="descriptionColumn"></select>
+
         </div>
 
-        <div class="stat">
-          Preview Invalid
-          <strong id="invalidRecords">0</strong>
+
+        <div class="column-box">
+
+          <label for="productCodeColumn">
+            Product Code
+          </label>
+
+          <select id="productCodeColumn"></select>
+
+        </div>
+
+
+        <div class="column-box">
+
+          <label for="priceColumn">
+            Pricing
+          </label>
+
+          <select id="priceColumn"></select>
+
+        </div>
+
+
+        <div class="column-box">
+
+          <label for="promoColumn">
+            Promo Offers
+          </label>
+
+          <select id="promoColumn"></select>
+
         </div>
 
       </div>
 
 
-      <div
-        id="message"
-      ></div>
+      <button
+        class="preview-button"
+        onclick="previewPricing()"
+      >
+        Preview Pricing
+      </button>
+
+    </div>
+
+
+    <div
+      id="previewCard"
+      class="card"
+      style="display:none;"
+    >
+
+      <h2>Pricing Preview</h2>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong id="totalRecords">0</strong>
+          Total Records
+        </div>
+
+        <div class="stat">
+          <strong id="validRecords">0</strong>
+          Valid Preview
+        </div>
+
+        <div class="stat">
+          <strong id="invalidRecords">0</strong>
+          Invalid Preview
+        </div>
+
+      </div>
 
 
       <div class="table-wrapper">
@@ -301,8 +384,10 @@
 
             <tr>
               <th>Barcode</th>
-              <th>Product Name</th>
-              <th>Price</th>
+              <th>Description</th>
+              <th>Product Code</th>
+              <th>Pricing</th>
+              <th>Promo Offer</th>
             </tr>
 
           </thead>
@@ -313,387 +398,350 @@
 
       </div>
 
+      <button
+        class="clear-button"
+        onclick="clearFile()"
+      >
+        Clear File
+      </button>
+
     </div>
 
   </div>
 
-</div>
+
+  <script>
+
+    let rawRows = [];
+    let headers = [];
 
 
-<script>
+    function showMessage(text, type) {
 
-  let fileText = "";
-  let rows = [];
-  let headers = [];
+      const message =
+        document.getElementById("message");
+
+      message.textContent = text;
+
+      message.className =
+        "message " + type;
+
+      message.style.display = "block";
+    }
 
 
-  /* =========================
-     FILE UPLOAD
-     ========================= */
+    function cleanText(value) {
 
-  document
-    .getElementById("fileInput")
-    .addEventListener("change", function(event) {
-
-      const file = event.target.files[0];
-
-      if (!file) {
-        return;
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
       }
 
-
-      const reader = new FileReader();
-
-
-      reader.onload = function(e) {
-
-        fileText = e.target.result;
-
-        parseFile();
-
-      };
-
-
-      reader.onerror = function() {
-
-        alert(
-          "Unable to read the file."
-        );
-
-      };
-
-
-      reader.readAsText(file);
-
-    });
-
-
-  /* =========================
-     CLEAN FIELD
-     ========================= */
-
-  function cleanField(value) {
-
-    if (value === undefined || value === null) {
-      return "";
-    }
-
-
-    let text = String(value).trim();
-
-
-    /*
-      Remove surrounding quotation marks.
-    */
-
-    if (
-      text.length >= 2 &&
-      (
-        (text.startsWith('"') && text.endsWith('"')) ||
-        (text.startsWith("'") && text.endsWith("'"))
-      )
-    ) {
-
-      text = text.substring(
-        1,
-        text.length - 1
-      );
-
-    }
-
-
-    return text.trim();
-
-  }
-
-
-  /* =========================
-     PRICE CLEANING
-     ========================= */
-
-  function cleanPrice(value) {
-
-    let text = cleanField(value);
-
-
-    /*
-      Remove pound signs.
-    */
-
-    text = text.replace(/£/g, "");
-
-
-    /*
-      Remove spaces.
-    */
-
-    text = text.replace(/\s/g, "");
-
-
-    /*
-      Handle common decimal formats.
-    */
-
-    if (
-      text.includes(",") &&
-      text.includes(".")
-    ) {
+      let text = String(value).trim();
 
       /*
-        Example:
-        1,234.50
+        Remove surrounding quotation marks.
       */
 
-      text = text.replace(/,/g, "");
-
-    } else if (
-      text.includes(",")
-    ) {
-
-      /*
-        Example:
-        2,50
-      */
-
-      text = text.replace(",", ".");
-
-    }
-
-
-    /*
-      Keep only numbers and decimal point.
-    */
-
-    text = text.replace(
-      /[^0-9.-]/g,
-      ""
-    );
-
-
-    const number =
-      Number.parseFloat(text);
-
-
-    if (!Number.isFinite(number)) {
-      return null;
-    }
-
-
-    return number;
-
-  }
-
-
-  /* =========================
-     DETECT DELIMITER
-     ========================= */
-
-  function detectDelimiter(line) {
-
-    const delimiters = [
-      "\t",
-      "|",
-      ",",
-      ";"
-    ];
-
-
-    let bestDelimiter = "\t";
-    let bestCount = 0;
-
-
-    for (
-      const delimiter of delimiters
-    ) {
-
-      const count =
-        line.split(delimiter).length - 1;
-
-
-      if (count > bestCount) {
-
-        bestCount = count;
-        bestDelimiter = delimiter;
-
+      if (
+        text.length >= 2 &&
+        (
+          (
+            text.startsWith('"') &&
+            text.endsWith('"')
+          ) ||
+          (
+            text.startsWith("'") &&
+            text.endsWith("'")
+          )
+        )
+      ) {
+        text = text.slice(1, -1);
       }
 
+      return text.trim();
     }
 
 
-    return bestDelimiter;
+    function cleanHeader(value) {
 
-  }
-
-
-  /* =========================
-     PARSE LINE
-     ========================= */
-
-  function parseLine(
-    line,
-    delimiter
-  ) {
-
-    const result = [];
-    let current = "";
-    let insideQuotes = false;
+      return cleanText(value)
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
 
 
-    for (
-      let i = 0;
-      i < line.length;
-      i++
-    ) {
+    function cleanPrice(value) {
 
-      const char = line[i];
+      let text =
+        cleanText(value);
 
+      if (!text) {
+        return null;
+      }
 
-      if (char === '"') {
+      /*
+        Remove currency symbols and spaces.
+      */
+
+      text =
+        text
+          .replace(/£/g, "")
+          .replace(/\s/g, "")
+          .trim();
+
+      /*
+        Handle common formats such as:
+
+        1.99
+        1,99
+        £1.99
+        "1.99"
+      */
+
+      if (
+        text.includes(",") &&
+        text.includes(".")
+      ) {
+
+        /*
+          If comma comes after the dot,
+          assume comma is the decimal separator.
+        */
 
         if (
-          insideQuotes &&
-          line[i + 1] === '"'
+          text.lastIndexOf(",") >
+          text.lastIndexOf(".")
+        ) {
+
+          text =
+            text
+              .replace(/\./g, "")
+              .replace(",", ".");
+
+        } else {
+
+          text =
+            text.replace(/,/g, "");
+        }
+
+      } else if (text.includes(",")) {
+
+        const parts =
+          text.split(",");
+
+        if (
+          parts.length === 2 &&
+          parts[1].length <= 2
+        ) {
+
+          text =
+            parts[0] +
+            "." +
+            parts[1];
+
+        } else {
+
+          text =
+            text.replace(/,/g, "");
+        }
+      }
+
+      /*
+        Keep only numbers and decimal point.
+      */
+
+      text =
+        text.replace(
+          /[^0-9.-]/g,
+          ""
+        );
+
+      const number =
+        parseFloat(text);
+
+      if (
+        Number.isNaN(number) ||
+        !Number.isFinite(number)
+      ) {
+        return null;
+      }
+
+      return number;
+    }
+
+
+    /*
+      CSV/TXT parser that understands quoted fields.
+    */
+
+    function parseLine(line, delimiter) {
+
+      const result = [];
+
+      let current = "";
+
+      let insideQuotes = false;
+
+      for (
+        let i = 0;
+        i < line.length;
+        i++
+      ) {
+
+        const char =
+          line[i];
+
+        const next =
+          line[i + 1];
+
+
+        if (
+          char === '"' &&
+          next === '"'
         ) {
 
           current += '"';
+
           i++;
 
-        } else {
+          continue;
+        }
+
+
+        if (char === '"') {
 
           insideQuotes =
             !insideQuotes;
 
+          continue;
         }
 
-      } else if (
-        char === delimiter &&
-        !insideQuotes
-      ) {
 
-        result.push(
-          cleanField(current)
-        );
+        if (
+          char === delimiter &&
+          !insideQuotes
+        ) {
 
-        current = "";
+          result.push(
+            cleanText(current)
+          );
 
-      } else {
+          current = "";
+
+          continue;
+        }
+
 
         current += char;
-
       }
 
-    }
 
-
-    result.push(
-      cleanField(current)
-    );
-
-
-    return result;
-
-  }
-
-
-  /* =========================
-     PARSE FILE
-     ========================= */
-
-  function parseFile() {
-
-    const lines =
-      fileText
-        .replace(/\r\n/g, "\n")
-        .replace(/\r/g, "\n")
-        .split("\n")
-        .filter(line => line.trim() !== "");
-
-
-    if (lines.length === 0) {
-
-      alert(
-        "The file appears to be empty."
-      );
-
-      return;
-
-    }
-
-
-    const delimiter =
-      detectDelimiter(lines[0]);
-
-
-    headers =
-      parseLine(
-        lines[0],
-        delimiter
+      result.push(
+        cleanText(current)
       );
 
 
-    rows = [];
+      return result;
+    }
 
 
-    for (
-      let i = 1;
-      i < lines.length;
-      i++
+    function detectDelimiter(line) {
+
+      const possible = [
+        "\t",
+        "|",
+        ",",
+        ";"
+      ];
+
+
+      let best =
+        "\t";
+
+      let bestCount =
+        0;
+
+
+      for (
+        const delimiter of possible
+      ) {
+
+        const count =
+          line.split(delimiter).length - 1;
+
+
+        if (count > bestCount) {
+
+          bestCount =
+            count;
+
+          best =
+            delimiter;
+        }
+      }
+
+
+      return best;
+    }
+
+
+    function findColumn(possibleNames) {
+
+      for (
+        const name of possibleNames
+      ) {
+
+        const index =
+          headers.findIndex(
+            header =>
+              cleanHeader(header) ===
+              cleanHeader(name)
+          );
+
+
+        if (index !== -1) {
+          return index;
+        }
+      }
+
+
+      /*
+        Try partial matching.
+      */
+
+      for (
+        const name of possibleNames
+      ) {
+
+        const index =
+          headers.findIndex(
+            header =>
+              cleanHeader(header)
+                .includes(cleanHeader(name))
+          );
+
+
+        if (index !== -1) {
+          return index;
+        }
+      }
+
+
+      return -1;
+    }
+
+
+    function fillSelect(
+      selectId,
+      selectedIndex
     ) {
 
-      const row =
-        parseLine(
-          lines[i],
-          delimiter
-        );
-
-
-      if (row.length > 0) {
-
-        rows.push(row);
-
-      }
-
-    }
-
-
-    populateColumnSelectors();
-
-
-    document.getElementById(
-      "fileInfo"
-    ).innerHTML = `
-      <div class="success">
-        File loaded successfully.
-        ${rows.length.toLocaleString()}
-        records detected.
-      </div>
-    `;
-
-  }
-
-
-  /* =========================
-     COLUMN SELECTORS
-     ========================= */
-
-  function populateColumnSelectors() {
-
-    const selects = [
-      document.getElementById(
-        "barcodeColumn"
-      ),
-
-      document.getElementById(
-        "nameColumn"
-      ),
-
-      document.getElementById(
-        "priceColumn"
-      )
-    ];
-
-
-    selects.forEach(select => {
+      const select =
+        document.getElementById(selectId);
 
       select.innerHTML = "";
 
@@ -702,322 +750,473 @@
         (header, index) => {
 
           const option =
-            document.createElement(
-              "option"
-            );
+            document.createElement("option");
 
-
-          option.value = index;
+          option.value =
+            index;
 
           option.textContent =
-            header ||
-            `Column ${index + 1}`;
+            `${index + 1}. ${cleanText(header)}`;
 
+          if (
+            index === selectedIndex
+          ) {
 
-          select.appendChild(
-            option
-          );
+            option.selected =
+              true;
+          }
+
+          select.appendChild(option);
 
         }
       );
-
-    });
-
-
-    /*
-      Automatically detect likely columns.
-    */
-
-    const findColumn = names => {
-
-      return headers.findIndex(
-        header =>
-          names.includes(
-            cleanField(
-              header
-            ).toLowerCase()
-          )
-      );
-
-    };
-
-
-    const barcodeIndex =
-      findColumn([
-        "barcode",
-        "ean",
-        "ean13",
-        "upc"
-      ]);
-
-
-    const nameIndex =
-      findColumn([
-        "description",
-        "product name",
-        "name",
-        "product"
-      ]);
-
-
-    const priceIndex =
-      findColumn([
-        "price",
-        "selling price",
-        "sell price",
-        "retail price"
-      ]);
-
-
-    if (barcodeIndex >= 0) {
-
-      document.getElementById(
-        "barcodeColumn"
-      ).value =
-        barcodeIndex;
-
     }
 
 
-    if (nameIndex >= 0) {
-
-      document.getElementById(
-        "nameColumn"
-      ).value =
-        nameIndex;
-
-    }
-
-
-    if (priceIndex >= 0) {
-
-      document.getElementById(
-        "priceColumn"
-      ).value =
-        priceIndex;
-
-    }
-
-  }
-
-
-  /* =========================
-     PREVIEW
-     ========================= */
-
-  function previewPricing() {
-
-    if (
-      !rows.length ||
-      !headers.length
-    ) {
-
-      alert(
-        "Please choose a pricing file first."
-      );
-
-      return;
-
-    }
-
-
-    const barcodeIndex =
-      Number(
-        document.getElementById(
-          "barcodeColumn"
-        ).value
+    document
+      .getElementById("fileInput")
+      .addEventListener(
+        "change",
+        handleFile
       );
 
 
-    const nameIndex =
-      Number(
-        document.getElementById(
-          "nameColumn"
-        ).value
+    async function handleFile(event) {
+
+      const file =
+        event.target.files[0];
+
+
+      if (!file) {
+        return;
+      }
+
+
+      showMessage(
+        "Reading file...",
+        "warning"
       );
 
 
-    const priceIndex =
-      Number(
-        document.getElementById(
-          "priceColumn"
-        ).value
-      );
+      try {
+
+        const text =
+          await file.text();
 
 
-    let valid = 0;
-    let invalid = 0;
+        const lines =
+          text
+            .replace(/\r\n/g, "\n")
+            .replace(/\r/g, "\n")
+            .split("\n")
+            .filter(
+              line =>
+                line.trim() !== ""
+            );
 
 
-    const previewRows = [];
+        if (lines.length < 2) {
+
+          showMessage(
+            "The file does not contain enough data.",
+            "error"
+          );
+
+          return;
+        }
 
 
-    /*
-      Only inspect the first 20 rows
-      for the preview.
-    */
+        const delimiter =
+          detectDelimiter(
+            lines[0]
+          );
 
-    rows.slice(0, 20).forEach(row => {
 
-      const barcode =
-        cleanField(
-          row[barcodeIndex]
+        headers =
+          parseLine(
+            lines[0],
+            delimiter
+          );
+
+
+        rawRows = [];
+
+
+        for (
+          let i = 1;
+          i < lines.length;
+          i++
+        ) {
+
+          const row =
+            parseLine(
+              lines[i],
+              delimiter
+            );
+
+
+          if (
+            row.some(
+              value =>
+                cleanText(value) !== ""
+            )
+          ) {
+
+            rawRows.push(row);
+          }
+        }
+
+
+        const barcodeIndex =
+          findColumn([
+            "barcode",
+            "ean",
+            "ean13",
+            "upc"
+          ]);
+
+
+        const descriptionIndex =
+          findColumn([
+            "description",
+            "product description",
+            "product name",
+            "name"
+          ]);
+
+
+        const productCodeIndex =
+          findColumn([
+            "product code",
+            "productcode",
+            "item code",
+            "itemcode",
+            "sku",
+            "code"
+          ]);
+
+
+        const priceIndex =
+          findColumn([
+            "pricing",
+            "price",
+            "selling price",
+            "sell price",
+            "retail price"
+          ]);
+
+
+        const promoIndex =
+          findColumn([
+            "promo offers",
+            "promo offer",
+            "promo",
+            "offer",
+            "promotion",
+            "promotional offer"
+          ]);
+
+
+        fillSelect(
+          "barcodeColumn",
+          barcodeIndex >= 0
+            ? barcodeIndex
+            : 0
         );
 
 
-      const name =
-        cleanField(
-          row[nameIndex]
+        fillSelect(
+          "descriptionColumn",
+          descriptionIndex >= 0
+            ? descriptionIndex
+            : 1
         );
 
 
-      const price =
-        cleanPrice(
-          row[priceIndex]
+        fillSelect(
+          "productCodeColumn",
+          productCodeIndex >= 0
+            ? productCodeIndex
+            : 2
         );
 
+
+        fillSelect(
+          "priceColumn",
+          priceIndex >= 0
+            ? priceIndex
+            : 3
+        );
+
+
+        fillSelect(
+          "promoColumn",
+          promoIndex >= 0
+            ? promoIndex
+            : 4
+        );
+
+
+        document
+          .getElementById("columnCard")
+          .style.display = "block";
+
+
+        document
+          .getElementById("previewCard")
+          .style.display = "none";
+
+
+        showMessage(
+          `${rawRows.length.toLocaleString()} records loaded. Check the columns below.`,
+          "success"
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          "Could not read the file.",
+          "error"
+        );
+      }
+    }
+
+
+    function previewPricing() {
 
       if (
-        barcode &&
-        name &&
-        price !== null
+        !rawRows.length ||
+        !headers.length
       ) {
 
-        valid++;
+        showMessage(
+          "Please select a pricing file first.",
+          "error"
+        );
 
-      } else {
-
-        invalid++;
-
+        return;
       }
 
 
-      previewRows.push({
-        barcode,
-        name,
-        price
+      const barcodeIndex =
+        Number(
+          document.getElementById(
+            "barcodeColumn"
+          ).value
+        );
+
+
+      const descriptionIndex =
+        Number(
+          document.getElementById(
+            "descriptionColumn"
+          ).value
+        );
+
+
+      const productCodeIndex =
+        Number(
+          document.getElementById(
+            "productCodeColumn"
+          ).value
+        );
+
+
+      const priceIndex =
+        Number(
+          document.getElementById(
+            "priceColumn"
+          ).value
+        );
+
+
+      const promoIndex =
+        Number(
+          document.getElementById(
+            "promoColumn"
+          ).value
+        );
+
+
+      const previewRows =
+        rawRows.slice(0, 20);
+
+
+      const body =
+        document.getElementById(
+          "previewBody"
+        );
+
+
+      body.innerHTML = "";
+
+
+      let valid = 0;
+      let invalid = 0;
+
+
+      previewRows.forEach(row => {
+
+        const barcode =
+          cleanText(
+            row[barcodeIndex] || ""
+          );
+
+
+        const description =
+          cleanText(
+            row[descriptionIndex] || ""
+          );
+
+
+        const productCode =
+          cleanText(
+            row[productCodeIndex] || ""
+          );
+
+
+        const price =
+          cleanPrice(
+            row[priceIndex] || ""
+          );
+
+
+        const promo =
+          cleanText(
+            row[promoIndex] || ""
+          );
+
+
+        const isValid =
+          barcode !== "" &&
+          description !== "" &&
+          price !== null;
+
+
+        if (isValid) {
+          valid++;
+        } else {
+          invalid++;
+        }
+
+
+        const tr =
+          document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+          <td>
+            ${escapeHtml(barcode)}
+          </td>
+
+          <td>
+            ${escapeHtml(description)}
+          </td>
+
+          <td>
+            ${escapeHtml(productCode || "-")}
+          </td>
+
+          <td class="price">
+            ${
+              price !== null
+                ? "£" + price.toFixed(2)
+                : "INVALID"
+            }
+          </td>
+
+          <td class="promo">
+            ${escapeHtml(promo || "-")}
+          </td>
+
+        `;
+
+
+        body.appendChild(tr);
+
       });
 
-    });
 
-
-    document.getElementById(
-      "totalRecords"
-    ).textContent =
-      rows.length.toLocaleString();
-
-
-    document.getElementById(
-      "validRecords"
-    ).textContent =
-      valid;
-
-
-    document.getElementById(
-      "invalidRecords"
-    ).textContent =
-      invalid;
-
-
-    const body =
       document.getElementById(
-        "previewBody"
+        "totalRecords"
+      ).textContent =
+        rawRows.length.toLocaleString();
+
+
+      document.getElementById(
+        "validRecords"
+      ).textContent =
+        valid;
+
+
+      document.getElementById(
+        "invalidRecords"
+      ).textContent =
+        invalid;
+
+
+      document.getElementById(
+        "previewCard"
+      ).style.display = "block";
+
+
+      showMessage(
+        "Preview created successfully.",
+        "success"
       );
+    }
 
 
-    body.innerHTML = "";
+    function escapeHtml(value) {
 
-
-    previewRows.forEach(item => {
-
-      const tr =
-        document.createElement(
-          "tr"
-        );
-
-
-      const barcodeCell =
-        document.createElement(
-          "td"
-        );
-
-
-      barcodeCell.textContent =
-        item.barcode;
-
-
-      const nameCell =
-        document.createElement(
-          "td"
-        );
-
-
-      nameCell.textContent =
-        item.name;
-
-
-      const priceCell =
-        document.createElement(
-          "td"
-        );
-
-
-      if (item.price === null) {
-
-        priceCell.textContent =
-          "INVALID";
-
-      } else {
-
-        priceCell.textContent =
-          "£" +
-          item.price.toFixed(2);
-
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
       }
 
 
-      priceCell.className =
-        "price";
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
 
-      tr.appendChild(
-        barcodeCell
-      );
+    function clearFile() {
 
-      tr.appendChild(
-        nameCell
-      );
-
-      tr.appendChild(
-        priceCell
-      );
+      rawRows = [];
+      headers = [];
 
 
-      body.appendChild(
-        tr
-      );
-
-    });
+      document.getElementById(
+        "fileInput"
+      ).value = "";
 
 
-    document.getElementById(
-      "results"
-    ).style.display =
-      "block";
+      document.getElementById(
+        "columnCard"
+      ).style.display = "none";
 
 
-    document.getElementById(
-      "message"
-    ).innerHTML = `
-      <div class="success">
-        Preview generated successfully.
-        Showing the first 20 records.
-      </div>
-    `;
+      document.getElementById(
+        "previewCard"
+      ).style.display = "none";
 
-  }
 
-</script>
+      document.getElementById(
+        "message"
+      ).style.display = "none";
+    }
+
+  </script>
 
 </body>
 </html>

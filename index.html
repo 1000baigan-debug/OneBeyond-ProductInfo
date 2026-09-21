@@ -116,6 +116,7 @@
       font-weight: 800;
       margin-bottom: 16px;
       color: #0057b8;
+      line-height: 1.25;
     }
 
     .price-box {
@@ -138,24 +139,85 @@
       margin-top: 3px;
     }
 
-    .promo-box {
+    /* PROMOTION */
+
+    .promo-section {
+      margin-bottom: 18px;
+    }
+
+    .promo-section-title {
       background: #0057b8;
       color: white;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    .promo-label {
-      font-size: 13px;
-      font-weight: 700;
+      border-radius: 12px 12px 0 0;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 900;
       text-transform: uppercase;
-      margin-bottom: 5px;
+      letter-spacing: 0.3px;
     }
 
-    .promo {
-      font-size: 20px;
+    .promo-card {
+      background: #f7f9fc;
+      border: 1px solid #dce3eb;
+      border-top: none;
+      padding: 15px 16px;
+    }
+
+    .promo-card:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .promo-location {
+      font-size: 21px;
+      font-weight: 900;
+      color: #0057b8;
+      margin-bottom: 12px;
+    }
+
+    .promo-detail {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 9px 0;
+      border-bottom: 1px solid #e2e6eb;
+    }
+
+    .promo-detail:last-child {
+      border-bottom: none;
+    }
+
+    .promo-detail-label {
+      color: #666;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .promo-detail-value {
+      font-size: 14px;
       font-weight: 800;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .promo-price {
+      font-size: 17px;
+      color: #0057b8;
+      font-weight: 900;
+    }
+
+    .promo-details {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: white;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #444;
+    }
+
+    .promo-code {
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .info-row {
@@ -205,6 +267,17 @@
       color: #777;
       font-size: 12px;
       padding: 10px 20px 25px;
+    }
+
+    @media (max-width: 450px) {
+      .promo-detail {
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .promo-detail-value {
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -268,10 +341,25 @@
         <div id="productPrice" class="price"></div>
       </div>
 
-      <div id="promoBox" class="promo-box" style="display:none;">
-        <div class="promo-label">Promo Offer</div>
-        <div id="productPromo" class="promo"></div>
+
+      <!-- PROMOTIONAL INFORMATION -->
+
+      <div
+        id="promoSection"
+        class="promo-section"
+        style="display:none;"
+      >
+
+        <div class="promo-section-title">
+          Promotional Placements
+        </div>
+
+        <div id="promoPlacements"></div>
+
       </div>
+
+
+      <!-- PRODUCT INFORMATION -->
 
       <div class="info-row">
         <div class="info-label">Barcode</div>
@@ -340,6 +428,230 @@
 
       document.getElementById("message")
         .style.display = "none";
+    }
+
+
+    /*
+      Converts the promotional information saved
+      by the admin page into separate placement cards.
+    */
+
+    function renderPromoInformation(promoText) {
+
+      const promoSection =
+        document.getElementById("promoSection");
+
+      const promoPlacements =
+        document.getElementById("promoPlacements");
+
+      promoPlacements.innerHTML = "";
+
+      if (
+        promoText === null ||
+        promoText === undefined ||
+        String(promoText).trim() === ""
+      ) {
+        promoSection.style.display = "none";
+        return;
+      }
+
+
+      const text =
+        String(promoText).trim();
+
+
+      /*
+        Each promotion saved by the admin page
+        starts with PLAN:.
+
+        Example:
+
+        PLAN: END GONDOLAS
+        LOCATION: END 17
+        STORE CATEGORIES: B,C,D,E,F,G,H,I
+        CODE: XMA13377/OB
+        PRODUCT: Christmas...
+        PROMO PRICE: £1.00
+        DETAILS: Follow planogram...
+      */
+
+      const entries =
+        text
+          .split(/\n(?=PLAN:)/i)
+          .map(entry => entry.trim())
+          .filter(Boolean);
+
+
+      const finalEntries =
+        entries.length > 0
+          ? entries
+          : [text];
+
+
+      finalEntries.forEach(entry => {
+
+        const lines =
+          entry
+            .split(/\r?\n/)
+            .map(line => line.trim())
+            .filter(Boolean);
+
+
+        const values = {};
+
+        lines.forEach(line => {
+
+          const separator =
+            line.indexOf(":");
+
+          if (separator === -1) {
+            return;
+          }
+
+          const key =
+            line
+              .substring(0, separator)
+              .trim()
+              .toUpperCase();
+
+          const value =
+            line
+              .substring(separator + 1)
+              .trim();
+
+          values[key] = value;
+        });
+
+
+        const plan =
+          values["PLAN"] || "";
+
+        const location =
+          values["LOCATION"] || "";
+
+        const categories =
+          values["STORE CATEGORIES"] || "";
+
+        const code =
+          values["CODE"] || "";
+
+        const product =
+          values["PRODUCT"] || "";
+
+        const promoPrice =
+          values["PROMO PRICE"] || "";
+
+        const details =
+          values["DETAILS"] || "";
+
+
+        const card =
+          document.createElement("div");
+
+        card.className = "promo-card";
+
+
+        /*
+          Work out what should be shown
+          as the main placement title.
+        */
+
+        let placementTitle =
+          location || plan || "Promotional Placement";
+
+
+        /*
+          Clean up unwanted duplicate wording.
+        */
+
+        placementTitle =
+          placementTitle
+            .replace(/^LOCATION\s*:\s*/i, "")
+            .trim();
+
+
+        let html = "";
+
+        html +=
+          '<div class="promo-location">' +
+          escapeHtml(placementTitle) +
+          '</div>';
+
+
+        if (categories) {
+
+          html +=
+            '<div class="promo-detail">' +
+              '<div class="promo-detail-label">Store Categories</div>' +
+              '<div class="promo-detail-value">' +
+                escapeHtml(
+                  categories
+                    .replace(/\s+/g, "")
+                    .replace(/,+/g, ", ")
+                ) +
+              '</div>' +
+            '</div>';
+        }
+
+
+        if (promoPrice) {
+
+          html +=
+            '<div class="promo-detail">' +
+              '<div class="promo-detail-label">Promotional Price</div>' +
+              '<div class="promo-detail-value promo-price">' +
+                escapeHtml(promoPrice) +
+              '</div>' +
+            '</div>';
+        }
+
+
+        if (code) {
+
+          html +=
+            '<div class="promo-detail">' +
+              '<div class="promo-detail-label">Product Code</div>' +
+              '<div class="promo-detail-value promo-code">' +
+                escapeHtml(code) +
+              '</div>' +
+            '</div>';
+        }
+
+
+        /*
+          Only show the product name from the PDF
+          if it is different from the main product name.
+        */
+
+        if (product) {
+
+          html +=
+            '<div class="promo-detail">' +
+              '<div class="promo-detail-label">Product</div>' +
+              '<div class="promo-detail-value">' +
+                escapeHtml(product) +
+              '</div>' +
+            '</div>';
+        }
+
+
+        if (details) {
+
+          html +=
+            '<div class="promo-details">' +
+              escapeHtml(details) +
+            '</div>';
+        }
+
+
+        card.innerHTML = html;
+
+        promoPlacements.appendChild(card);
+
+      });
+
+
+      promoSection.style.display = "block";
     }
 
 
@@ -425,30 +737,14 @@
           : "Price unavailable";
 
 
-      const promoBox =
-        document.getElementById("promoBox");
+      /*
+        Render promotional information
+        as separate placement cards.
+      */
 
-      const promo =
-        document.getElementById("productPromo");
-
-
-      if (
-        data.promo_offer !== null &&
-        data.promo_offer !== undefined &&
-        String(data.promo_offer).trim() !== ""
-      ) {
-
-        promo.textContent =
-          data.promo_offer;
-
-        promoBox.style.display = "block";
-
-      } else {
-
-        promo.textContent = "";
-
-        promoBox.style.display = "none";
-      }
+      renderPromoInformation(
+        data.promo_offer
+      );
 
 
       result.style.display = "block";
@@ -521,6 +817,7 @@
           (errorMessage) => {
 
             // Scanner is still looking.
+
           }
 
         );
@@ -554,6 +851,7 @@
 
         }
 
+
         try {
 
           html5QrCode.clear();
@@ -563,6 +861,7 @@
           console.log(error);
 
         }
+
 
         html5QrCode = null;
       }

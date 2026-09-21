@@ -80,6 +80,7 @@
       font-weight: 700;
       background: #111;
       color: white;
+      cursor: pointer;
     }
 
     .result {
@@ -125,6 +126,7 @@
       border-radius: 10px;
       background: #111;
       color: white;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -145,6 +147,7 @@
     </button>
 
     <div class="manual">
+
       <input
         id="barcodeInput"
         type="text"
@@ -155,13 +158,17 @@
       <button class="search" onclick="searchBarcode()">
         Search
       </button>
+
     </div>
 
     <div id="scanner">
+
       <div id="reader"></div>
+
       <button class="close" onclick="stopScanner()">
         Close Scanner
       </button>
+
     </div>
 
     <div id="result"></div>
@@ -170,234 +177,326 @@
 
 </div>
 
+
+<!-- Barcode scanner -->
 <script src="https://unpkg.com/html5-qrcode"></script>
+
+<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
 
-  /*
-    Temporary pricing database.
+  /* =========================
+     SUPABASE
+     ========================= */
 
-    We will replace this with your real TXT pricing database
-    in the next stages.
-  */
+  const SUPABASE_URL =
+    "https://nmfjavzrxghvklkjtfaq.supabase.co";
 
-  const SUPABASE_URL = "https://nmfjavzrxghvklkjtfaq.supabase.co/rest/v1/";
-const SUPABASE_KEY = "HIDDEN_KEY";
+  const SUPABASE_KEY =
+    "sb_publishable_dd_QRjavucCN4sG-kuFFUQ_0qfJGUsz";
 
-  const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  /* =========================
+     SCANNER
+     ========================= */
+
   let scanner = null;
 
-  async function searchBarcode(code) {
 
-  code = String(code).trim();
+  /* =========================
+     ESCAPE HTML
+     ========================= */
 
-  const result = document.getElementById("result");
+  function escapeHtml(value) {
 
-  if (!code) {
-    result.innerHTML = "";
-    return;
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
   }
 
-  result.innerHTML = `
-    <div class="result">
-      <h2>Checking price...</h2>
-    </div>
-  `;
 
-  const { data, error } = await supabase
-    .from("products")
-    .select("barcode, name, price")
-    .eq("barcode", code)
-    .maybeSingle();
+  /* =========================
+     BARCODE LOOKUP
+     ========================= */
 
-  if (error) {
+  async function lookupBarcode(code) {
 
-    console.error(error);
+    code = String(code).trim();
 
-    result.innerHTML = `
-      <div class="not-found">
-        <h2>Database error</h2>
-        <p>Please try again.</p>
-      </div>
-    `;
+    const result =
+      document.getElementById("result");
 
-    return;
-  }
 
-  if (data) {
+    if (!code) {
+
+      result.innerHTML = "";
+
+      return;
+
+    }
+
 
     result.innerHTML = `
       <div class="result">
-        <h2>${escapeHtml(data.name)}</h2>
-        <div>Barcode: ${escapeHtml(data.barcode)}</div>
-        <div class="price">£${escapeHtml(data.price)}</div>
+        <h2>Checking price...</h2>
       </div>
     `;
 
-  } else {
 
-    result.innerHTML = `
-      <div class="not-found">
-        <h2>Product not found</h2>
-        <p>Barcode: ${escapeHtml(code)}</p>
-      </div>
-    `;
+    try {
 
-  }
-}
+      const response =
+        await supabaseClient
+          .from("products")
+          .select("barcode, name, price")
+          .eq("barcode", code)
+          .maybeSingle();
 
-    const product = products[code];
 
-    if (product) {
+      const data = response.data;
+      const error = response.error;
 
-      result.innerHTML = `
-        <div class="result">
-          <h2>${product.name}</h2>
-          <div>Barcode: ${code}</div>
-          <div class="price">${product.price}</div>
-        </div>
-      `;
 
-    } else {
+      if (error) {
+
+        console.error(
+          "Supabase error:",
+          error
+        );
+
+
+        result.innerHTML = `
+          <div class="not-found">
+
+            <h2>Database error</h2>
+
+            <p>
+              ${escapeHtml(error.message)}
+            </p>
+
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      if (data) {
+
+        result.innerHTML = `
+          <div class="result">
+
+            <h2>
+              ${escapeHtml(data.name)}
+            </h2>
+
+            <div>
+              Barcode:
+              ${escapeHtml(data.barcode)}
+            </div>
+
+            <div class="price">
+              £${escapeHtml(data.price)}
+            </div>
+
+          </div>
+        `;
+
+      } else {
+
+        result.innerHTML = `
+          <div class="not-found">
+
+            <h2>Product not found</h2>
+
+            <p>
+              Barcode:
+              ${escapeHtml(code)}
+            </p>
+
+          </div>
+        `;
+
+      }
+
+
+    } catch (error) {
+
+      console.error(
+        "Unexpected error:",
+        error
+      );
+
 
       result.innerHTML = `
         <div class="not-found">
-          <h2>Product not found</h2>
-          <p>Barcode: ${code}</p>
+
+          <h2>Something went wrong</h2>
+
+          <p>
+            Please try again.
+          </p>
+
         </div>
       `;
 
     }
-  }
-
-  async function searchBarcode(code) {
-
-  code = String(code).trim();
-
-  const result = document.getElementById("result");
-
-  if (!code) {
-    result.innerHTML = "";
-    return;
-  }
-
-  result.innerHTML = `
-    <div class="result">
-      <h2>Checking price...</h2>
-    </div>
-  `;
-
-  try {
-
-    const { data, error } = await supabase
-      .from("products")
-      .select("barcode, name, price")
-      .eq("barcode", code)
-      .maybeSingle();
-
-    if (error) {
-      console.error(error);
-
-      result.innerHTML = `
-        <div class="not-found">
-          <h2>Database error</h2>
-          <p>Please try again.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-    if (data) {
-
-      result.innerHTML = `
-        <div class="result">
-          <h2>${escapeHtml(data.name)}</h2>
-          <div>Barcode: ${escapeHtml(data.barcode)}</div>
-          <div class="price">£${escapeHtml(data.price)}</div>
-        </div>
-      `;
-
-    } else {
-
-      result.innerHTML = `
-        <div class="not-found">
-          <h2>Product not found</h2>
-          <p>Barcode: ${escapeHtml(code)}</p>
-        </div>
-      `;
-
-    }
-
-  } catch (error) {
-
-    console.error(error);
-
-    result.innerHTML = `
-      <div class="not-found">
-        <h2>Something went wrong</h2>
-        <p>Please try again.</p>
-      </div>
-    `;
 
   }
-}
 
-    const code = document.getElementById("barcodeInput").value;
 
-    searchBarcode(code);
+  /* =========================
+     SEARCH BUTTON
+     ========================= */
+
+  function searchBarcode() {
+
+    const input =
+      document.getElementById(
+        "barcodeInput"
+      );
+
+
+    const code = input.value;
+
+
+    lookupBarcode(code);
+
   }
+
+
+  /* =========================
+     START SCANNER
+     ========================= */
 
   function startScanner() {
 
-    document.getElementById("scanner").style.display = "block";
+    const scannerBox =
+      document.getElementById(
+        "scanner"
+      );
 
-    scanner = new Html5Qrcode("reader");
+
+    scannerBox.style.display =
+      "block";
+
+
+    scanner =
+      new Html5Qrcode(
+        "reader"
+      );
+
 
     scanner.start(
-      { facingMode: "environment" },
+
+      {
+        facingMode: "environment"
+      },
+
       {
         fps: 10,
+
         qrbox: {
           width: 280,
           height: 150
         }
       },
-      (decodedText) => {
 
-        document.getElementById("barcodeInput").value = decodedText;
 
-        searchBarcode(decodedText);
+      function(decodedText) {
+
+        document.getElementById(
+          "barcodeInput"
+        ).value = decodedText;
+
+
+        lookupBarcode(
+          decodedText
+        );
+
 
         stopScanner();
 
       },
-      () => {}
-    ).catch(error => {
 
-      alert("Unable to access the camera. Please allow camera access.");
+
+      function(errorMessage) {
+
+        // Scanner continues looking.
+        // No action needed here.
+
+      }
+
+    ).catch(function(error) {
+
+      console.error(
+        "Camera error:",
+        error
+      );
+
+
+      alert(
+        "Unable to access the camera. Please allow camera access."
+      );
+
+
+      scannerBox.style.display =
+        "none";
 
     });
 
   }
+
+
+  /* =========================
+     STOP SCANNER
+     ========================= */
 
   function stopScanner() {
 
     if (scanner) {
 
       scanner.stop()
-        .then(() => {
+
+        .then(function() {
+
           scanner.clear();
+
         })
-        .catch(() => {});
+
+        .catch(function(error) {
+
+          console.error(
+            "Scanner stop error:",
+            error
+          );
+
+        });
+
 
       scanner = null;
+
     }
 
-    document.getElementById("scanner").style.display = "none";
+
+    document.getElementById(
+      "scanner"
+    ).style.display = "none";
+
   }
 
 </script>

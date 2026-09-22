@@ -1,9 +1,9 @@
 {
   "name": "One Beyond Price Checker",
-  "short_name": "Price Checker",
+  "short_name": "One Beyond",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#FFFFFF",
+  "background_color": "#0A5BA7",
   "theme_color": "#0A5BA7",
   "icons": [
     {

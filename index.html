@@ -194,6 +194,247 @@ button {
   font-weight: 900;
 }
 
+
+/* =========================================================
+   STAFF HOME PAGE
+   ========================================================= */
+
+body.home-mode {
+  background: #f7f8fa;
+}
+
+body.home-mode .header {
+  display: none;
+}
+
+body.home-mode .app {
+  max-width: 620px;
+  padding: 0 0 36px;
+}
+
+.home-portal {
+  background: #f7f8fa;
+  min-height: 100vh;
+}
+
+.home-brand-bar {
+  background: #0A5BA7;
+  border-bottom: 8px solid #FDCE0C;
+  padding: 17px 18px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.home-brand-logo {
+  width: 175px;
+  height: auto;
+  display: block;
+}
+
+.home-team-mark {
+  text-align: right;
+  color: white;
+  font-size: 13px;
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.home-team-mark span {
+  display: block;
+}
+
+.home-team-mark .yellow {
+  color: #FDCE0C;
+}
+
+.home-hero {
+  min-height: 285px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 34px 28px 30px;
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.28) 55%, rgba(0,0,0,0.18) 100%),
+    url("./onebeyond-home-hero.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.home-hero h1 {
+  margin: 0;
+  color: white;
+  font-size: clamp(36px, 7vw, 58px);
+  line-height: 0.98;
+  font-weight: 900;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.home-hero h1 span {
+  display: block;
+}
+
+.home-hero p {
+  margin: 16px 0 0;
+  color: white;
+  font-size: clamp(18px, 3vw, 25px);
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 7px rgba(0,0,0,0.25);
+}
+
+.home-actions {
+  padding: 18px;
+  background: #f7f8fa;
+}
+
+.home-action {
+  width: 100%;
+  min-height: 92px;
+  border: none;
+  border-radius: 18px;
+  margin-bottom: 12px;
+  padding: 14px 17px;
+  display: grid;
+  grid-template-columns: 58px 1fr 30px;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.home-action:last-child {
+  margin-bottom: 0;
+}
+
+.home-action:active {
+  transform: scale(0.99);
+}
+
+.home-action-blue {
+  background: #0A5BA7;
+  color: white;
+}
+
+.home-action-yellow {
+  background: #FDCE0C;
+  color: #132f56;
+}
+
+.home-action-light {
+  background: #e9f4ff;
+  color: #12366a;
+}
+
+.home-action-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+  border: 2px solid currentColor;
+}
+
+.home-action-title {
+  display: block;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+.home-action-subtitle {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.25;
+  opacity: 0.92;
+}
+
+.home-action-arrow {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1;
+  text-align: right;
+}
+
+.home-footer {
+  padding: 20px 18px 4px;
+  text-align: center;
+  color: #0A5BA7;
+  font-size: 27px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.product-screen-back {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 600px) {
+  body.home-mode .app {
+    max-width: 100%;
+    padding-bottom: 25px;
+  }
+
+  .home-brand-bar {
+    padding: 15px 14px 13px;
+  }
+
+  .home-brand-logo {
+    width: 158px;
+  }
+
+  .home-team-mark {
+    font-size: 11px;
+  }
+
+  .home-hero {
+    min-height: 255px;
+    padding: 28px 20px 25px;
+  }
+
+  .home-actions {
+    padding: 14px 12px;
+  }
+
+  .home-action {
+    min-height: 84px;
+    grid-template-columns: 52px 1fr 24px;
+    gap: 11px;
+    padding: 12px 13px;
+  }
+
+  .home-action-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 26px;
+  }
+
+  .home-action-title {
+    font-size: 19px;
+  }
+
+  .home-action-subtitle {
+    font-size: 13px;
+  }
+
+  .home-action-arrow {
+    font-size: 35px;
+  }
+
+  .home-footer {
+    font-size: 24px;
+  }
+}
+
 /* RESULTS */
 
 .result-card {
@@ -886,11 +1127,148 @@ button {
 
 <main class="app">
 
-  <!-- HOME -->
+  <!-- STAFF HOME -->
 
   <section
     id="homeScreen"
     class="screen active">
+
+    <div class="home-portal">
+
+      <div class="home-brand-bar">
+
+        <svg
+          class="home-brand-logo"
+          viewBox="0 0 500 150"
+          role="img"
+          aria-label="One Beyond"
+          xmlns="http://www.w3.org/2000/svg">
+
+          <text
+            x="250"
+            y="75"
+            text-anchor="middle"
+            font-family="Arial, Helvetica, sans-serif"
+            font-size="70"
+            font-weight="900">
+            <tspan fill="#FDCE0C">One</tspan>
+            <tspan fill="#FFFFFF">Beyond</tspan>
+          </text>
+
+          <text
+            x="250"
+            y="108"
+            text-anchor="middle"
+            font-family="Arial, Helvetica, sans-serif"
+            font-size="18"
+            font-weight="700">
+            <tspan fill="#FDCE0C">Amazing value from </tspan>
+            <tspan fill="#FFFFFF">only £1</tspan>
+          </text>
+
+        </svg>
+
+        <div class="home-team-mark">
+          <span>ONE TEAM</span>
+          <span class="yellow">BRIGHTER</span>
+          <span>TOGETHER</span>
+        </div>
+
+      </div>
+
+      <div class="home-hero">
+        <div>
+          <h1>
+            <span>Welcome to</span>
+            <span>ONE BEYOND</span>
+          </h1>
+          <p>Your tools. Your support. Our team.</p>
+        </div>
+      </div>
+
+      <div class="home-actions">
+
+        <button
+          id="productInformationButton"
+          class="home-action home-action-blue"
+          type="button">
+          <span class="home-action-icon">⌕</span>
+          <span>
+            <span class="home-action-title">Product Information</span>
+            <span class="home-action-subtitle">Check prices, promotions and product details</span>
+          </span>
+          <span class="home-action-arrow">›</span>
+        </button>
+
+        <button
+          id="promotionsButton"
+          class="home-action home-action-yellow"
+          type="button">
+          <span class="home-action-icon">◆</span>
+          <span>
+            <span class="home-action-title">Promotions</span>
+            <span class="home-action-subtitle">View current promotions and offers</span>
+          </span>
+          <span class="home-action-arrow">›</span>
+        </button>
+
+        <button
+          id="incidentButton"
+          class="home-action home-action-blue"
+          type="button">
+          <span class="home-action-icon">!</span>
+          <span>
+            <span class="home-action-title">Report an Incident</span>
+            <span class="home-action-subtitle">Report an incident through the company system</span>
+          </span>
+          <span class="home-action-arrow">›</span>
+        </button>
+
+        <button
+          id="idCardButton"
+          class="home-action home-action-light"
+          type="button">
+          <span class="home-action-icon">ID</span>
+          <span>
+            <span class="home-action-title">My ID Card</span>
+            <span class="home-action-subtitle">Create your staff ID card</span>
+          </span>
+          <span class="home-action-arrow">›</span>
+        </button>
+
+        <button
+          id="websiteButton"
+          class="home-action home-action-blue"
+          type="button">
+          <span class="home-action-icon">◎</span>
+          <span>
+            <span class="home-action-title">Visit One Beyond Website</span>
+            <span class="home-action-subtitle">News, careers and more</span>
+          </span>
+          <span class="home-action-arrow">›</span>
+        </button>
+
+      </div>
+
+      <div class="home-footer">Brighter Together</div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCT INFORMATION -->
+
+  <section
+    id="productSearchScreen"
+    class="screen">
+
+    <button
+      id="productSearchBackButton"
+      class="back-link product-screen-back"
+      type="button">
+      ← Back
+    </button>
 
     <div class="main-card">
 
@@ -950,28 +1328,6 @@ button {
         type="button">
 
         Scan Barcode
-
-      </button>
-
-
-      <button
-        id="promotionsButton"
-        class="promo-home-button"
-        type="button">
-
-        Promotions
-
-      </button>
-
-
-      <!-- ONLY NEW HOME BUTTON -->
-
-      <button
-        id="idCardButton"
-        class="id-card-home-button"
-        type="button">
-
-        ID Card
 
       </button>
 
@@ -1447,6 +1803,7 @@ const supabaseClient =
 
 const screens = [
   "homeScreen",
+  "productSearchScreen",
   "resultScreen",
   "scannerScreen",
   "promotionSectionsScreen",
@@ -1456,6 +1813,11 @@ const screens = [
 ];
 
 function showScreen(id) {
+
+  document.body.classList.toggle(
+    "home-mode",
+    id === "homeScreen"
+  );
 
   screens.forEach(screenId => {
 
@@ -2807,8 +3169,65 @@ function openPromotionProducts(
 
 
 /* =========================================================
+   HOME NAVIGATION
+   ========================================================= */
+
+document
+  .getElementById(
+    "productInformationButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+      stopScanner();
+      showScreen("productSearchScreen");
+    }
+  );
+
+document
+  .getElementById(
+    "incidentButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+      window.open(
+        "https://my.halosystem.cloud/report-incident/public/c3163426-a063-450c-b47e-d2824ce1bafa",
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+  );
+
+document
+  .getElementById(
+    "websiteButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+      window.open(
+        "https://onebeyond.co.uk/",
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+  );
+
+
+/* =========================================================
    BACK BUTTONS
    ========================================================= */
+
+document
+  .getElementById(
+    "productSearchBackButton"
+  )
+  .addEventListener(
+    "click",
+    () => showScreen("homeScreen")
+  );
+
 
 document
   .getElementById(
@@ -2816,7 +3235,7 @@ document
   )
   .addEventListener(
     "click",
-    () => showScreen("homeScreen")
+    () => showScreen("productSearchScreen")
   );
 
 
@@ -2831,7 +3250,7 @@ document
       stopScanner();
 
       showScreen(
-        "homeScreen"
+        "productSearchScreen"
       );
 
     }

@@ -479,11 +479,6 @@ button {
   line-height: 1.5;
 }
 
-
-/* =========================================================
-   ID CARD FORM
-   ========================================================= */
-
 .id-card-form {
   background: white;
   border-radius: 20px;
@@ -537,8 +532,8 @@ button {
   height: 105px;
   margin: 12px auto 0;
   object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid #0A5BA7;
+  border-radius: 16px;
+  border: 3px solid #FDCE0C;
 }
 
 .id-card-actions {
@@ -567,11 +562,6 @@ button {
   color: white;
 }
 
-
-/* =========================================================
-   GENERATED DIGITAL ID CARD
-   ========================================================= */
-
 .id-card-preview-wrap {
   margin-top: 24px;
 }
@@ -585,27 +575,22 @@ button {
 
 .id-card-canvas {
   position: relative;
-  width: 100%;
-  max-width: 620px;
-  aspect-ratio: 2 / 3;
+  width: min(100%, 430px);
+  aspect-ratio: 9 / 16;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 32px;
+  border-radius: 22px;
   background: #ffffff;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.20);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
   border: 2px solid #0A5BA7;
   display: flex;
   flex-direction: column;
 }
 
-
-/* BLUE TOP */
-
 .id-card-top {
   position: relative;
-  flex: 0 0 21%;
-  height: 21%;
-  padding: 5% 7% 0;
+  flex: 0 0 19%;
+  padding: 7% 8% 0;
   background: #0A5BA7;
   color: white;
   text-align: center;
@@ -615,40 +600,38 @@ button {
 .id-card-top::after {
   content: "";
   position: absolute;
-  left: -8%;
-  right: -8%;
-  bottom: -32%;
-  height: 58%;
+  left: -5%;
+  right: -5%;
+  bottom: -25%;
+  height: 45%;
   background: #ffffff;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  border-top: 10px solid #FDCE0C;
+  border-top: 8px solid #FDCE0C;
 }
-
-
-/* LOGO */
 
 .id-card-logo {
   position: relative;
   z-index: 2;
   display: block;
-  width: 76%;
-  height: auto;
-  max-height: 95px;
+  width: 42%;
+  max-height: 48%;
   margin: 0 auto;
   object-fit: contain;
 }
 
 .id-card-brand-line {
-  display: none;
+  position: relative;
+  z-index: 2;
+  margin-top: 3%;
+  font-size: clamp(8px, 2vw, 13px);
+  font-weight: 800;
+  letter-spacing: 0.18em;
 }
-
-
-/* MAIN WHITE AREA */
 
 .id-card-main {
   flex: 1;
   min-height: 0;
-  padding: 4% 6% 2%;
+  padding: 3% 8% 2%;
   background: white;
   text-align: center;
   display: flex;
@@ -656,74 +639,51 @@ button {
   align-items: center;
 }
 
-
-/* PHOTO */
-
 .id-card-photo {
-  width: 43%;
+  width: 38%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 50%;
-  border: 6px solid #0A5BA7;
+  border-radius: 18%;
+  border: 5px solid #FDCE0C;
   background: #eee;
   flex-shrink: 0;
 }
 
-
-/* NAME */
-
 .id-card-name {
   width: 100%;
-  margin-top: 3%;
+  margin-top: 3.5%;
   color: #0A5BA7;
-  font-size: clamp(22px, 5vw, 40px);
-  line-height: 1.05;
+  font-size: clamp(18px, 5vw, 32px);
+  line-height: 1.08;
   font-weight: 900;
   overflow-wrap: anywhere;
 }
-
-
-/* POSITION */
 
 .id-card-position {
-  margin-top: 2%;
-  padding: 1% 4%;
-  max-width: 94%;
-  background: transparent;
+  margin-top: 2.5%;
+  padding: 2.5% 7%;
+  max-width: 92%;
+  border-radius: 999px;
+  background: #FDCE0C;
   color: #0A5BA7;
-  font-size: clamp(17px, 3.8vw, 28px);
+  font-size: clamp(13px, 3.4vw, 22px);
   line-height: 1.1;
   font-weight: 900;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
   overflow-wrap: anywhere;
 }
-
-.id-card-position::before {
-  content: "";
-  display: block;
-  width: 170px;
-  max-width: 80%;
-  height: 5px;
-  margin: 0 auto 12px;
-  background: #FDCE0C;
-}
-
-
-/* QR CODE */
 
 .id-card-qr-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56%;
+  width: 32%;
   aspect-ratio: 1 / 1;
   margin-top: auto;
   margin-bottom: 3%;
-  padding: 1.5%;
+  padding: 2.5%;
   background: white;
-  border: none;
-  border-radius: 0;
+  border: 4px solid #FDCE0C;
+  border-radius: 15%;
 }
 
 .id-card-qr-box img,
@@ -735,38 +695,37 @@ button {
 }
 
 .id-card-tagline {
-  display: none;
+  width: 100%;
+  margin-bottom: 2.5%;
+  color: #0A5BA7;
+  font-size: clamp(7px, 1.8vw, 11px);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
 }
 
-
-/* BLUE BOTTOM */
-
 .id-card-footer {
-  position: relative;
   flex: 0 0 13%;
-  height: 13%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 0 6% 5%;
+  padding: 0 6%;
   background: #0A5BA7;
   color: white;
-  border-top: 10px solid #FDCE0C;
+  border-top: 7px solid #FDCE0C;
   text-align: center;
-  font-size: clamp(10px, 2.2vw, 15px);
+  font-size: clamp(9px, 2.2vw, 14px);
   font-weight: 900;
   letter-spacing: 0.08em;
 }
 
 .id-card-note {
-  max-width: 600px;
-  margin: 16px auto 0;
+  margin-top: 14px;
   color: #777;
   font-size: 13px;
   line-height: 1.5;
   text-align: center;
 }
-
 
 /* NEW HOME */
 
@@ -1115,42 +1074,6 @@ button {
 
   .product-info-title {
     font-size:28px;
-  }
-
-  .id-card-canvas {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 25px;
-  }
-
-  .id-card-top {
-    padding-top: 6%;
-  }
-
-  .id-card-logo {
-    width: 78%;
-    max-height: 80px;
-  }
-
-  .id-card-photo {
-    width: 45%;
-    border-width: 5px;
-  }
-
-  .id-card-name {
-    font-size: clamp(20px, 6vw, 32px);
-  }
-
-  .id-card-position {
-    font-size: clamp(15px, 4.5vw, 23px);
-  }
-
-  .id-card-qr-box {
-    width: 59%;
-  }
-
-  .id-card-footer {
-    font-size: 10px;
   }
 
   .id-card-actions {
@@ -1526,10 +1449,6 @@ button {
 </section>
 
 
-<!-- =========================================================
-     ID CARD
-     ========================================================= -->
-
 <section
   id="idCardScreen"
   class="screen">
@@ -1706,15 +1625,22 @@ button {
             font-size="18"
             font-weight="700">
 
+            <tspan fill="#FDCE0C">
+              Amazing value from
+            </tspan>
+
             <tspan fill="#FFFFFF">
-              Amazing Value Everyday
+              only £1
             </tspan>
 
           </text>
 
         </svg>
 
-        <div class="id-card-brand-line"></div>
+
+        <div class="id-card-brand-line">
+          ONE BEYOND
+        </div>
 
       </div>
 
@@ -1746,21 +1672,23 @@ button {
         </div>
 
 
-        <div class="id-card-tagline"></div>
+        <div class="id-card-tagline">
+          SCAN TO VERIFY STAFF DETAILS
+        </div>
 
       </div>
 
 
-      <div class="id-card-footer"></div>
+      <div class="id-card-footer">
+        ONE BEYOND • GREAT PEOPLE • GREAT STORES
+      </div>
 
     </div>
 
 
     <div class="id-card-note">
-      Take a screenshot of your ID card to save it to your phone.
-      The photo and details are not saved to the database.
-      After taking your screenshot, tap Reset to clear the temporary
-      information from this page.
+      Take a screenshot of the ID card and use it as your phone lock screen.
+      The information is not saved to the database.
     </div>
 
   </div>
@@ -1805,9 +1733,7 @@ function showScreen(id) {
   screens.forEach(screenId => {
 
     const element =
-      document.getElementById(
-        screenId
-      );
+      document.getElementById(screenId);
 
     if (!element) return;
 
@@ -2078,6 +2004,11 @@ async function searchProduct(
       );
 
   } else {
+
+    /*
+      PRODUCT CODE SEARCH
+      CASE-INSENSITIVE
+    */
 
     query =
       query.ilike(
@@ -4217,8 +4148,8 @@ function generateIdCard() {
     idCardQr,
     {
       text: tillCode,
-      width: 320,
-      height: 320,
+      width: 190,
+      height: 190,
       correctLevel:
         QRCode.CorrectLevel.M
     }

@@ -3,751 +3,1086 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Beyond</title>
+
+<title>One Beyond Product Information</title>
+
 <meta name="theme-color" content="#0A5BA7">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="One Beyond">
+<meta name="apple-mobile-web-app-title" content="Product Information">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  padding:0;
-  background:#f3f4f6;
-  color:#222;
-  font-family:Arial,Helvetica,sans-serif
+
+* {
+  box-sizing: border-box;
 }
-body{min-height:100vh}
-button,input{font:inherit}
-button{cursor:pointer}
-.screen{display:none}
-.screen.active{display:block}
-.app{
-  max-width:900px;
-  margin:0 auto;
-  min-height:100vh;
-  background:#f7f8fa
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
 }
-.brand-header{
-  background:#0A5BA7;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f1f2f4;
+  color: #222;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+/* HEADER */
+
+.header {
+  background: #0A5BA7;
+  color: white;
+  text-align: center;
+  padding: 24px 15px 24px;
+  border-bottom: 9px solid #FDCE0C;
+}
+
+.header-logo {
+  display: block;
+  width: 118px;
+  height: 118px;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+
+.header-subtitle {
+  margin-top: 12px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+
+/* APP */
+
+.app {
+  max-width: 850px;
+  margin: auto;
+  padding: 22px 18px 50px;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+
+/* HOME */
+
+.main-card {
+  background: white;
+  border-radius: 25px;
+  padding: 34px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.main-heading {
+  margin: 0 0 25px;
+  color: #0A5BA7;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.main-description {
+  margin-bottom: 28px;
+  color: #666;
+  font-size: 22px;
+  line-height: 1.4;
+}
+
+.mode-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.mode-button {
+  height: 70px;
+  border: 4px solid #d6d6d6;
+  border-radius: 18px;
+  background: white;
+  color: #333;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.mode-button.active {
+  background: #0A5BA7;
+  color: white;
+  border-color: #0A5BA7;
+}
+
+.search-input {
+  width: 100%;
+  height: 66px;
+  border: 4px solid #0A5BA7;
+  border-radius: 17px;
+  padding: 0 18px;
+  font-size: 20px;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.search-input:focus {
+  border-color: #FDCE0C;
+}
+
+.primary-button {
+  width: 100%;
+  height: 68px;
+  border: none;
+  border-radius: 17px;
+  background: #FDCE0C;
+  color: #222;
+  font-size: 21px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+.scan-button {
+  width: 100%;
+  height: 68px;
+  border: none;
+  border-radius: 17px;
+  background: #0A5BA7;
+  color: white;
+  font-size: 21px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+.promo-home-button {
+  width: 100%;
+  height: 68px;
+  border: 4px solid #0A5BA7;
+  border-radius: 17px;
+  background: white;
+  color: #0A5BA7;
+  font-size: 21px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+.id-card-home-button {
+  width: 100%;
+  height: 68px;
+  border: 4px solid #0A5BA7;
+  border-radius: 17px;
+  background: white;
+  color: #0A5BA7;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+
+/* ONE BEYOND HOME + PRODUCT INFORMATION */
+
+.home-mode > .header {
+  display: none;
+}
+
+.home-screen-wrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #f7f8fa;
+}
+
+.home-brand-header,
+.product-brand-header {
+  background: #0A5BA7;
+  color: #fff;
+  border-bottom: 7px solid #FDCE0C;
+  padding: 18px 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.brand-lockup {
+  text-align: center;
+  flex: 1;
+}
+
+.brand-name {
+  font-size: 39px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.brand-name .one {
+  color: #FDCE0C;
+}
+
+.brand-name .beyond {
+  color: #fff;
+}
+
+.brand-tagline {
+  margin-top: 5px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.team-mark {
+  width: 118px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.team-mark .yellow {
+  color: #FDCE0C;
+}
+
+
+/* HOME LOGO */
+
+.home-header-logo {
+  display: block;
+  width: 205px;
+  height: auto;
+  margin: 0;
+  border-radius: 8px;
+}
+
+
+/* HERO IMAGE */
+
+.home-hero {
+  min-height: 430px;
+  background-image: url("./onebeyond-home-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+}
+
+.home-hero h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(42px, 7vw, 72px);
+  line-height: .98;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  text-shadow: 0 3px 8px rgba(0,0,0,.4);
+}
+
+.home-hero p {
+  margin: 18px 0 0;
+  color: #fff;
+  font-size: clamp(20px, 3.5vw, 31px);
+  font-weight: 800;
+  text-shadow: 0 2px 5px rgba(0,0,0,.45);
+}
+
+
+/* HOME BUTTONS */
+
+.home-actions {
+  padding: 20px 24px 10px;
+}
+
+.home-action {
+  width: 100%;
+  min-height: 112px;
+  margin-bottom: 14px;
+  border: 0;
+  border-radius: 25px;
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 92px 1fr 34px;
+  align-items: center;
+  text-align: left;
+  box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.home-action.blue {
+  background:#1268B5;
   color:#fff;
-  border-bottom:7px solid #FDCE0C;
-  padding:18px 20px;
-  text-align:center
 }
-.brand-name{
-  font-size:40px;
-  font-weight:900;
-  line-height:1
-}
-.brand-name .one{color:#FDCE0C}
-.brand-tagline{
-  font-size:13px;
-  font-weight:700;
-  margin-top:6px
-}
-.home-hero{
-  min-height:330px;
-  background-image:
-    linear-gradient(0deg,rgba(0,0,0,.68),rgba(0,0,0,.05) 70%),
-    url("./onebeyond-home-hero.jpg");
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:flex-end;
-  padding:30px 22px
-}
-.hero-text{color:#fff}
-.hero-text h1{
-  margin:0;
-  font-size:38px;
-  font-weight:900
-}
-.hero-text p{
-  margin:8px 0 0;
-  font-size:18px;
-  font-weight:700
-}
-.home-content{padding:20px}
-.home-button{
-  width:100%;
-  min-height:76px;
-  margin-bottom:14px;
-  border:0;
-  border-radius:18px;
-  background:#fff;
-  box-shadow:0 4px 16px rgba(0,0,0,.08);
-  color:#0A5BA7;
-  text-align:left;
-  padding:16px 20px;
-  font-size:21px;
-  font-weight:900
-}
-.home-button:hover{background:#f0f5fb}
-.home-button .sub{
-  display:block;
-  color:#777;
-  font-size:13px;
-  font-weight:600;
-  margin-top:5px
-}
-.page{
-  padding:18px 20px 40px
-}
-.page-header{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:18px
-}
-.back-button{
-  border:0;
-  background:#0A5BA7;
-  color:#fff;
-  border-radius:12px;
-  padding:11px 15px;
-  font-weight:800
-}
-.page-title{
-  margin:0;
-  color:#0A5BA7;
-  font-size:28px
-}
-.card{
-  background:#fff;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 4px 16px rgba(0,0,0,.07);
-  margin-bottom:16px
-}
-.mode-buttons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:14px
-}
-.mode-button{
-  height:58px;
-  border:3px solid #d4d7dc;
-  border-radius:14px;
-  background:#fff;
-  font-weight:800;
-  color:#333
-}
-.mode-button.active{
-  background:#0A5BA7;
-  color:#fff;
-  border-color:#0A5BA7
-}
-.search-input{
-  width:100%;
-  height:60px;
-  border:3px solid #0A5BA7;
-  border-radius:14px;
-  padding:0 15px;
-  font-size:19px;
-  margin-bottom:12px;
-  outline:0
-}
-.primary-button,
-.scan-button,
-.secondary-button{
-  width:100%;
-  height:60px;
-  border:0;
-  border-radius:14px;
-  font-weight:900;
-  font-size:18px;
-  margin-bottom:12px
-}
-.primary-button{
+
+.home-action.yellow {
   background:#FDCE0C;
-  color:#222
+  color:#173F72;
 }
-.scan-button{
-  background:#0A5BA7;
-  color:#fff
+
+.home-action.pale {
+  background:#E8F2FC;
+  color:#173F72;
 }
-.secondary-button{
-  background:#fff;
-  color:#0A5BA7;
-  border:3px solid #0A5BA7
-}
-.scanner-box{
-  display:none;
-  background:#111;
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:14px
-}
-.scanner-box.active{display:block}
-.scanner-message{
-  color:#fff;
-  text-align:center;
-  padding:10px;
-  font-size:14px
-}
-.scanner-reader{
-  width:100%;
-  overflow:hidden;
-  border-radius:10px
-}
-.result-card,
-.promo-product-card{
-  background:#fff;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
-  border-left:6px solid #0A5BA7;
-  box-shadow:0 3px 12px rgba(0,0,0,.06)
-}
-.product-number,
-.promo-number{
-  font-size:12px;
-  font-weight:900;
-  color:#777;
-  letter-spacing:.5px
-}
-.product-name,
-.promo-product-name{
-  font-size:22px;
-  font-weight:900;
-  margin:7px 0
-}
-.product-price,
-.promo-product-price{
-  font-size:32px;
-  font-weight:900;
-  color:#0A5BA7;
-  margin-bottom:12px
-}
-.product-detail,
-.promo-detail,
-.promo-line{
-  font-size:14px;
-  line-height:1.5;
-  margin-top:6px
-}
-.promo-box{
-  margin-top:14px;
-  padding:14px;
-  border-radius:14px;
-  background:#fff8d9;
-  border:2px solid #FDCE0C
-}
-.promo-title{
-  font-size:18px;
-  font-weight:900;
-  margin-bottom:7px
-}
-.empty-message,
-.loading{
-  background:#fff;
-  border-radius:16px;
-  padding:22px;
-  text-align:center;
-  color:#666
-}
-.promo-section-card{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  background:#fff;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:12px;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
-  cursor:pointer
-}
-.promo-number{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:#0A5BA7;
-  color:#fff;
+
+.home-action-icon {
+  width: 68px;
+  height: 68px;
+  border: 3px solid currentColor;
+  border-radius: 20px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:17px;
-  flex:none
+  font-size: 38px;
+  font-weight: 900;
 }
-.promo-section-name{
-  font-size:19px;
-  font-weight:900;
-  color:#0A5BA7
+
+.home-action-title {
+  font-size: clamp(23px, 4vw, 31px);
+  font-weight: 900;
+  line-height: 1.05;
 }
-.promo-section-count{
-  font-size:13px;
-  color:#777;
-  margin-top:4px
+
+.home-action-subtitle {
+  margin-top: 8px;
+  font-size: clamp(15px, 2.7vw, 20px);
+  line-height: 1.2;
 }
-.products-count{
-  font-weight:800;
-  color:#666;
-  margin:0 0 14px
+
+.home-action-arrow {
+  font-size: 43px;
+  font-weight: 300;
+  text-align: right;
 }
-.id-form label{
-  display:block;
-  font-weight:800;
-  margin:12px 0 6px
-}
-.id-form input{
-  width:100%;
-  height:52px;
-  border:2px solid #ccc;
-  border-radius:12px;
-  padding:0 12px
-}
-.id-form input[type=file]{
-  height:auto;
-  padding:10px
-}
-.photo-preview{
-  display:none;
-  width:110px;
-  height:110px;
-  object-fit:cover;
-  border-radius:12px;
-  margin-top:10px
-}
-.id-result{
-  display:none;
-  margin-top:18px
-}
-.id-card{
-  background:#fff;
-  border:5px solid #0A5BA7;
-  border-radius:22px;
-  padding:18px;
+
+.home-footer {
   text-align:center;
-  box-shadow:0 5px 18px rgba(0,0,0,.1)
+  padding: 20px 20px 35px;
+  color:#124B88;
+  font-size: 38px;
+  font-weight: 800;
+  font-style: italic;
 }
-.id-card-photo{
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  object-fit:cover;
-  border:5px solid #FDCE0C
+
+.home-footer::after {
+  content:"";
+  display:block;
+  width:170px;
+  height:4px;
+  background:#FDCE0C;
+  transform:rotate(-4deg);
+  margin:2px auto 0;
+  border-radius:4px;
 }
-.id-card-name{
+
+
+/* PRODUCT INFORMATION */
+
+.product-info-wrap {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 18px 18px 45px;
+}
+
+.product-info-title {
+  margin: 0 0 18px;
+  text-align:center;
+  color:#0A5BA7;
+  font-size:34px;
+  font-weight:900;
+}
+
+.product-search-row {
+  display:grid;
+  grid-template-columns: 1fr 64px;
+  gap: 8px;
+  background:#fff;
+  border:2px solid #9BC8F1;
+  border-radius:16px;
+  padding:5px 6px 5px 16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.product-search-inner {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.product-search-icon {
+  color:#0A5BA7;
   font-size:25px;
   font-weight:900;
+}
+
+.product-search-input {
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:18px;
+  min-width:0;
+}
+
+.barcode-icon-button {
+  border:0;
+  background:transparent;
   color:#0A5BA7;
-  margin-top:12px
+  font-size:29px;
+  font-weight:900;
+  border-left:1px solid #dbe9f6;
 }
-.id-card-position{
-  font-size:17px;
-  font-weight:700;
-  margin:5px 0 14px
+
+.product-search-button {
+  width:100%;
+  height:58px;
+  border:0;
+  border-radius:15px;
+  margin:10px 0 20px;
+  background:#0A5BA7;
+  color:#fff;
+  font-size:19px;
+  font-weight:900;
 }
-.id-card-qr{
+
+.product-mode-row {
   display:flex;
-  justify-content:center
+  gap:8px;
+  margin-bottom:14px;
 }
-.footer{
+
+.product-mode-small {
+  flex:1;
+  height:44px;
+  border:2px solid #0A5BA7;
+  border-radius:12px;
+  background:#fff;
+  color:#0A5BA7;
+  font-weight:800;
+}
+
+.product-mode-small.active {
+  background:#0A5BA7;
+  color:#fff;
+}
+
+.inline-scanner {
+  display:none;
+  background:#fff;
+  border-radius:20px;
+  padding:14px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.inline-scanner.active {
+  display:block;
+}
+
+#productReader {
+  width:100%;
+  overflow:hidden;
+  border-radius:14px;
+}
+
+.inline-scanner-message {
+  margin-top:10px;
+  padding:10px;
+  background:#f1f3f5;
+  border-radius:10px;
   text-align:center;
-  color:#888;
-  font-size:12px;
-  padding:10px 20px 25px
+  color:#555;
+  font-size:14px;
 }
-@media(max-width:600px){
-  .brand-name{font-size:34px}
-  .home-hero{min-height:300px}
-  .hero-text h1{font-size:31px}
-  .page{padding:15px 14px 30px}
+
+.scan-again-button {
+  width:100%;
+  height:54px;
+  border:0;
+  border-radius:14px;
+  background:#FDCE0C;
+  color:#173F72;
+  font-size:18px;
+  font-weight:900;
+  margin-top:12px;
 }
-</style>
-</head>
-
-<body>
-
-<main class="app">
-
-<section id="homeScreen" class="screen active">
-
-  <div class="brand-header">
-    <div class="brand-name">
-      <span class="one">ONE</span> BEYOND
-    </div>
-    <div class="brand-tagline">
-      Your tools. Your support. Our team.
-    </div>
-  </div>
-
-  <div class="home-hero">
-    <div class="hero-text">
-      <h1>Welcome to ONE BEYOND</h1>
-      <p>Your tools. Your support. Our team.</p>
-    </div>
-  </div>
-
-  <div class="home-content">
-
-    <button
-      id="homeProductButton"
-      class="home-button"
-      type="button">
-      Product Information
-      <span class="sub">
-        Check prices, promotions and product details
-      </span>
-    </button>
-
-    <button
-      id="promotionsButton"
-      class="home-button"
-      type="button">
-      Promotions
-      <span class="sub">
-        View current promotions and offers
-      </span>
-    </button>
-
-    <button
-      id="incidentButton"
-      class="home-button"
-      type="button">
-      Report an Incident
-      <span class="sub">
-        Report an incident through the company system
-      </span>
-    </button>
-
-    <button
-      id="idCardButton"
-      class="home-button"
-      type="button">
-      My ID Card
-      <span class="sub">
-        Create your staff ID card
-      </span>
-    </button>
-
-    <button
-      id="websiteButton"
-      class="home-button"
-      type="button">
-      Visit One Beyond Website
-      <span class="sub">
-        News, careers and more
-      </span>
-    </button>
-
-  </div>
-
-  <div class="footer">
-    One Beyond
-  </div>
-
-</section>
-
-
-<section id="productInfoScreen" class="screen">
-
-  <div class="page">
-
-    <div class="page-header">
-      <button
-        id="productHomeButton"
-        class="back-button"
-        type="button">
-        ← Home
-      </button>
-
-      <h2 class="page-title">
-        Product Information
-      </h2>
-    </div>
 
-    <div class="card">
-
-      <div class="mode-buttons">
-
-        <button
-          id="productBarcodeMode"
-          class="mode-button active"
-          type="button">
-          Barcode
-        </button>
-
-        <button
-          id="productCodeMode"
-          class="mode-button"
-          type="button">
-          Product Code
-        </button>
-
-      </div>
-
-      <input
-        id="productSearchInput"
-        class="search-input"
-        type="text"
-        autocomplete="off"
-        placeholder="Scan or enter barcode...">
-
-      <button
-        id="productSearchButton"
-        class="primary-button"
-        type="button">
-        Search Product
-      </button>
-
-      <button
-        id="openProductScannerButton"
-        class="scan-button"
-        type="button">
-        Scan Barcode
-      </button>
-
-      <button
-        id="scanAgainButton"
-        class="secondary-button"
-        type="button"
-        style="display:none">
-        Scan Again
-      </button>
-
-      <div
-        id="inlineScanner"
-        class="scanner-box">
-
-        <div
-          id="productReader"
-          class="scanner-reader">
-        </div>
-
-        <div
-          id="inlineScannerMessage"
-          class="scanner-message">
-          Starting camera...
-        </div>
-
-      </div>
-
-    </div>
-
-    <div id="productResultContainer"></div>
-
-  </div>
-
-</section>
-
-
-<section id="promotionSectionsScreen" class="screen">
-
-  <div class="page">
-
-    <div class="page-header">
-
-      <button
-        class="back-button"
-        type="button"
-        onclick="showScreen('homeScreen')">
-        ← Home
-      </button>
-
-      <h2 class="page-title">
-        Promotions
-      </h2>
-
-    </div>
-
-    <div id="promotionSectionsContainer"></div>
-
-  </div>
-
-</section>
-
-
-<section id="promotionLocationsScreen" class="screen">
-
-  <div class="page">
-
-    <div class="page-header">
-
-      <button
-        class="back-button"
-        type="button"
-        onclick="openPromotions()">
-        ← Back
-      </button>
-
-      <h2
-        id="promotionLocationsHeading"
-        class="page-title">
-        Locations
-      </h2>
-
-    </div>
-
-    <div id="promotionLocationsContainer"></div>
-
-  </div>
-
-</section>
-
-
-<section id="promotionProductsScreen" class="screen">
-
-  <div class="page">
-
-    <div class="page-header">
-
-      <button
-        class="back-button"
-        type="button"
-        onclick="openPromotionLocations(selectedPromotion)">
-        ← Back
-      </button>
-
-      <h2
-        id="promotionProductsHeading"
-        class="page-title">
-        Products
-      </h2>
-
-    </div>
-
-    <div
-      id="promotionProductsCount"
-      class="products-count">
-    </div>
-
-    <div id="promotionProductsContainer"></div>
-
-  </div>
-
-</section>
-
-
-<section id="idCardScreen" class="screen">
-
-  <div class="page">
-
-    <div class="page-header">
-
-      <button
-        id="idCardBackButton"
-        class="back-button"
-        type="button">
-        ← Home
-      </button>
-
-      <h2 class="page-title">
-        My ID Card
-      </h2>
-
-    </div>
-
-    <div class="card id-form">
-
-      <label for="idCardPhoto">
-        Photo
-      </label>
-
-      <input
-        id="idCardPhoto"
-        type="file"
-        accept="image/*"
-        capture="user">
-
-      <img
-        id="idCardPhotoPreview"
-        class="photo-preview"
-        alt="Photo preview">
-
-      <label for="idCardName">
-        Name
-      </label>
-
-      <input
-        id="idCardName"
-        type="text"
-        placeholder="Enter name">
-
-      <label for="idCardPosition">
-        Position
-      </label>
-
-      <input
-        id="idCardPosition"
-        type="text"
-        placeholder="Enter position">
-
-      <label for="idCardTillCode">
-        Till Code
-      </label>
-
-      <input
-        id="idCardTillCode"
-        type="text"
-        inputmode="numeric"
-        maxlength="10"
-        placeholder="Enter till code">
-
-      <button
-        id="generateIdCardButton"
-        class="primary-button"
-        type="button"
-        style="margin-top:16px">
-        Generate ID Card
-      </button>
-
-      <button
-        id="resetIdCardButton"
-        class="secondary-button"
-        type="button">
-        Reset
-      </button>
-
-    </div>
-
-    <div
-      id="idCardResult"
-      class="id-result">
-
-      <div class="id-card">
-
-        <img
-          id="generatedIdCardPhoto"
-          class="id-card-photo"
-          alt="ID photo">
-
-        <div
-          id="generatedIdCardName"
-          class="id-card-name">
-        </div>
-
-        <div
-          id="generatedIdCardPosition"
-          class="id-card-position">
-        </div>
-
-        <div
-          id="idCardQr"
-          class="id-card-qr">
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<script>
+.scan-result-heading {
+  margin: 14px 0 10px;
+  color:#0A5BA7;
+  font-size:18px;
+  font-weight:900;
+}
+
+
+/* RESULTS */
+
+.result-card {
+  background: white;
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  margin-bottom: 18px;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  color: #0A5BA7;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.product-name {
+  color: #111;
+  font-size: 29px;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+.product-price {
+  color: #0A5BA7;
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.product-detail {
+  font-size: 17px;
+  margin-bottom: 9px;
+  color: #555;
+  word-break: break-word;
+}
+
+.product-detail strong {
+  color: #222;
+}
+
+.promo-box {
+  margin-top: 22px;
+  padding: 18px;
+  background: #fff8d7;
+  border-left: 7px solid #FDCE0C;
+  border-radius: 10px;
+}
+
+.promo-title {
+  color: #0A5BA7;
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.promo-line {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 7px;
+}
+
+
+/* PROMOTIONS */
+
+.promo-heading {
+  color: #0A5BA7;
+  font-size: 36px;
+  font-weight: 900;
+  margin: 10px 0 20px;
+}
+
+.promo-section-card {
+  background: white;
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  cursor: pointer;
+}
+
+.promo-number {
+  flex: 0 0 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: #0A5BA7;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.promo-section-name {
+  color: #0A5BA7;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.promo-section-count {
+  margin-top: 6px;
+  color: #777;
+  font-size: 14px;
+}
+
+.promo-product-card {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.promo-product-name {
+  color: #111;
+  font-size: 23px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.promo-product-price {
+  color: #0A5BA7;
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+.promo-detail {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.45;
+}
+
+.product-number {
+  color: #777;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.back-link {
+  border: 0;
+  background: transparent;
+  color: #0A5BA7;
+  font-size: 18px;
+  font-weight: 900;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.small {
+  color: #777;
+  font-size: 14px;
+}
+
+.loading {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  color: #777;
+}
+
+.empty-message {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  color: #777;
+}
+
+
+/* ID CARD */
+
+.id-card-form {
+  background: white;
+  border-radius: 22px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.id-card-field {
+  margin-bottom: 18px;
+}
+
+.id-card-label {
+  display: block;
+  color: #173F72;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.id-card-input {
+  width: 100%;
+  height: 54px;
+  border: 2px solid #d2d8df;
+  border-radius: 13px;
+  padding: 0 14px;
+  font-size: 17px;
+  outline: none;
+}
+
+.id-card-input:focus {
+  border-color: #0A5BA7;
+}
+
+.id-card-file {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #d2d8df;
+  border-radius: 13px;
+  background: white;
+}
+
+.id-card-photo-preview {
+  display: none;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-top: 12px;
+  border: 4px solid #FDCE0C;
+}
+
+.id-card-help {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: 7px;
+}
+
+.id-card-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.id-card-generate-button {
+  height: 58px;
+  border: 0;
+  border-radius: 14px;
+  background: #0A5BA7;
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.id-card-reset-button {
+  height: 58px;
+  border: 2px solid #0A5BA7;
+  border-radius: 14px;
+  background: white;
+  color: #0A5BA7;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.id-card-preview-title {
+  text-align: center;
+  color: #0A5BA7;
+  font-size: 25px;
+  font-weight: 900;
+  margin: 25px 0 14px;
+}
+
+.id-card-stage {
+  display: flex;
+  justify-content: center;
+}
+
+.id-card {
+  width: min(500px, 100%);
+  aspect-ratio: 1.586 / 1;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,.15);
+  position: relative;
+}
+
+.id-card-top {
+  height: 24%;
+  flex: 0 0 24%;
+  background: #0A5BA7;
+  border-bottom: 8px solid #FDCE0C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.id-card-logo {
+  width: 65%;
+  max-height: 70%;
+}
+
+.id-card-tagline-top {
+  color: white;
+  font-size: clamp(8px, 2vw, 12px);
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.id-card-main {
+  height: 63%;
+  flex: 0 0 63%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3% 7%;
+}
+
+.id-card-photo {
+  width: 25%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid #FDCE0C;
+}
+
+.id-card-name {
+  margin-top: 2%;
+  color: #0A5BA7;
+  font-size: clamp(17px, 4vw, 26px);
+  font-weight: 900;
+  text-align: center;
+}
+
+.id-card-position {
+  margin-top: .5%;
+  color: #555;
+  font-size: clamp(10px, 2.5vw, 15px);
+  font-weight: 800;
+  text-align: center;
+}
+
+.id-card-qr-wrap {
+  width: 49%;
+  aspect-ratio: 1 / 1;
+  margin-top: auto;
+  margin-bottom: 2%;
+  padding: 8px;
+  background: white;
+  border: 5px solid #FDCE0C;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#idCardQr,
+#idCardQr canvas,
+#idCardQr img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.id-card-qr-label {
+  margin-bottom: 3%;
+  color: #0A5BA7;
+  font-size: clamp(8px, 2vw, 11px);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.id-card-bottom {
+  height: 13%;
+  flex: 0 0 13%;
+  background: #0A5BA7;
+  border-top: 8px solid #FDCE0C;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 7%;
+  text-align: center;
+  font-size: clamp(9px, 2.2vw, 13px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.id-card-note {
+  max-width: 500px;
+  margin: 14px auto 0;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .header {
+    padding: 18px 12px 18px;
+  }
+
+  .header-logo {
+    width: 95px;
+    height: 95px;
+  }
+
+  .header-subtitle {
+    font-size: 21px;
+    margin-top: 8px;
+  }
+
+  .app {
+    padding: 14px 10px 35px;
+  }
+
+  .main-card {
+    padding: 23px 17px;
+    border-radius: 20px;
+  }
+
+  .main-heading {
+    font-size: 29px;
+    margin-bottom: 18px;
+  }
+
+  .main-description {
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+
+  .mode-button {
+    height: 59px;
+    font-size: 16px;
+  }
+
+  .search-input {
+    height: 59px;
+    font-size: 17px;
+  }
+
+  .primary-button,
+  .scan-button,
+  .promo-home-button,
+  .id-card-home-button {
+    height: 60px;
+    font-size: 18px;
+  }
+
+  .result-card {
+    padding: 19px;
+  }
+
+  .product-name {
+    font-size: 24px;
+  }
+
+  .product-price {
+    font-size: 36px;
+  }
+
+  .promo-heading {
+    font-size: 28px;
+  }
+
+  .promo-section-name {
+    font-size: 17px;
+  }
+
+  .promo-number {
+    flex-basis: 55px;
+    height: 55px;
+  }
+
+  .id-card-form {
+    padding: 19px;
+  }
+
+  .id-card-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .id-card {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .id-card-photo {
+    border-width: 5px;
+  }
+
+  .id-card-qr-wrap {
+    border-width: 4px;
+    padding: 7px;
+  }
+
+  .home-brand-header,
+  .product-brand-header {
+    padding: 14px 14px 12px;
+  }
+
+  .home-header-logo {
+    width: 185px;
+  }
+
+  .home-hero {
+    min-height: 390px;
+    padding: 0;
+  }
+
+  .home-actions {
+    padding: 14px 14px 4px;
+  }
+
+  .home-action {
+    min-height: 104px;
+    grid-template-columns: 74px 1fr 28px;
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .home-action-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 31px;
+    border-radius: 17px;
+  }
+
+  .home-action-title {
+    font-size: 22px;
+  }
+
+  .home-action-subtitle {
+    font-size: 15px;
+  }
+
+  .home-action-arrow {
+    font-size: 37px;
+  }
+
+}
+
+
+/* =========================================================
+   SUPABASE
+   ========================================================= */
 
 const SUPABASE_URL =
   "https://nmfjavzrxghvklkjtfaq.supabase.co";
@@ -762,35 +1097,44 @@ const supabaseClient =
   );
 
 
+/* =========================================================
+   SCREENS
+   ========================================================= */
+
+const screens = [
+  "homeScreen",
+  "productInfoScreen",
+  "promotionSectionsScreen",
+  "promotionLocationsScreen",
+  "promotionProductsScreen",
+  "idCardScreen"
+];
+
 function showScreen(id) {
 
-  document
-    .querySelectorAll(".screen")
-    .forEach(
-      screen => {
-        screen.classList.remove(
-          "active"
-        );
-      }
-    );
+  screens.forEach(screenId => {
 
-  const screen =
-    document.getElementById(id);
+    const element =
+      document.getElementById(screenId);
 
-  if (screen) {
-    screen.classList.add(
-      "active"
+    if (!element) return;
+
+    element.classList.toggle(
+      "active",
+      screenId === id
     );
-  }
+  });
+
+  document.body.classList.toggle(
+    "home-mode",
+    id === "homeScreen"
+  );
 
   window.scrollTo({
     top: 0,
     behavior: "instant"
   });
 }
-
-
-let selectedPromotion = "";
 
 
 /* =========================================================
@@ -845,6 +1189,7 @@ function setProductMode(mode) {
     document.getElementById(
       "productCodeMode"
     );
+
 
   if (mode === "barcode") {
 
@@ -998,6 +1343,7 @@ async function searchProduct(
       value || ""
     ).trim();
 
+
   if (!value) {
 
     alert(
@@ -1039,7 +1385,6 @@ async function searchProduct(
         "product_code",
         value
       );
-
   }
 
 
@@ -1057,15 +1402,11 @@ async function searchProduct(
     productResultContainer.innerHTML =
       `
       <div class="empty-message">
-
         Unable to search right now.
-
         <br><br>
-
         ${escapeHtml(
           error.message
         )}
-
       </div>
       `;
 
@@ -1132,7 +1473,6 @@ function renderSearchResults(
           renderPromoInformation(
             product.promo_offer
           );
-
       }
 
 
@@ -1174,6 +1514,7 @@ function renderSearchResults(
         ${promoHtml}
         `;
 
+
       container.appendChild(
         card
       );
@@ -1183,9 +1524,14 @@ function renderSearchResults(
 }
 
 
+/* =========================================================
+   BARCODE SCANNER
+   ========================================================= */
+
 async function startInlineScanner() {
 
   await stopInlineScanner();
+
 
   inlineScannerElement.classList.add(
     "active"
@@ -1209,7 +1555,6 @@ async function startInlineScanner() {
         new Html5Qrcode(
           "productReader"
         );
-
     }
 
 
@@ -1238,24 +1583,31 @@ async function startInlineScanner() {
           return;
         }
 
+
         inlineScannerLocked =
           true;
+
 
         inlineScannerMessage.textContent =
           "Barcode detected. Searching...";
 
+
         productSearchInput.value =
           decodedText;
+
 
         setProductMode(
           "barcode"
         );
 
+
         await stopInlineScanner();
+
 
         inlineScannerElement.classList.remove(
           "active"
         );
+
 
         await searchProduct(
           decodedText,
@@ -1272,6 +1624,7 @@ async function startInlineScanner() {
     inlineScannerRunning =
       true;
 
+
     inlineScannerMessage.textContent =
       "Point the camera at a product barcode.";
 
@@ -1283,11 +1636,11 @@ async function startInlineScanner() {
       error
     );
 
+
     inlineScannerMessage.textContent =
       "Camera could not be started. Please check camera permission.";
 
   }
-
 }
 
 
@@ -1315,9 +1668,7 @@ async function stopInlineScanner() {
 
     inlineScannerRunning =
       false;
-
   }
-
 }
 
 
@@ -1339,16 +1690,12 @@ scanAgainButton
 
 
 async function startScanner() {
-
   await startInlineScanner();
-
 }
 
 
 async function stopScanner() {
-
   await stopInlineScanner();
-
 }
 
 
@@ -1434,19 +1781,12 @@ function parsePromotions(
       const promotion = {
 
         plan: "",
-
         location: "",
-
         bay: "",
-
         categories: "",
-
         code: "",
-
         product: "",
-
         price: "",
-
         details: ""
 
       };
@@ -1471,6 +1811,7 @@ function parsePromotions(
             part.match(
               /^([^:]+):\s*(.*)$/
             );
+
 
           if (!match) {
             return;
@@ -1542,7 +1883,6 @@ function parsePromotions(
 
             promotion.details =
               value;
-
           }
 
         }
@@ -1559,7 +1899,6 @@ function parsePromotions(
         promotions.push(
           promotion
         );
-
       }
 
     }
@@ -1597,7 +1936,6 @@ function identifySection(
   ) {
 
     return "ENDS";
-
   }
 
 
@@ -1611,7 +1949,6 @@ function identifySection(
   ) {
 
     return "SIDES";
-
   }
 
 
@@ -1622,7 +1959,6 @@ function identifySection(
   ) {
 
     return "TILL ENDS";
-
   }
 
 
@@ -1633,7 +1969,6 @@ function identifySection(
   ) {
 
     return "TILL FRONTS";
-
   }
 
 
@@ -1644,7 +1979,6 @@ function identifySection(
   ) {
 
     return "FRONT OF STORE";
-
   }
 
 
@@ -1655,7 +1989,6 @@ function identifySection(
   ) {
 
     return "WINDOW BASKETS";
-
   }
 
 
@@ -1666,7 +1999,6 @@ function identifySection(
   ) {
 
     return "PROMO BAYS";
-
   }
 
 
@@ -1677,7 +2009,6 @@ function identifySection(
   ) {
 
     return "BULK STACKS";
-
   }
 
 
@@ -1688,7 +2019,6 @@ function identifySection(
   ) {
 
     return "PENCIL STACKS";
-
   }
 
 
@@ -1702,7 +2032,6 @@ function identifySection(
   ) {
 
     return "FSDU & STANDS";
-
   }
 
 
@@ -1713,7 +2042,6 @@ function identifySection(
   ) {
 
     return "DUMP BINS";
-
   }
 
 
@@ -1727,7 +2055,6 @@ function identifySection(
   ) {
 
     return "GIANT TIERED BASKETS";
-
   }
 
 
@@ -1738,7 +2065,6 @@ function identifySection(
   ) {
 
     return "CLIP STRIPS";
-
   }
 
 
@@ -1749,7 +2075,6 @@ function identifySection(
   ) {
 
     return "DRINKS CHILLER";
-
   }
 
 
@@ -1769,11 +2094,8 @@ function identifyLocation(
   const values = [
 
     promo.location,
-
     promo.bay,
-
     promo.plan,
-
     promo.details
 
   ];
@@ -1801,7 +2123,6 @@ function identifyLocation(
         "BAY " +
         bayNumber
       );
-
     }
 
 
@@ -1824,7 +2145,6 @@ function identifyLocation(
           "BAY " +
           match[1]
         );
-
       }
 
     }
@@ -1863,7 +2183,6 @@ function identifyLocation(
         "END " +
         endMatch[1]
       );
-
     }
 
 
@@ -1882,7 +2201,6 @@ function identifyLocation(
         "SIDE " +
         sideMatch[1]
       );
-
     }
 
 
@@ -1901,7 +2219,6 @@ function identifyLocation(
         "TILL END " +
         tillEndMatch[1]
       );
-
     }
 
 
@@ -1920,7 +2237,6 @@ function identifyLocation(
         "TILL FRONT " +
         tillFrontMatch[1]
       );
-
     }
 
 
@@ -1937,7 +2253,6 @@ function identifyLocation(
     ) {
 
       return text;
-
     }
 
   }
@@ -1954,33 +2269,19 @@ function identifyLocation(
 const promotionSectionOrder = [
 
   "ENDS",
-
   "SIDES",
-
   "TILL ENDS",
-
   "TILL FRONTS",
-
   "FRONT OF STORE",
-
   "WINDOW BASKETS",
-
   "PROMO BAYS",
-
   "BULK STACKS",
-
   "PENCIL STACKS",
-
   "FSDU & STANDS",
-
   "DUMP BINS",
-
   "GIANT TIERED BASKETS",
-
   "CLIP STRIPS",
-
   "DRINKS CHILLER",
-
   "OTHER"
 
 ];
@@ -2007,7 +2308,6 @@ function sortSections(
       ? 999
       : ai;
 
-
   const bv =
     bi === -1
       ? 999
@@ -2017,6 +2317,10 @@ function sortSections(
   return av - bv;
 }
 
+
+/* =========================================================
+   NATURAL SORT
+   ========================================================= */
 
 function naturalSort(
   a,
@@ -2028,8 +2332,8 @@ function naturalSort(
       String(b),
       undefined,
       {
-        numeric:true,
-        sensitivity:"base"
+        numeric: true,
+        sensitivity: "base"
       }
     );
 }
@@ -2047,6 +2351,7 @@ let promotionSections = {};
 async function loadPromotions() {
 
   promotionProducts = [];
+
 
   let from = 0;
 
@@ -2084,7 +2389,6 @@ async function loadPromotions() {
     if (error) {
 
       throw error;
-
     }
 
 
@@ -2094,7 +2398,6 @@ async function loadPromotions() {
     ) {
 
       break;
-
     }
 
 
@@ -2109,19 +2412,21 @@ async function loadPromotions() {
     ) {
 
       break;
-
     }
 
 
     from +=
       pageSize;
-
   }
 
 
   buildPromotionSections();
 }
 
+
+/* =========================================================
+   BUILD PROMOTION SECTIONS
+   ========================================================= */
 
 function buildPromotionSections() {
 
@@ -2145,6 +2450,7 @@ function buildPromotionSections() {
               promo
             );
 
+
           const location =
             identifyLocation(
               promo,
@@ -2161,7 +2467,6 @@ function buildPromotionSections() {
             promotionSections[
               section
             ] = {};
-
           }
 
 
@@ -2174,7 +2479,6 @@ function buildPromotionSections() {
             promotionSections[
               section
             ][location] = [];
-
           }
 
 
@@ -2182,8 +2486,10 @@ function buildPromotionSections() {
             section
           ][location]
             .push({
+
               product,
               promo
+
             });
 
         }
@@ -2193,6 +2499,10 @@ function buildPromotionSections() {
   );
 }
 
+
+/* =========================================================
+   PROMOTION SECTION SCREEN
+   ========================================================= */
 
 async function openPromotions() {
 
@@ -2225,6 +2535,7 @@ async function openPromotions() {
       error
     );
 
+
     container.innerHTML =
       `
       <div class="empty-message">
@@ -2239,9 +2550,7 @@ async function openPromotions() {
 
       </div>
       `;
-
   }
-
 }
 
 
@@ -2273,7 +2582,6 @@ function renderPromotionSections() {
       '<div class="empty-message">No promotions found.</div>';
 
     return;
-
   }
 
 
@@ -2316,6 +2624,7 @@ function renderPromotionSections() {
 
       card.innerHTML =
         `
+
         <div class="promo-number">
           ${index + 1}
         </div>
@@ -2334,6 +2643,7 @@ function renderPromotionSections() {
           </div>
 
         </div>
+
         `;
 
 
@@ -2358,12 +2668,13 @@ function renderPromotionSections() {
 }
 
 
+/* =========================================================
+   PROMOTION LOCATIONS
+   ========================================================= */
+
 function openPromotionLocations(
   section
 ) {
-
-  selectedPromotion =
-    section;
 
   showScreen(
     "promotionLocationsScreen"
@@ -2404,7 +2715,6 @@ function openPromotionLocations(
       '<div class="empty-message">No locations found.</div>';
 
     return;
-
   }
 
 
@@ -2432,6 +2742,7 @@ function openPromotionLocations(
 
       card.innerHTML =
         `
+
         <div class="promo-number">
           ${index + 1}
         </div>
@@ -2450,6 +2761,7 @@ function openPromotionLocations(
           </div>
 
         </div>
+
         `;
 
 
@@ -2474,6 +2786,10 @@ function openPromotionLocations(
   );
 }
 
+
+/* =========================================================
+   PROMOTION PRODUCTS
+   ========================================================= */
 
 function openPromotionProducts(
   section,
@@ -2525,7 +2841,6 @@ function openPromotionProducts(
       '<div class="empty-message">No products found.</div>';
 
     return;
-
   }
 
 
@@ -2563,6 +2878,7 @@ function openPromotionProducts(
         detailsHtml +=
           `
           <div class="promo-detail">
+
             <strong>
               Store Categories:
             </strong>
@@ -2645,8 +2961,7 @@ function openPromotionProducts(
 
       if (
         promo.bay &&
-        section ===
-        "PROMO BAYS"
+        section === "PROMO BAYS"
       ) {
 
         detailsHtml +=
@@ -2691,6 +3006,7 @@ function openPromotionProducts(
 
       card.innerHTML =
         `
+
         <div class="product-number">
           PRODUCT ${index + 1}
         </div>
@@ -2714,6 +3030,7 @@ function openPromotionProducts(
         </div>
 
         ${detailsHtml}
+
         `;
 
 
@@ -2725,6 +3042,10 @@ function openPromotionProducts(
   );
 }
 
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
 function formatPrice(
   value
@@ -2741,7 +3062,6 @@ function formatPrice(
   ) {
 
     return "0.00";
-
   }
 
 
@@ -2800,7 +3120,6 @@ function renderPromoInformation(
   ) {
 
     return "";
-
   }
 
 
@@ -2833,7 +3152,6 @@ function renderPromoInformation(
 
           </div>
           `;
-
       }
 
 
@@ -2855,7 +3173,6 @@ function renderPromoInformation(
 
           </div>
           `;
-
       }
 
 
@@ -2877,7 +3194,6 @@ function renderPromoInformation(
 
           </div>
           `;
-
       }
 
 
@@ -2899,7 +3215,6 @@ function renderPromoInformation(
 
           </div>
           `;
-
       }
 
 
@@ -2921,7 +3236,6 @@ function renderPromoInformation(
 
           </div>
           `;
-
       }
 
 
@@ -2943,7 +3257,6 @@ function renderPromoInformation(
 
           </div>
           `;
-
       }
 
     }
@@ -3022,9 +3335,12 @@ const idCardQr =
     "idCardQr"
   );
 
+
 let temporaryIdCardPhoto =
   "";
 
+
+/* OPEN ID CARD */
 
 idCardButton
   .addEventListener(
@@ -3041,6 +3357,8 @@ idCardButton
   );
 
 
+/* BACK */
+
 idCardBackButton
   .addEventListener(
     "click",
@@ -3055,6 +3373,8 @@ idCardBackButton
     }
   );
 
+
+/* PHOTO */
 
 idCardPhotoInput
   .addEventListener(
@@ -3085,7 +3405,6 @@ idCardPhotoInput
           "";
 
         return;
-
       }
 
 
@@ -3099,8 +3418,10 @@ idCardPhotoInput
           temporaryIdCardPhoto =
             reader.result;
 
+
           idCardPhotoPreview.src =
             temporaryIdCardPhoto;
+
 
           idCardPhotoPreview.style.display =
             "block";
@@ -3115,6 +3436,8 @@ idCardPhotoInput
     }
   );
 
+
+/* TILL CODE */
 
 idCardTillCodeInput
   .addEventListener(
@@ -3135,6 +3458,8 @@ idCardTillCodeInput
     }
   );
 
+
+/* GENERATE */
 
 document
   .getElementById(
@@ -3167,7 +3492,6 @@ function generateIdCard() {
     );
 
     return;
-
   }
 
 
@@ -3178,7 +3502,6 @@ function generateIdCard() {
     );
 
     return;
-
   }
 
 
@@ -3189,7 +3512,6 @@ function generateIdCard() {
     );
 
     return;
-
   }
 
 
@@ -3204,7 +3526,6 @@ function generateIdCard() {
     );
 
     return;
-
   }
 
 
@@ -3218,7 +3539,6 @@ function generateIdCard() {
     );
 
     return;
-
   }
 
 
@@ -3243,10 +3563,13 @@ function generateIdCard() {
     {
       text:
         tillCode,
+
       width:
         190,
+
       height:
         190,
+
       correctLevel:
         QRCode.CorrectLevel.M
     }
@@ -3274,6 +3597,8 @@ function generateIdCard() {
 }
 
 
+/* RESET */
+
 document
   .getElementById(
     "resetIdCardButton"
@@ -3289,6 +3614,7 @@ function resetIdCard() {
   temporaryIdCardPhoto =
     "";
 
+
   idCardPhotoInput.value =
     "";
 
@@ -3301,27 +3627,32 @@ function resetIdCard() {
   idCardTillCodeInput.value =
     "";
 
+
   idCardPhotoPreview.src =
     "";
 
   idCardPhotoPreview.style.display =
     "none";
 
+
   generatedIdCardPhoto.src =
     "";
+
 
   generatedIdCardName.textContent =
     "";
 
+
   generatedIdCardPosition.textContent =
     "";
+
 
   idCardQr.innerHTML =
     "";
 
+
   idCardResult.style.display =
     "none";
-
 }
 
 

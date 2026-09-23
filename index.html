@@ -3,2602 +3,3341 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Beyond Product Information</title>
+<title>One Beyond</title>
 <meta name="theme-color" content="#0A5BA7">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="Product Information">
+<meta name="apple-mobile-web-app-title" content="One Beyond">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <style>
-* {
-box-sizing: border-box;
-}
-html,
-body {
-margin: 0;
-padding: 0;
-min-height: 100%;
-}
-body {
-font-family: Arial, Helvetica, sans-serif;
-background: #f1f2f4;
-color: #222;
-}
-button,
-input {
-font-family: inherit;
-}
-button {
-cursor: pointer;
-}
-.header {
-background: #0A5BA7;
-color: white;
-text-align: center;
-padding: 24px 15px 24px;
-border-bottom: 9px solid #FDCE0C;
-}
-.header-logo {
-display: block;
-width: 118px;
-height: 118px;
-margin: 0 auto;
-border-radius: 14px;
-}
-.header-subtitle {
-margin-top: 12px;
-font-size: 24px;
-font-weight: 700;
-}
-.app {
-max-width: 850px;
-margin: auto;
-padding: 22px 18px 50px;
-}
-.screen {
-display: none;
-}
-.screen.active {
-display: block;
-}
-.main-card {
-background: white;
-border-radius: 25px;
-padding: 34px;
-box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-}
-.main-heading {
-margin: 0 0 25px;
-color: #0A5BA7;
-font-size: 34px;
-font-weight: 800;
-}
-.main-description {
-margin-bottom: 28px;
-color: #666;
-font-size: 22px;
-line-height: 1.4;
-}
-.mode-buttons {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 14px;
-margin-bottom: 24px;
-}
-.mode-button {
-height: 70px;
-border: 4px solid #d6d6d6;
-border-radius: 18px;
-background: white;
-color: #333;
-font-size: 20px;
-font-weight: 800;
-}
-.mode-button.active {
-background: #0A5BA7;
-color: white;
-border-color: #0A5BA7;
-}
-.search-input {
-width: 100%;
-height: 66px;
-border: 4px solid #0A5BA7;
-border-radius: 17px;
-padding: 0 18px;
-font-size: 20px;
-outline: none;
-margin-bottom: 16px;
-}
-.search-input:focus {
-border-color: #FDCE0C;
-}
-.primary-button {
-width: 100%;
-height: 68px;
-border: none;
-border-radius: 17px;
-background: #FDCE0C;
-color: #222;
-font-size: 21px;
-font-weight: 900;
-margin-bottom: 14px;
-}
-.scan-button {
-width: 100%;
-height: 68px;
-border: none;
-border-radius: 17px;
-background: #0A5BA7;
-color: white;
-font-size: 21px;
-font-weight: 900;
-margin-bottom: 14px;
-}
-.promo-home-button {
-width: 100%;
-height: 68px;
-border: 4px solid #0A5BA7;
-border-radius: 17px;
-background: white;
-color: #0A5BA7;
-font-size: 21px;
-font-weight: 900;
-margin-bottom: 14px;
-}
-.id-card-home-button {
-width: 100%;
-height: 68px;
-border: 4px solid #0A5BA7;
-border-radius: 17px;
-background: white;
-color: #0A5BA7;
-font-size: 21px;
-font-weight: 900;
-}
-.home-mode > .header {
-display: none;
-}
-.home-screen-wrap {
-width: 100%;
-max-width: 900px;
-margin: 0 auto;
-background: #f7f8fa;
-}
-.home-brand-header,
-.product-brand-header {
-background: #0A5BA7;
-color: #fff;
-border-bottom: 7px solid #FDCE0C;
-padding: 18px 24px 16px;
-display: flex;
-align-items: center;
-justify-content: flex-start;
-gap: 15px;
-}
-.brand-lockup {
-text-align: center;
-flex: 1;
-}
-.brand-name {
-font-size: 39px;
-line-height: 1;
-font-weight: 900;
-letter-spacing: -1.5px;
-}
-.brand-name .one {
-color: #FDCE0C;
-}
-.brand-name .beyond {
-color: #fff;
-}
-.brand-tagline {
-margin-top: 5px;
-font-size: 13px;
-font-weight: 800;
-}
-.team-mark {
-width: 118px;
-text-align: center;
-font-size: 14px;
-line-height: 1.05;
-font-weight: 900;
-}
-.team-mark .yellow {
-color: #FDCE0C;
-}
-.home-header-logo {
-display: block;
-width: 205px;
-height: auto;
-margin: 0;
-border-radius: 8px;
-}
-.home-hero {
-width: 100%;
-background: #fff;
-overflow: hidden;
-}
-.home-hero img {
-display: block;
-width: 100%;
-height: auto;
-}
-.home-hero h1 {
-margin: 0;
-color: #fff;
-font-size: clamp(42px, 7vw, 72px);
-line-height: .98;
-font-weight: 900;
-letter-spacing: -1.5px;
-text-shadow: 0 3px 8px rgba(0,0,0,.4);
-}
-.home-hero p {
-margin: 18px 0 0;
-color: #fff;
-font-size: clamp(20px, 3.5vw, 31px);
-font-weight: 800;
-text-shadow: 0 2px 5px rgba(0,0,0,.45);
-}
-.home-actions {
-padding: 20px 24px 10px;
-}
-.home-action {
-width: 100%;
-min-height: 112px;
-margin-bottom: 14px;
-border: 0;
-border-radius: 25px;
-padding: 18px 22px;
-display: grid;
-grid-template-columns: 92px 1fr 34px;
-align-items: center;
-text-align: left;
-box-shadow: 0 5px 18px rgba(0,0,0,.08);
-}
-.home-action.blue {
-background:#1268B5;
-color:#fff;
-}
-.home-action.yellow {
-background:#FDCE0C;
-color:#173F72;
-}
-.home-action.pale {
-background:#E8F2FC;
-color:#173F72;
-}
-.home-action-icon {
-width: 68px;
-height: 68px;
-border: 3px solid currentColor;
-border-radius: 20px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 38px;
-font-weight: 900;
-}
-.home-action-title {
-font-size: clamp(23px, 4vw, 31px);
-font-weight: 900;
-line-height: 1.05;
-}
-.home-action-subtitle {
-margin-top: 8px;
-font-size: clamp(15px, 2.7vw, 20px);
-line-height: 1.2;
-}
-.home-action-arrow {
-font-size: 43px;
-font-weight: 300;
-text-align: right;
-}
-.home-footer {
-text-align:center;
-padding: 20px 20px 35px;
-color:#124B88;
-font-size: 38px;
-font-weight: 800;
-font-style: italic;
-}
-.home-footer::after {
-content:"";
-display:block;
-width:170px;
-height:4px;
-background:#FDCE0C;
-transform:rotate(-4deg);
-margin:2px auto 0;
-border-radius:4px;
-}
-.product-info-wrap {
-max-width: 850px;
-margin: 0 auto;
-padding: 18px 18px 45px;
-}
-.product-info-title {
-margin: 0 0 18px;
-text-align:center;
-color:#0A5BA7;
-font-size:34px;
-font-weight:900;
-}
-.product-search-row {
-display:grid;
-grid-template-columns: 1fr 64px;
-gap: 8px;
-background:#fff;
-border:2px solid #9BC8F1;
-border-radius:16px;
-padding:5px 6px 5px 16px;
-box-shadow:0 2px 10px rgba(0,0,0,.05);
-}
-.product-search-inner {
-display:flex;
-align-items:center;
-gap:10px;
-}
-.product-search-icon {
-color:#0A5BA7;
-font-size:25px;
-font-weight:900;
-}
-.product-search-input {
-width:100%;
-border:0;
-outline:0;
-background:transparent;
-font-size:18px;
-min-width:0;
-}
-.barcode-icon-button {
-border:0;
-background:transparent;
-color:#0A5BA7;
-font-size:29px;
-font-weight:900;
-border-left:1px solid #dbe9f6;
-}
-.product-search-button {
-width:100%;
-height:58px;
-border:0;
-border-radius:15px;
-margin:10px 0 20px;
-background:#0A5BA7;
-color:#fff;
-font-size:19px;
-font-weight:900;
-}
-.product-mode-row {
-display:flex;
-gap:8px;
-margin-bottom:14px;
-}
-.product-mode-small {
-flex:1;
-height:44px;
-border:2px solid #0A5BA7;
-border-radius:12px;
-background:#fff;
-color:#0A5BA7;
-font-weight:800;
-}
-.product-mode-small.active {
-background:#0A5BA7;
-color:#fff;
-}
-.inline-scanner {
-display:none;
-background:#fff;
-border-radius:20px;
-padding:14px;
-margin-bottom:16px;
-box-shadow:0 4px 18px rgba(0,0,0,.08);
-}
-.inline-scanner.active {
-display:block;
-}
-#productReader {
-width:100%;
-overflow:hidden;
-border-radius:14px;
-}
-.inline-scanner-message {
-margin-top:10px;
-padding:10px;
-background:#f1f3f5;
-border-radius:10px;
-text-align:center;
-color:#555;
-font-size:14px;
-}
-.scan-again-button {
-width:100%;
-height:54px;
-border:0;
-border-radius:14px;
-background:#FDCE0C;
-color:#173F72;
-font-size:18px;
-font-weight:900;
-margin-top:12px;
-}
-.scan-result-heading {
-margin: 14px 0 10px;
-color:#0A5BA7;
-font-size:18px;
-font-weight:900;
-}
-@media (max-width:600px) {
-.home-brand-header,
-.product-brand-header {
-padding:14px 14px 12px;
-}
-.home-header-logo {
-width:185px;
-}
-.brand-name {
-font-size:29px;
-}
-.brand-tagline {
-font-size:9px;
-}
-.team-mark {
-width:86px;
-font-size:10px;
-}
-.home-hero {
-min-height:0;
-padding:0;
-}
-.home-actions {
-padding:14px 14px 4px;
-}
-.home-action {
-min-height:104px;
-grid-template-columns:74px 1fr 28px;
-padding:14px;
-border-radius:22px;
-}
-.home-action-icon {
-width:58px;
-height:58px;
-font-size:31px;
-border-radius:17px;
-}
-.home-action-title {
-font-size:22px;
-}
-.home-action-subtitle {
-font-size:15px;
-}
-.home-action-arrow {
-font-size:37px;
-}
-.home-footer {
-font-size:30px;
-}
-.product-info-wrap {
-padding:14px 12px 35px;
-}
-.product-info-title {
-font-size:28px;
-}
-}
-.result-card {
-background: white;
-border-radius: 22px;
-padding: 26px;
-box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-margin-bottom: 18px;
-}
-.back-button {
-border: none;
-background: transparent;
-color: #0A5BA7;
-font-size: 18px;
-font-weight: 800;
-padding: 0;
-margin-bottom: 20px;
-}
-.product-name {
-color: #111;
-font-size: 29px;
-font-weight: 900;
-margin-bottom: 16px;
-}
-.product-price {
-color: #0A5BA7;
-font-size: 42px;
-font-weight: 900;
-margin-bottom: 20px;
-}
-.product-detail {
-font-size: 17px;
-margin-bottom: 9px;
-color: #555;
-word-break: break-word;
-}
-.product-detail strong {
-color: #222;
-}
-.promo-box {
-margin-top: 22px;
-padding: 18px;
-background: #fff8d7;
-border-left: 7px solid #FDCE0C;
-border-radius: 10px;
-}
-.promo-title {
-color: #0A5BA7;
-font-size: 20px;
-font-weight: 900;
-margin-bottom: 10px;
-}
-.promo-line {
-font-size: 15px;
-line-height: 1.55;
-margin-bottom: 7px;
-}
-.scanner-card {
-background: white;
-border-radius: 22px;
-padding: 24px;
-box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-}
-#reader {
-width: 100%;
-overflow: hidden;
-border-radius: 15px;
-}
-.scanner-message {
-margin-top: 15px;
-padding: 13px;
-background: #f2f2f2;
-border-radius: 10px;
-text-align: center;
-font-size: 15px;
-}
-.promo-heading {
-color: #0A5BA7;
-font-size: 34px;
-font-weight: 900;
-margin: 0 0 20px;
-}
-.back-link {
-border: none;
-background: transparent;
-color: #0A5BA7;
-font-size: 18px;
-font-weight: 800;
-padding: 0;
-margin-bottom: 18px;
-}
-.promo-section-card {
-background: white;
-border-radius: 17px;
-padding: 18px;
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-gap: 15px;
-box-shadow: 0 3px 13px rgba(0,0,0,0.07);
-cursor: pointer;
-}
-.promo-number {
-flex: 0 0 64px;
-height: 64px;
-border-radius: 14px;
-background: #0A5BA7;
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 20px;
-font-weight: 900;
-}
-.promo-section-name {
-font-size: 20px;
-font-weight: 900;
-color: #222;
-}
-.promo-section-count {
-margin-top: 5px;
-color: #777;
-font-size: 14px;
-}
-.promo-product-card {
-background: white;
-border-radius: 17px;
-padding: 20px;
-margin-bottom: 14px;
-box-shadow: 0 3px 13px rgba(0,0,0,0.07);
-}
-.product-number {
-color: #0A5BA7;
-font-size: 14px;
-font-weight: 900;
-margin-bottom: 8px;
-text-transform: uppercase;
-}
-.promo-product-name {
-color: #111;
-font-size: 21px;
-line-height: 1.25;
-font-weight: 900;
-margin-bottom: 10px;
-}
-.promo-product-price {
-color: #0A5BA7;
-font-size: 28px;
-font-weight: 900;
-margin-bottom: 13px;
-}
-.promo-detail {
-font-size: 14px;
-line-height: 1.5;
-margin-top: 6px;
-color: #555;
-}
-.promo-detail strong {
-color: #222;
-}
-.empty-message {
-background: white;
-padding: 22px;
-border-radius: 16px;
-color: #666;
-text-align: center;
-}
-.loading {
-text-align: center;
-padding: 35px 15px;
-color: #0A5BA7;
-font-weight: 800;
-font-size: 18px;
-}
-.id-card-form {
-background: white;
-border-radius: 22px;
-padding: 22px;
-box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-margin-bottom: 24px;
-}
-.id-card-field {
-margin-bottom: 18px;
-}
-.id-card-label {
-display: block;
-margin-bottom: 8px;
-color: #222;
-font-size: 15px;
-font-weight: 900;
-}
-.id-card-input {
-width: 100%;
-height: 62px;
-border: 3px solid #0A5BA7;
-border-radius: 15px;
-padding: 0 16px;
-background: white;
-color: #222;
-font-size: 18px;
-outline: none;
-}
-.id-card-input:focus {
-border-color: #FDCE0C;
-}
-.id-card-file {
-width: 100%;
-min-height: 62px;
-padding: 10px;
-border: 3px solid #0A5BA7;
-border-radius: 15px;
-background: white;
-color: #222;
-font-size: 15px;
-}
-.id-card-help {
-margin-top: 7px;
-color: #777;
-font-size: 13px;
-line-height: 1.4;
-}
-.id-card-photo-preview {
-display: none;
-width: 115px;
-height: 115px;
-object-fit: cover;
-margin: 14px auto 0;
-border: 5px solid #FDCE0C;
-border-radius: 20px;
-}
-.id-card-buttons {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-margin-top: 5px;
-}
-.id-card-generate-button,
-.id-card-reset-button {
-height: 62px;
-border-radius: 16px;
-font-size: 18px;
-font-weight: 900;
-}
-.id-card-generate-button {
-border: none;
-background: #FDCE0C;
-color: #222;
-}
-.id-card-reset-button {
-border: 3px solid #0A5BA7;
-background: white;
-color: #0A5BA7;
-}
-.id-card-stage {
-width: 100%;
-display: flex;
-justify-content: center;
-}
-.id-card {
-position: relative;
-width: min(100%, 430px);
-aspect-ratio: 9 / 16;
-overflow: hidden;
-border-radius: 25px;
-background: white;
-border: 2px solid #0A5BA7;
-box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-display: flex;
-flex-direction: column;
-}
-.id-card-top {
-position: relative;
-height: 22%;
-flex: 0 0 22%;
-background: #0A5BA7;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: flex-start;
-padding-top: 7%;
-color: white;
-}
-.id-card-top::after {
-content: "";
-position: absolute;
-left: -10%;
-right: -10%;
-bottom: -24%;
-height: 45%;
-background: white;
-border-top: 9px solid #FDCE0C;
-border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-}
-.id-card-logo {
-position: relative;
-z-index: 2;
-width: 44%;
-height: auto;
-max-height: 65px;
-object-fit: contain;
-}
-.id-card-tagline-top {
-position: relative;
-z-index: 3;
-margin-top: 5px;
-color: white;
-font-size: clamp(9px, 2.2vw, 12px);
-font-weight: 900;
-letter-spacing: 0.12em;
-}
-.id-card-main {
-position: relative;
-flex: 1;
-min-height: 0;
-background: white;
-padding: 4% 7% 0;
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
-}
-.id-card-photo {
-width: 36%;
-aspect-ratio: 1 / 1;
-flex-shrink: 0;
-object-fit: cover;
-background: #eeeeee;
-border: 6px solid #FDCE0C;
-border-radius: 22px;
-z-index: 5;
-}
-.id-card-name {
-width: 100%;
-margin-top: 4%;
-color: #0A5BA7;
-font-size: clamp(21px, 5.2vw, 31px);
-font-weight: 900;
-line-height: 1.08;
-overflow-wrap: anywhere;
-}
-.id-card-position {
-max-width: 90%;
-margin-top: 2.5%;
-padding: 9px 22px;
-border-radius: 999px;
-background: #FDCE0C;
-color: #0A5BA7;
-font-size: clamp(14px, 3.7vw, 20px);
-font-weight: 900;
-line-height: 1.1;
-overflow-wrap: anywhere;
-}
-.id-card-qr-wrap {
-width: 49%;
-aspect-ratio: 1 / 1;
-margin-top: auto;
-margin-bottom: 2%;
-padding: 8px;
-background: white;
-border: 5px solid #FDCE0C;
-border-radius: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-#idCardQr,
-#idCardQr canvas,
-#idCardQr img {
-width: 100% !important;
-height: 100% !important;
-display: block;
-}
-.id-card-qr-label {
-margin-bottom: 3%;
-color: #0A5BA7;
-font-size: clamp(8px, 2vw, 11px);
-font-weight: 900;
-letter-spacing: 0.1em;
-}
-.id-card-bottom {
-height: 13%;
-flex: 0 0 13%;
-background: #0A5BA7;
-border-top: 8px solid #FDCE0C;
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 0 7%;
-text-align: center;
-font-size: clamp(9px, 2.2vw, 13px);
-font-weight: 900;
-letter-spacing: 0.08em;
-}
-.id-card-note {
-max-width: 500px;
-margin: 14px auto 0;
-color: #777;
-font-size: 13px;
-line-height: 1.5;
-text-align: center;
-}
-@media (max-width: 600px) {
-.header {
-padding: 18px 12px 18px;
-}
-.header-logo {
-width: 95px;
-height: 95px;
-}
-.header-subtitle {
-font-size: 21px;
-margin-top: 8px;
-}
-.app {
-padding: 14px 10px 35px;
-}
-.main-card {
-padding: 23px 17px;
-border-radius: 20px;
-}
-.main-heading {
-font-size: 29px;
-margin-bottom: 18px;
-}
-.main-description {
-font-size: 17px;
-margin-bottom: 20px;
-}
-.mode-button {
-height: 59px;
-font-size: 16px;
-}
-.search-input {
-height: 59px;
-font-size: 17px;
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  background:#f3f4f6;
+  color:#222;
+  font-family:Arial,Helvetica,sans-serif
+}
+body{min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+.screen{display:none}
+.screen.active{display:block}
+.app{
+  max-width:900px;
+  margin:0 auto;
+  min-height:100vh;
+  background:#f7f8fa
+}
+.brand-header{
+  background:#0A5BA7;
+  color:#fff;
+  border-bottom:7px solid #FDCE0C;
+  padding:18px 20px;
+  text-align:center
+}
+.brand-name{
+  font-size:40px;
+  font-weight:900;
+  line-height:1
+}
+.brand-name .one{color:#FDCE0C}
+.brand-tagline{
+  font-size:13px;
+  font-weight:700;
+  margin-top:6px
+}
+.home-hero{
+  min-height:330px;
+  background-image:
+    linear-gradient(0deg,rgba(0,0,0,.68),rgba(0,0,0,.05) 70%),
+    url("./onebeyond-home-hero.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:flex-end;
+  padding:30px 22px
+}
+.hero-text{color:#fff}
+.hero-text h1{
+  margin:0;
+  font-size:38px;
+  font-weight:900
+}
+.hero-text p{
+  margin:8px 0 0;
+  font-size:18px;
+  font-weight:700
+}
+.home-content{padding:20px}
+.home-button{
+  width:100%;
+  min-height:76px;
+  margin-bottom:14px;
+  border:0;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  color:#0A5BA7;
+  text-align:left;
+  padding:16px 20px;
+  font-size:21px;
+  font-weight:900
+}
+.home-button:hover{background:#f0f5fb}
+.home-button .sub{
+  display:block;
+  color:#777;
+  font-size:13px;
+  font-weight:600;
+  margin-top:5px
+}
+.page{
+  padding:18px 20px 40px
+}
+.page-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px
+}
+.back-button{
+  border:0;
+  background:#0A5BA7;
+  color:#fff;
+  border-radius:12px;
+  padding:11px 15px;
+  font-weight:800
+}
+.page-title{
+  margin:0;
+  color:#0A5BA7;
+  font-size:28px
+}
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 4px 16px rgba(0,0,0,.07);
+  margin-bottom:16px
+}
+.mode-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:14px
+}
+.mode-button{
+  height:58px;
+  border:3px solid #d4d7dc;
+  border-radius:14px;
+  background:#fff;
+  font-weight:800;
+  color:#333
+}
+.mode-button.active{
+  background:#0A5BA7;
+  color:#fff;
+  border-color:#0A5BA7
+}
+.search-input{
+  width:100%;
+  height:60px;
+  border:3px solid #0A5BA7;
+  border-radius:14px;
+  padding:0 15px;
+  font-size:19px;
+  margin-bottom:12px;
+  outline:0
 }
 .primary-button,
 .scan-button,
-.promo-home-button,
-.id-card-home-button {
-height: 60px;
-font-size: 18px;
+.secondary-button{
+  width:100%;
+  height:60px;
+  border:0;
+  border-radius:14px;
+  font-weight:900;
+  font-size:18px;
+  margin-bottom:12px
+}
+.primary-button{
+  background:#FDCE0C;
+  color:#222
+}
+.scan-button{
+  background:#0A5BA7;
+  color:#fff
+}
+.secondary-button{
+  background:#fff;
+  color:#0A5BA7;
+  border:3px solid #0A5BA7
+}
+.scanner-box{
+  display:none;
+  background:#111;
+  border-radius:16px;
+  padding:12px;
+  margin-bottom:14px
+}
+.scanner-box.active{display:block}
+.scanner-message{
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  font-size:14px
+}
+.scanner-reader{
+  width:100%;
+  overflow:hidden;
+  border-radius:10px
 }
 .result-card,
-.scanner-card {
-padding: 19px;
+.promo-product-card{
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:14px;
+  border-left:6px solid #0A5BA7;
+  box-shadow:0 3px 12px rgba(0,0,0,.06)
 }
-.product-name {
-font-size: 24px;
+.product-number,
+.promo-number{
+  font-size:12px;
+  font-weight:900;
+  color:#777;
+  letter-spacing:.5px
 }
-.product-price {
-font-size: 36px;
+.product-name,
+.promo-product-name{
+  font-size:22px;
+  font-weight:900;
+  margin:7px 0
 }
-.promo-heading {
-font-size: 28px;
+.product-price,
+.promo-product-price{
+  font-size:32px;
+  font-weight:900;
+  color:#0A5BA7;
+  margin-bottom:12px
 }
-.promo-section-name {
-font-size: 17px;
+.product-detail,
+.promo-detail,
+.promo-line{
+  font-size:14px;
+  line-height:1.5;
+  margin-top:6px
 }
-.promo-number {
-flex-basis: 55px;
-height: 55px;
+.promo-box{
+  margin-top:14px;
+  padding:14px;
+  border-radius:14px;
+  background:#fff8d9;
+  border:2px solid #FDCE0C
 }
-.id-card-form {
-padding: 19px;
+.promo-title{
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:7px
 }
-.id-card-buttons {
-grid-template-columns: 1fr;
+.empty-message,
+.loading{
+  background:#fff;
+  border-radius:16px;
+  padding:22px;
+  text-align:center;
+  color:#666
 }
-.id-card {
-width: 100%;
-border-radius: 20px;
+.promo-section-card{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+  cursor:pointer
 }
-.id-card-photo {
-border-width: 5px;
+.promo-number{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#0A5BA7;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  flex:none
 }
-.id-card-qr-wrap {
-border-width: 4px;
-padding: 7px;
+.promo-section-name{
+  font-size:19px;
+  font-weight:900;
+  color:#0A5BA7
 }
+.promo-section-count{
+  font-size:13px;
+  color:#777;
+  margin-top:4px
+}
+.products-count{
+  font-weight:800;
+  color:#666;
+  margin:0 0 14px
+}
+.id-form label{
+  display:block;
+  font-weight:800;
+  margin:12px 0 6px
+}
+.id-form input{
+  width:100%;
+  height:52px;
+  border:2px solid #ccc;
+  border-radius:12px;
+  padding:0 12px
+}
+.id-form input[type=file]{
+  height:auto;
+  padding:10px
+}
+.photo-preview{
+  display:none;
+  width:110px;
+  height:110px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-top:10px
+}
+.id-result{
+  display:none;
+  margin-top:18px
+}
+.id-card{
+  background:#fff;
+  border:5px solid #0A5BA7;
+  border-radius:22px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 5px 18px rgba(0,0,0,.1)
+}
+.id-card-photo{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  object-fit:cover;
+  border:5px solid #FDCE0C
+}
+.id-card-name{
+  font-size:25px;
+  font-weight:900;
+  color:#0A5BA7;
+  margin-top:12px
+}
+.id-card-position{
+  font-size:17px;
+  font-weight:700;
+  margin:5px 0 14px
+}
+.id-card-qr{
+  display:flex;
+  justify-content:center
+}
+.footer{
+  text-align:center;
+  color:#888;
+  font-size:12px;
+  padding:10px 20px 25px
+}
+@media(max-width:600px){
+  .brand-name{font-size:34px}
+  .home-hero{min-height:300px}
+  .hero-text h1{font-size:31px}
+  .page{padding:15px 14px 30px}
 }
 </style>
 </head>
+
 <body>
-<header class="header">
-<svg
-class="header-logo"
-viewBox="0 0 500 500"
-role="img"
-aria-label="One Beyond"
-xmlns="http://www.w3.org/2000/svg">
-<rect
-width="500"
-height="500"
-rx="24"
-fill="#0A5BA7"/>
-<text
-x="250"
-y="245"
-text-anchor="middle"
-font-family="Arial, Helvetica, sans-serif"
-font-size="78"
-font-weight="900">
-<tspan fill="#FDCE0C">One</tspan>
-<tspan fill="#FFFFFF">Beyond</tspan>
-</text>
-<text
-x="250"
-y="292"
-text-anchor="middle"
-font-family="Arial, Helvetica, sans-serif"
-font-size="25"
-font-weight="700">
-<tspan fill="#FDCE0C">Amazing value from </tspan>
-<tspan fill="#FFFFFF">only £1</tspan>
-</text>
-</svg>
-<div class="header-subtitle">
-Product Information
-</div>
-</header>
+
 <main class="app">
+
 <section id="homeScreen" class="screen active">
-<div class="home-screen-wrap">
-<div class="home-brand-header">
-<img
-src="./onebeyond-logo.jpg"
-class="home-header-logo"
-alt="One Beyond">
-</div>
-<div class="home-hero">
-<img src="./onebeyond-home-hero.jpg" alt="One Beyond">
-</div>
-<div class="home-actions">
-<button class="home-action blue" id="homeProductButton" type="button">
-<span class="home-action-icon">⌕</span>
-<span>
-<span class="home-action-title">Product Information</span>
-<span class="home-action-subtitle">Check prices, promotions and product details</span>
-</span>
-<span class="home-action-arrow">›</span>
-</button>
-<button class="home-action yellow" id="promotionsButton" type="button">
-<span class="home-action-icon">◆</span>
-<span>
-<span class="home-action-title">Promotions</span>
-<span class="home-action-subtitle">View current promotions and offers</span>
-</span>
-<span class="home-action-arrow">›</span>
-</button>
-<button class="home-action blue" id="incidentButton" type="button">
-<span class="home-action-icon">!</span>
-<span>
-<span class="home-action-title">Report an Incident</span>
-<span class="home-action-subtitle">Report an incident through the company system</span>
-</span>
-<span class="home-action-arrow">›</span>
-</button>
-<button class="home-action pale" id="idCardButton" type="button">
-<span class="home-action-icon">ID</span>
-<span>
-<span class="home-action-title">My ID Card</span>
-<span class="home-action-subtitle">Create your staff ID card</span>
-</span>
-<span class="home-action-arrow">›</span>
-</button>
-<button class="home-action blue" id="websiteButton" type="button">
-<span class="home-action-icon">◎</span>
-<span>
-<span class="home-action-title">Visit One Beyond Website</span>
-<span class="home-action-subtitle">News, careers and more</span>
-</span>
-<span class="home-action-arrow">›</span>
-</button>
-</div>
-<div class="home-footer">Brighter Together</div>
-</div>
+
+  <div class="brand-header">
+    <div class="brand-name">
+      <span class="one">ONE</span> BEYOND
+    </div>
+    <div class="brand-tagline">
+      Your tools. Your support. Our team.
+    </div>
+  </div>
+
+  <div class="home-hero">
+    <div class="hero-text">
+      <h1>Welcome to ONE BEYOND</h1>
+      <p>Your tools. Your support. Our team.</p>
+    </div>
+  </div>
+
+  <div class="home-content">
+
+    <button
+      id="homeProductButton"
+      class="home-button"
+      type="button">
+      Product Information
+      <span class="sub">
+        Check prices, promotions and product details
+      </span>
+    </button>
+
+    <button
+      id="promotionsButton"
+      class="home-button"
+      type="button">
+      Promotions
+      <span class="sub">
+        View current promotions and offers
+      </span>
+    </button>
+
+    <button
+      id="incidentButton"
+      class="home-button"
+      type="button">
+      Report an Incident
+      <span class="sub">
+        Report an incident through the company system
+      </span>
+    </button>
+
+    <button
+      id="idCardButton"
+      class="home-button"
+      type="button">
+      My ID Card
+      <span class="sub">
+        Create your staff ID card
+      </span>
+    </button>
+
+    <button
+      id="websiteButton"
+      class="home-button"
+      type="button">
+      Visit One Beyond Website
+      <span class="sub">
+        News, careers and more
+      </span>
+    </button>
+
+  </div>
+
+  <div class="footer">
+    One Beyond
+  </div>
+
 </section>
+
+
 <section id="productInfoScreen" class="screen">
-<div class="product-brand-header">
-<button id="productHomeButton" type="button" style="border:0;background:transparent;color:#fff;font-size:30px;">‹</button>
-<div class="brand-lockup">
-<div class="brand-name"><span class="one">One</span><span class="beyond">Beyond</span></div>
-<div class="brand-tagline"><span style="color:#FDCE0C;">amazing value</span> from only £1</div>
-</div>
-<div class="team-mark">ONE TEAM<br><span class="yellow">BRIGHTER</span><br>TOGETHER</div>
-</div>
-<div class="product-info-wrap">
-<h1 class="product-info-title">Product Information</h1>
-<div class="product-mode-row">
-<button id="productBarcodeMode" class="product-mode-small active" type="button">Barcode</button>
-<button id="productCodeMode" class="product-mode-small" type="button">Product Code</button>
-</div>
-<div class="product-search-row">
-<div class="product-search-inner">
-<span class="product-search-icon">⌕</span>
-<input id="productSearchInput" class="product-search-input" type="text" autocomplete="off" placeholder="Scan or enter barcode...">
-</div>
-<button id="openProductScannerButton" class="barcode-icon-button" type="button" aria-label="Scan barcode">▥</button>
-</div>
-<button id="productSearchButton" class="product-search-button" type="button">Search</button>
-<div id="inlineScanner" class="inline-scanner">
-<div id="productReader"></div>
-<div id="inlineScannerMessage" class="inline-scanner-message">Point the camera at a product barcode.</div>
-</div>
-<div id="productResultContainer"></div>
-<button id="scanAgainButton" class="scan-again-button" type="button" style="display:none;">Scan Barcode</button>
-</div>
+
+  <div class="page">
+
+    <div class="page-header">
+      <button
+        id="productHomeButton"
+        class="back-button"
+        type="button">
+        ← Home
+      </button>
+
+      <h2 class="page-title">
+        Product Information
+      </h2>
+    </div>
+
+    <div class="card">
+
+      <div class="mode-buttons">
+
+        <button
+          id="productBarcodeMode"
+          class="mode-button active"
+          type="button">
+          Barcode
+        </button>
+
+        <button
+          id="productCodeMode"
+          class="mode-button"
+          type="button">
+          Product Code
+        </button>
+
+      </div>
+
+      <input
+        id="productSearchInput"
+        class="search-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Scan or enter barcode...">
+
+      <button
+        id="productSearchButton"
+        class="primary-button"
+        type="button">
+        Search Product
+      </button>
+
+      <button
+        id="openProductScannerButton"
+        class="scan-button"
+        type="button">
+        Scan Barcode
+      </button>
+
+      <button
+        id="scanAgainButton"
+        class="secondary-button"
+        type="button"
+        style="display:none">
+        Scan Again
+      </button>
+
+      <div
+        id="inlineScanner"
+        class="scanner-box">
+
+        <div
+          id="productReader"
+          class="scanner-reader">
+        </div>
+
+        <div
+          id="inlineScannerMessage"
+          class="scanner-message">
+          Starting camera...
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="productResultContainer"></div>
+
+  </div>
+
 </section>
-<section id="resultScreen" class="screen"></section>
-<section id="scannerScreen" class="screen"></section>
-<section
-id="promotionSectionsScreen"
-class="screen">
-<button
-id="promotionSectionsBack"
-class="back-link"
-type="button">
-← Back
-</button>
-<h1 class="promo-heading">
-PROMOTIONS
-</h1>
-<div
-id="promotionSectionsContainer"
-class="loading">
-Loading promotions...
-</div>
+
+
+<section id="promotionSectionsScreen" class="screen">
+
+  <div class="page">
+
+    <div class="page-header">
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="showScreen('homeScreen')">
+        ← Home
+      </button>
+
+      <h2 class="page-title">
+        Promotions
+      </h2>
+
+    </div>
+
+    <div id="promotionSectionsContainer"></div>
+
+  </div>
+
 </section>
-<section
-id="promotionLocationsScreen"
-class="screen">
-<button
-id="promotionLocationsBack"
-class="back-link"
-type="button">
-← Back
-</button>
-<h1
-id="promotionLocationsHeading"
-class="promo-heading">
-PROMOTIONS
-</h1>
-<div
-id="promotionLocationsContainer"
-class="loading">
-Loading locations...
-</div>
+
+
+<section id="promotionLocationsScreen" class="screen">
+
+  <div class="page">
+
+    <div class="page-header">
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="openPromotions()">
+        ← Back
+      </button>
+
+      <h2
+        id="promotionLocationsHeading"
+        class="page-title">
+        Locations
+      </h2>
+
+    </div>
+
+    <div id="promotionLocationsContainer"></div>
+
+  </div>
+
 </section>
-<section
-id="promotionProductsScreen"
-class="screen">
-<button
-id="promotionProductsBack"
-class="back-link"
-type="button">
-← Back
-</button>
-<h1
-id="promotionProductsHeading"
-class="promo-heading">
-PROMOTIONS
-</h1>
-<div
-id="promotionProductsCount"
-class="small">
-</div>
-<br>
-<div
-id="promotionProductsContainer">
-</div>
+
+
+<section id="promotionProductsScreen" class="screen">
+
+  <div class="page">
+
+    <div class="page-header">
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="openPromotionLocations(selectedPromotion)">
+        ← Back
+      </button>
+
+      <h2
+        id="promotionProductsHeading"
+        class="page-title">
+        Products
+      </h2>
+
+    </div>
+
+    <div
+      id="promotionProductsCount"
+      class="products-count">
+    </div>
+
+    <div id="promotionProductsContainer"></div>
+
+  </div>
+
 </section>
-<section
-id="idCardScreen"
-class="screen">
-<button
-id="idCardBackButton"
-class="back-link"
-type="button">
-← Back
-</button>
-<h1 class="promo-heading">
-ID CARD
-</h1>
-<div class="id-card-form">
-<div class="id-card-field">
-<label
-class="id-card-label"
-for="idCardPhoto">
-Photo
-</label>
-<input
-id="idCardPhoto"
-class="id-card-file"
-type="file"
-accept="image/*">
-<img
-id="idCardPhotoPreview"
-class="id-card-photo-preview"
-alt="Photo preview">
-</div>
-<div class="id-card-field">
-<label
-class="id-card-label"
-for="idCardName">
-Name
-</label>
-<input
-id="idCardName"
-class="id-card-input"
-type="text"
-maxlength="60"
-autocomplete="off"
-placeholder="Enter name">
-</div>
-<div class="id-card-field">
-<label
-class="id-card-label"
-for="idCardPosition">
-Position
-</label>
-<input
-id="idCardPosition"
-class="id-card-input"
-type="text"
-maxlength="40"
-autocomplete="off"
-placeholder="Enter position">
-</div>
-<div class="id-card-field">
-<label
-class="id-card-label"
-for="idCardTillCode">
-Till Code
-</label>
-<input
-id="idCardTillCode"
-class="id-card-input"
-type="text"
-inputmode="numeric"
-maxlength="10"
-autocomplete="off"
-placeholder="Enter 4–10 digit till code">
-<div class="id-card-help">
-Enter between 4 and 10 digits.
-The exact digits will be stored in the QR code.
-The till code itself will not be printed on the card.
-</div>
-</div>
-<div class="id-card-buttons">
-<button
-id="generateIdCardButton"
-class="id-card-generate-button"
-type="button">
-Generate ID Card
-</button>
-<button
-id="resetIdCardButton"
-class="id-card-reset-button"
-type="button">
-Reset
-</button>
-</div>
-</div>
-<div
-id="idCardResult"
-style="display:none;">
-<div class="id-card-preview-title">
-Your ID Card
-</div>
-<div class="id-card-stage">
-<div
-id="generatedIdCard"
-class="id-card">
-<div class="id-card-top">
-<svg
-class="id-card-logo"
-viewBox="0 0 500 150"
-role="img"
-aria-label="One Beyond"
-xmlns="http://www.w3.org/2000/svg">
-<text
-x="250"
-y="75"
-text-anchor="middle"
-font-family="Arial, Helvetica, sans-serif"
-font-size="70"
-font-weight="900">
-<tspan fill="#FDCE0C">One</tspan>
-<tspan fill="#FFFFFF">Beyond</tspan>
-</text>
-<text
-x="250"
-y="108"
-text-anchor="middle"
-font-family="Arial, Helvetica, sans-serif"
-font-size="18"
-font-weight="700">
-<tspan fill="#FDCE0C">Amazing value from </tspan>
-<tspan fill="#FFFFFF">only £1</tspan>
-</text>
-</svg>
-<div class="id-card-tagline-top">
-ONE BEYOND
-</div>
-</div>
-<div class="id-card-main">
-<img
-id="generatedIdCardPhoto"
-class="id-card-photo"
-alt="Employee photo">
-<div
-id="generatedIdCardName"
-class="id-card-name">
-</div>
-<div
-id="generatedIdCardPosition"
-class="id-card-position">
-</div>
-<div class="id-card-qr-wrap">
-<div
-id="idCardQr">
-</div>
-</div>
-<div class="id-card-qr-label">
-SCAN TO VERIFY STAFF DETAILS
-</div>
-</div>
-<div class="id-card-bottom">
-ONE BEYOND • GREAT PEOPLE • GREAT STORES
-</div>
-</div>
-</div>
-<div class="id-card-note">
-Take a screenshot of the ID card and use it as your
-phone lock screen. The information is not saved to
-the database.
-</div>
-</div>
+
+
+<section id="idCardScreen" class="screen">
+
+  <div class="page">
+
+    <div class="page-header">
+
+      <button
+        id="idCardBackButton"
+        class="back-button"
+        type="button">
+        ← Home
+      </button>
+
+      <h2 class="page-title">
+        My ID Card
+      </h2>
+
+    </div>
+
+    <div class="card id-form">
+
+      <label for="idCardPhoto">
+        Photo
+      </label>
+
+      <input
+        id="idCardPhoto"
+        type="file"
+        accept="image/*"
+        capture="user">
+
+      <img
+        id="idCardPhotoPreview"
+        class="photo-preview"
+        alt="Photo preview">
+
+      <label for="idCardName">
+        Name
+      </label>
+
+      <input
+        id="idCardName"
+        type="text"
+        placeholder="Enter name">
+
+      <label for="idCardPosition">
+        Position
+      </label>
+
+      <input
+        id="idCardPosition"
+        type="text"
+        placeholder="Enter position">
+
+      <label for="idCardTillCode">
+        Till Code
+      </label>
+
+      <input
+        id="idCardTillCode"
+        type="text"
+        inputmode="numeric"
+        maxlength="10"
+        placeholder="Enter till code">
+
+      <button
+        id="generateIdCardButton"
+        class="primary-button"
+        type="button"
+        style="margin-top:16px">
+        Generate ID Card
+      </button>
+
+      <button
+        id="resetIdCardButton"
+        class="secondary-button"
+        type="button">
+        Reset
+      </button>
+
+    </div>
+
+    <div
+      id="idCardResult"
+      class="id-result">
+
+      <div class="id-card">
+
+        <img
+          id="generatedIdCardPhoto"
+          class="id-card-photo"
+          alt="ID photo">
+
+        <div
+          id="generatedIdCardName"
+          class="id-card-name">
+        </div>
+
+        <div
+          id="generatedIdCardPosition"
+          class="id-card-position">
+        </div>
+
+        <div
+          id="idCardQr"
+          class="id-card-qr">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
+
 </main>
+
+
 <script>
+
 const SUPABASE_URL =
-"https://nmfjavzrxghvklkjtfaq.supabase.co";
+  "https://nmfjavzrxghvklkjtfaq.supabase.co";
+
 const SUPABASE_KEY =
-"sb_publishable_dd_QRjavucCN4sG-kuFFUQ_0qfJGUsz";
+  "sb_publishable_dd_QRjavucCN4sG-kuFFUQ_0qfJGUsz";
+
 const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-const screens = [
-"homeScreen",
-"productInfoScreen",
-"promotionSectionsScreen",
-"promotionLocationsScreen",
-"promotionProductsScreen",
-"idCardScreen"
-];
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
 function showScreen(id) {
-screens.forEach(screenId => {
-const element =
-document.getElementById(screenId);
-if (!element) return;
-element.classList.toggle(
-"active",
-screenId === id
-);
-});
-document.body.classList.toggle("home-mode", id === "homeScreen");
-window.scrollTo({
-top: 0,
-behavior: "instant"
-});
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(
+      screen => {
+        screen.classList.remove(
+          "active"
+        );
+      }
+    );
+
+  const screen =
+    document.getElementById(id);
+
+  if (screen) {
+    screen.classList.add(
+      "active"
+    );
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
 }
+
+
+let selectedPromotion = "";
+
+
+/* =========================================================
+   PRODUCT INFORMATION + SEARCH
+   ========================================================= */
+
 let searchMode = "barcode";
+
 let inlineScanner = null;
+
 let inlineScannerRunning = false;
+
 let inlineScannerLocked = false;
-const productSearchInput = document.getElementById("productSearchInput");
-const productResultContainer = document.getElementById("productResultContainer");
-const inlineScannerElement = document.getElementById("inlineScanner");
-const inlineScannerMessage = document.getElementById("inlineScannerMessage");
-const scanAgainButton = document.getElementById("scanAgainButton");
+
+
+const productSearchInput =
+  document.getElementById(
+    "productSearchInput"
+  );
+
+const productResultContainer =
+  document.getElementById(
+    "productResultContainer"
+  );
+
+const inlineScannerElement =
+  document.getElementById(
+    "inlineScanner"
+  );
+
+const inlineScannerMessage =
+  document.getElementById(
+    "inlineScannerMessage"
+  );
+
+const scanAgainButton =
+  document.getElementById(
+    "scanAgainButton"
+  );
+
+
 function setProductMode(mode) {
-searchMode = mode;
-const barcodeButton = document.getElementById("productBarcodeMode");
-const codeButton = document.getElementById("productCodeMode");
-if (mode === "barcode") {
-barcodeButton.classList.add("active");
-codeButton.classList.remove("active");
-productSearchInput.placeholder = "Scan or enter barcode...";
-} else {
-codeButton.classList.add("active");
-barcodeButton.classList.remove("active");
-productSearchInput.placeholder = "Enter product code...";
+
+  searchMode = mode;
+
+  const barcodeButton =
+    document.getElementById(
+      "productBarcodeMode"
+    );
+
+  const codeButton =
+    document.getElementById(
+      "productCodeMode"
+    );
+
+  if (mode === "barcode") {
+
+    barcodeButton.classList.add(
+      "active"
+    );
+
+    codeButton.classList.remove(
+      "active"
+    );
+
+    productSearchInput.placeholder =
+      "Scan or enter barcode...";
+
+  } else {
+
+    codeButton.classList.add(
+      "active"
+    );
+
+    barcodeButton.classList.remove(
+      "active"
+    );
+
+    productSearchInput.placeholder =
+      "Enter product code...";
+  }
 }
+
+
+document
+  .getElementById(
+    "productBarcodeMode"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      setProductMode(
+        "barcode"
+      );
+
+      productSearchInput.focus();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "productCodeMode"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      setProductMode(
+        "product_code"
+      );
+
+      productSearchInput.focus();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "homeProductButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      showScreen(
+        "productInfoScreen"
+      );
+
+      setProductMode(
+        "barcode"
+      );
+
+      productSearchInput.focus();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "productHomeButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      await stopInlineScanner();
+
+      showScreen(
+        "homeScreen"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "productSearchButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      searchProduct(
+        productSearchInput.value.trim(),
+        searchMode
+      );
+
+    }
+  );
+
+
+productSearchInput
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        searchProduct(
+          productSearchInput.value.trim(),
+          searchMode
+        );
+
+      }
+
+    }
+  );
+
+
+async function searchProduct(
+  value,
+  mode = "barcode"
+) {
+
+  value =
+    String(
+      value || ""
+    ).trim();
+
+  if (!value) {
+
+    alert(
+      mode === "barcode"
+        ? "Please enter a barcode."
+        : "Please enter a product code."
+    );
+
+    return;
+  }
+
+
+  productResultContainer.innerHTML =
+    '<div class="loading">Searching...</div>';
+
+
+  let query =
+    supabaseClient
+      .from("products")
+      .select(
+        "barcode,name,price,product_code,promo_offer"
+      );
+
+
+  if (
+    mode === "barcode"
+  ) {
+
+    query =
+      query.eq(
+        "barcode",
+        value
+      );
+
+  } else {
+
+    query =
+      query.ilike(
+        "product_code",
+        value
+      );
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await query.limit(
+      20
+    );
+
+
+  if (error) {
+
+    productResultContainer.innerHTML =
+      `
+      <div class="empty-message">
+
+        Unable to search right now.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+      `;
+
+    return;
+  }
+
+
+  if (
+    !data ||
+    !data.length
+  ) {
+
+    productResultContainer.innerHTML =
+      '<div class="empty-message">No product found.</div>';
+
+    return;
+  }
+
+
+  renderSearchResults(
+    data,
+    productResultContainer
+  );
+
+  scanAgainButton.style.display =
+    "block";
 }
-document.getElementById("productBarcodeMode").addEventListener("click", () => {
-setProductMode("barcode");
-productSearchInput.focus();
-});
-document.getElementById("productCodeMode").addEventListener("click", () => {
-setProductMode("product_code");
-productSearchInput.focus();
-});
-document.getElementById("homeProductButton").addEventListener("click", () => {
-showScreen("productInfoScreen");
-setProductMode("barcode");
-productSearchInput.focus();
-});
-document.getElementById("productHomeButton").addEventListener("click", async () => {
-await stopInlineScanner();
-showScreen("homeScreen");
-});
-document.getElementById("productSearchButton").addEventListener("click", () => {
-searchProduct(productSearchInput.value.trim(), searchMode);
-});
-productSearchInput.addEventListener("keydown", event => {
-if (event.key === "Enter") {
-searchProduct(productSearchInput.value.trim(), searchMode);
+
+
+function renderSearchResults(
+  products,
+  container =
+    productResultContainer
+) {
+
+  container.innerHTML = "";
+
+
+  products.forEach(
+    (
+      product,
+      index
+    ) => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "result-card";
+
+
+      let promoHtml =
+        "";
+
+
+      if (
+        product.promo_offer &&
+        product.promo_offer.trim()
+      ) {
+
+        promoHtml =
+          renderPromoInformation(
+            product.promo_offer
+          );
+
+      }
+
+
+      card.innerHTML =
+        `
+        <div class="product-number">
+          PRODUCT ${index + 1}
+        </div>
+
+        <div class="product-name">
+          ${escapeHtml(
+            product.name ||
+            "Unnamed Product"
+          )}
+        </div>
+
+        <div class="product-price">
+          £${formatPrice(
+            product.price
+          )}
+        </div>
+
+        <div class="product-detail">
+          <strong>Barcode:</strong>
+          ${escapeHtml(
+            product.barcode ||
+            "-"
+          )}
+        </div>
+
+        <div class="product-detail">
+          <strong>Product Code:</strong>
+          ${escapeHtml(
+            product.product_code ||
+            "-"
+          )}
+        </div>
+
+        ${promoHtml}
+        `;
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
 }
-});
-async function searchProduct(value, mode = "barcode") {
-value = String(value || "").trim();
-if (!value) {
-alert(mode === "barcode" ? "Please enter a barcode." : "Please enter a product code.");
-return;
-}
-productResultContainer.innerHTML = '<div class="loading">Searching...</div>';
-let query = supabaseClient
-.from("products")
-.select("barcode,name,price,product_code,promo_offer");
-if (mode === "barcode") {
-query = query.eq("barcode", value);
-} else {
-query = query.ilike("product_code", value);
-}
-const { data, error } = await query.limit(20);
-if (error) {
-productResultContainer.innerHTML = `
-<div class="empty-message">
-Unable to search right now.<br><br>
-${escapeHtml(error.message)}
-</div>`;
-return;
-}
-if (!data || !data.length) {
-productResultContainer.innerHTML = '<div class="empty-message">No product found.</div>';
-return;
-}
-renderSearchResults(data, productResultContainer);
-scanAgainButton.style.display = "block";
-}
-function renderSearchResults(products, container = productResultContainer) {
-container.innerHTML = "";
-products.forEach((product, index) => {
-const card = document.createElement("div");
-card.className = "result-card";
-let promoHtml = "";
-if (product.promo_offer && product.promo_offer.trim()) {
-promoHtml = renderPromoInformation(product.promo_offer);
-}
-card.innerHTML = `
-<div class="product-number">PRODUCT ${index + 1}</div>
-<div class="product-name">${escapeHtml(product.name || "Unnamed Product")}</div>
-<div class="product-price">£${formatPrice(product.price)}</div>
-<div class="product-detail"><strong>Barcode:</strong> ${escapeHtml(product.barcode || "-")}</div>
-<div class="product-detail"><strong>Product Code:</strong> ${escapeHtml(product.product_code || "-")}</div>
-${promoHtml}
-`;
-container.appendChild(card);
-});
-}
+
+
 async function startInlineScanner() {
-await stopInlineScanner();
-inlineScannerElement.classList.add("active");
-inlineScannerMessage.textContent = "Starting camera...";
-inlineScannerLocked = false;
-scanAgainButton.style.display = "none";
-try {
-if (!inlineScanner) {
-inlineScanner = new Html5Qrcode("productReader");
+
+  await stopInlineScanner();
+
+  inlineScannerElement.classList.add(
+    "active"
+  );
+
+  inlineScannerMessage.textContent =
+    "Starting camera...";
+
+  inlineScannerLocked =
+    false;
+
+  scanAgainButton.style.display =
+    "none";
+
+
+  try {
+
+    if (!inlineScanner) {
+
+      inlineScanner =
+        new Html5Qrcode(
+          "productReader"
+        );
+
+    }
+
+
+    await inlineScanner.start(
+
+      {
+        facingMode:
+          "environment"
+      },
+
+      {
+        fps: 10,
+        qrbox: {
+          width: 280,
+          height: 160
+        },
+        aspectRatio:
+          1.777778
+      },
+
+      async decodedText => {
+
+        if (
+          inlineScannerLocked
+        ) {
+          return;
+        }
+
+        inlineScannerLocked =
+          true;
+
+        inlineScannerMessage.textContent =
+          "Barcode detected. Searching...";
+
+        productSearchInput.value =
+          decodedText;
+
+        setProductMode(
+          "barcode"
+        );
+
+        await stopInlineScanner();
+
+        inlineScannerElement.classList.remove(
+          "active"
+        );
+
+        await searchProduct(
+          decodedText,
+          "barcode"
+        );
+
+      },
+
+      () => {}
+
+    );
+
+
+    inlineScannerRunning =
+      true;
+
+    inlineScannerMessage.textContent =
+      "Point the camera at a product barcode.";
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+    inlineScannerMessage.textContent =
+      "Camera could not be started. Please check camera permission.";
+
+  }
+
 }
-await inlineScanner.start(
-{ facingMode: "environment" },
-{
-fps: 10,
-qrbox: { width: 280, height: 160 },
-aspectRatio: 1.777778
-},
-async decodedText => {
-if (inlineScannerLocked) return;
-inlineScannerLocked = true;
-inlineScannerMessage.textContent = "Barcode detected. Searching...";
-productSearchInput.value = decodedText;
-setProductMode("barcode");
-await stopInlineScanner();
-inlineScannerElement.classList.remove("active");
-await searchProduct(decodedText, "barcode");
-},
-() => {}
-);
-inlineScannerRunning = true;
-inlineScannerMessage.textContent = "Point the camera at a product barcode.";
-} catch (error) {
-console.error(error);
-inlineScannerMessage.textContent = "Camera could not be started. Please check camera permission.";
-}
-}
+
+
 async function stopInlineScanner() {
-if (inlineScanner && inlineScannerRunning) {
-try {
-await inlineScanner.stop();
-} catch (error) {
-console.warn("Scanner stop:", error);
+
+  if (
+    inlineScanner &&
+    inlineScannerRunning
+  ) {
+
+    try {
+
+      await inlineScanner.stop();
+
+    } catch (
+      error
+    ) {
+
+      console.warn(
+        "Scanner stop:",
+        error
+      );
+
+    }
+
+    inlineScannerRunning =
+      false;
+
+  }
+
 }
-inlineScannerRunning = false;
-}
-}
-document.getElementById("openProductScannerButton").addEventListener("click", startInlineScanner);
-scanAgainButton.addEventListener("click", startInlineScanner);
+
+
+document
+  .getElementById(
+    "openProductScannerButton"
+  )
+  .addEventListener(
+    "click",
+    startInlineScanner
+  );
+
+
+scanAgainButton
+  .addEventListener(
+    "click",
+    startInlineScanner
+  );
+
+
 async function startScanner() {
-await startInlineScanner();
+
+  await startInlineScanner();
+
 }
+
+
 async function stopScanner() {
-await stopInlineScanner();
+
+  await stopInlineScanner();
+
 }
-document.getElementById("promotionsButton").addEventListener("click", openPromotions);
-document.getElementById("promotionSectionsBack").addEventListener("click", () => {
-showScreen("homeScreen");
-});
-document.getElementById("promotionLocationsBack").addEventListener("click", () => {
-openPromotions();
-});
-document.getElementById("promotionProductsBack").addEventListener("click", () => {
-openPromotionLocations(selectedPromotionSection);
-});
-document.getElementById("incidentButton").addEventListener("click", () => {
-window.open("https://my.halosystem.cloud/report-incident/public/c3163426-a063-450c-b47e-d2824ce1bafa", "_blank", "noopener");
-});
-document.getElementById("websiteButton").addEventListener("click", () => {
-window.open("https://onebeyond.co.uk/", "_blank", "noopener");
-});
-function parsePromotions(promoText) {
-if (!promoText) {
-return [];
+
+
+/* =========================================================
+   HOME LINKS
+   ========================================================= */
+
+document
+  .getElementById(
+    "promotionsButton"
+  )
+  .addEventListener(
+    "click",
+    openPromotions
+  );
+
+
+document
+  .getElementById(
+    "incidentButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      window.open(
+        "https://my.halosystem.cloud/report-incident/public/c3163426-a063-450c-b47e-d2824ce1bafa",
+        "_blank",
+        "noopener"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "websiteButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      window.open(
+        "https://onebeyond.co.uk/",
+        "_blank",
+        "noopener"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   PROMOTION PARSER
+   ========================================================= */
+
+function parsePromotions(
+  promoText
+) {
+
+  if (!promoText) {
+    return [];
+  }
+
+
+  const blocks =
+    promoText
+      .split(/\n+/)
+      .map(
+        value =>
+          value.trim()
+      )
+      .filter(Boolean);
+
+
+  const promotions = [];
+
+
+  blocks.forEach(
+    block => {
+
+      const promotion = {
+
+        plan: "",
+
+        location: "",
+
+        bay: "",
+
+        categories: "",
+
+        code: "",
+
+        product: "",
+
+        price: "",
+
+        details: ""
+
+      };
+
+
+      const parts =
+        block
+          .split(
+            /\s*\|\s*/
+          )
+          .map(
+            value =>
+              value.trim()
+          )
+          .filter(Boolean);
+
+
+      parts.forEach(
+        part => {
+
+          const match =
+            part.match(
+              /^([^:]+):\s*(.*)$/
+            );
+
+          if (!match) {
+            return;
+          }
+
+
+          const key =
+            match[1]
+              .trim()
+              .toUpperCase();
+
+
+          const value =
+            match[2].trim();
+
+
+          if (
+            key === "PLAN"
+          ) {
+
+            promotion.plan =
+              value;
+
+          } else if (
+            key === "LOCATION"
+          ) {
+
+            promotion.location =
+              value;
+
+          } else if (
+            key === "BAY"
+          ) {
+
+            promotion.bay =
+              value;
+
+          } else if (
+            key === "STORE CATEGORIES"
+          ) {
+
+            promotion.categories =
+              value;
+
+          } else if (
+            key === "CODE"
+          ) {
+
+            promotion.code =
+              value;
+
+          } else if (
+            key === "PRODUCT"
+          ) {
+
+            promotion.product =
+              value;
+
+          } else if (
+            key === "PROMO PRICE"
+          ) {
+
+            promotion.price =
+              value;
+
+          } else if (
+            key === "DETAILS"
+          ) {
+
+            promotion.details =
+              value;
+
+          }
+
+        }
+      );
+
+
+      if (
+        promotion.plan ||
+        promotion.location ||
+        promotion.product ||
+        promotion.bay
+      ) {
+
+        promotions.push(
+          promotion
+        );
+
+      }
+
+    }
+  );
+
+
+  return promotions;
 }
-const blocks =
-promoText
-.split(/\n+/)
-.map(
-value => value.trim()
-)
-.filter(Boolean);
-const promotions = [];
-blocks.forEach(block => {
-const promotion = {
-plan: "",
-location: "",
-bay: "",
-categories: "",
-code: "",
-product: "",
-price: "",
-details: ""
-};
-const parts =
-block
-.split(/\s*\|\s*/)
-.map(
-value => value.trim()
-)
-.filter(Boolean);
-parts.forEach(part => {
-const match =
-part.match(
-/^([^:]+):\s*(.*)$/
-);
-if (!match) return;
-const key =
-match[1]
-.trim()
-.toUpperCase();
-const value =
-match[2].trim();
-if (
-key === "PLAN"
+
+
+/* =========================================================
+   PROMOTION SECTION
+   ========================================================= */
+
+function identifySection(
+  promo
 ) {
-promotion.plan = value;
-} else if (
-key === "LOCATION"
-) {
-promotion.location = value;
-} else if (
-key === "BAY"
-) {
-promotion.bay = value;
-} else if (
-key === "STORE CATEGORIES"
-) {
-promotion.categories = value;
-} else if (
-key === "CODE"
-) {
-promotion.code = value;
-} else if (
-key === "PRODUCT"
-) {
-promotion.product = value;
-} else if (
-key === "PROMO PRICE"
-) {
-promotion.price = value;
-} else if (
-key === "DETAILS"
-) {
-promotion.details = value;
+
+  const text =
+    (
+      promo.plan +
+      " " +
+      promo.location
+    )
+      .toUpperCase();
+
+
+  if (
+    text.includes(
+      "END GONDOLA"
+    ) ||
+    text.includes(
+      "ENDS"
+    )
+  ) {
+
+    return "ENDS";
+
+  }
+
+
+  if (
+    text.includes(
+      "SIDE GONDOLA"
+    ) ||
+    text.includes(
+      "SIDES"
+    )
+  ) {
+
+    return "SIDES";
+
+  }
+
+
+  if (
+    text.includes(
+      "TILL END"
+    )
+  ) {
+
+    return "TILL ENDS";
+
+  }
+
+
+  if (
+    text.includes(
+      "TILL FRONT"
+    )
+  ) {
+
+    return "TILL FRONTS";
+
+  }
+
+
+  if (
+    text.includes(
+      "FRONT OF STORE"
+    )
+  ) {
+
+    return "FRONT OF STORE";
+
+  }
+
+
+  if (
+    text.includes(
+      "WINDOW BASKET"
+    )
+  ) {
+
+    return "WINDOW BASKETS";
+
+  }
+
+
+  if (
+    text.includes(
+      "PROMO BAY"
+    )
+  ) {
+
+    return "PROMO BAYS";
+
+  }
+
+
+  if (
+    text.includes(
+      "BULK STACK"
+    )
+  ) {
+
+    return "BULK STACKS";
+
+  }
+
+
+  if (
+    text.includes(
+      "PENCIL STACK"
+    )
+  ) {
+
+    return "PENCIL STACKS";
+
+  }
+
+
+  if (
+    text.includes(
+      "FSDU"
+    ) ||
+    text.includes(
+      "STAND"
+    )
+  ) {
+
+    return "FSDU & STANDS";
+
+  }
+
+
+  if (
+    text.includes(
+      "DUMP BIN"
+    )
+  ) {
+
+    return "DUMP BINS";
+
+  }
+
+
+  if (
+    text.includes(
+      "GIANT TIERED"
+    ) ||
+    text.includes(
+      "REAR HALF"
+    )
+  ) {
+
+    return "GIANT TIERED BASKETS";
+
+  }
+
+
+  if (
+    text.includes(
+      "CLIP STRIP"
+    )
+  ) {
+
+    return "CLIP STRIPS";
+
+  }
+
+
+  if (
+    text.includes(
+      "DRINKS CHILLER"
+    )
+  ) {
+
+    return "DRINKS CHILLER";
+
+  }
+
+
+  return "OTHER";
 }
-});
-if (
-promotion.plan ||
-promotion.location ||
-promotion.product ||
-promotion.bay
-) {
-promotions.push(
-promotion
-);
-}
-});
-return promotions;
-}
-function identifySection(promo) {
-const text =
-(
-promo.plan +
-" " +
-promo.location
-)
-.toUpperCase();
-if (
-text.includes("END GONDOLA") ||
-text.includes("ENDS")
-) {
-return "ENDS";
-}
-if (
-text.includes("SIDE GONDOLA") ||
-text.includes("SIDES")
-) {
-return "SIDES";
-}
-if (
-text.includes("TILL END")
-) {
-return "TILL ENDS";
-}
-if (
-text.includes("TILL FRONT")
-) {
-return "TILL FRONTS";
-}
-if (
-text.includes("FRONT OF STORE")
-) {
-return "FRONT OF STORE";
-}
-if (
-text.includes("WINDOW BASKET")
-) {
-return "WINDOW BASKETS";
-}
-if (
-text.includes("PROMO BAY")
-) {
-return "PROMO BAYS";
-}
-if (
-text.includes("BULK STACK")
-) {
-return "BULK STACKS";
-}
-if (
-text.includes("PENCIL STACK")
-) {
-return "PENCIL STACKS";
-}
-if (
-text.includes("FSDU") ||
-text.includes("STAND")
-) {
-return "FSDU & STANDS";
-}
-if (
-text.includes("DUMP BIN")
-) {
-return "DUMP BINS";
-}
-if (
-text.includes("GIANT TIERED") ||
-text.includes("REAR HALF")
-) {
-return "GIANT TIERED BASKETS";
-}
-if (
-text.includes("CLIP STRIP")
-) {
-return "CLIP STRIPS";
-}
-if (
-text.includes("DRINKS CHILLER")
-) {
-return "DRINKS CHILLER";
-}
-return "OTHER";
-}
+
+
+/* =========================================================
+   PROMOTION LOCATION
+   ========================================================= */
+
 function identifyLocation(
-promo,
-section
+  promo,
+  section
 ) {
-const values = [
-promo.location,
-promo.bay,
-promo.plan,
-promo.details
-];
-if (
-section === "PROMO BAYS"
-) {
-const bayNumber =
-String(
-promo.bay || ""
-).trim();
-if (
-/^\d+$/.test(
-bayNumber
-)
-) {
-return (
-"BAY " +
-bayNumber
-);
+
+  const values = [
+
+    promo.location,
+
+    promo.bay,
+
+    promo.plan,
+
+    promo.details
+
+  ];
+
+
+  if (
+    section ===
+    "PROMO BAYS"
+  ) {
+
+    const bayNumber =
+      String(
+        promo.bay ||
+        ""
+      ).trim();
+
+
+    if (
+      /^\d+$/.test(
+        bayNumber
+      )
+    ) {
+
+      return (
+        "BAY " +
+        bayNumber
+      );
+
+    }
+
+
+    for (
+      const value of values
+    ) {
+
+      const match =
+        String(
+          value ||
+          ""
+        ).match(
+          /\b(?:PROMO\s*)?BAY\s*[-:#]?\s*(\d+)\b/i
+        );
+
+
+      if (match) {
+
+        return (
+          "BAY " +
+          match[1]
+        );
+
+      }
+
+    }
+
+  }
+
+
+  for (
+    const value of values
+  ) {
+
+    const text =
+      String(
+        value ||
+        ""
+      ).trim();
+
+
+    if (!text) {
+      continue;
+    }
+
+
+    const endMatch =
+      text.match(
+        /\bEND\s*[-:#]?\s*(\d+)\b/i
+      );
+
+
+    if (
+      endMatch &&
+      section === "ENDS"
+    ) {
+
+      return (
+        "END " +
+        endMatch[1]
+      );
+
+    }
+
+
+    const sideMatch =
+      text.match(
+        /\bSIDE\s*[-:#]?\s*(\d+)\b/i
+      );
+
+
+    if (
+      sideMatch &&
+      section === "SIDES"
+    ) {
+
+      return (
+        "SIDE " +
+        sideMatch[1]
+      );
+
+    }
+
+
+    const tillEndMatch =
+      text.match(
+        /\bTILL\s+END\s*[-:#]?\s*(\d+)\b/i
+      );
+
+
+    if (
+      tillEndMatch &&
+      section === "TILL ENDS"
+    ) {
+
+      return (
+        "TILL END " +
+        tillEndMatch[1]
+      );
+
+    }
+
+
+    const tillFrontMatch =
+      text.match(
+        /\bTILL\s+FRONT\s*[-:#]?\s*(\d+)\b/i
+      );
+
+
+    if (
+      tillFrontMatch &&
+      section === "TILL FRONTS"
+    ) {
+
+      return (
+        "TILL FRONT " +
+        tillFrontMatch[1]
+      );
+
+    }
+
+
+    if (
+      section === "FRONT OF STORE" ||
+      section === "WINDOW BASKETS" ||
+      section === "BULK STACKS" ||
+      section === "PENCIL STACKS" ||
+      section === "FSDU & STANDS" ||
+      section === "DUMP BINS" ||
+      section === "GIANT TIERED BASKETS" ||
+      section === "CLIP STRIPS" ||
+      section === "DRINKS CHILLER"
+    ) {
+
+      return text;
+
+    }
+
+  }
+
+
+  return "GENERAL";
 }
-for (
-const value of values
-) {
-const match =
-String(value || "")
-.match(
-/\b(?:PROMO\s*)?BAY\s*[-:#]?\s*(\d+)\b/i
-);
-if (match) {
-return (
-"BAY " +
-match[1]
-);
-}
-}
-}
-for (
-const value of values
-) {
-const text =
-String(
-value || ""
-).trim();
-if (!text) continue;
-const endMatch =
-text.match(
-/\bEND\s*[-:#]?\s*(\d+)\b/i
-);
-if (
-endMatch &&
-section === "ENDS"
-) {
-return (
-"END " +
-endMatch[1]
-);
-}
-const sideMatch =
-text.match(
-/\bSIDE\s*[-:#]?\s*(\d+)\b/i
-);
-if (
-sideMatch &&
-section === "SIDES"
-) {
-return (
-"SIDE " +
-sideMatch[1]
-);
-}
-const tillEndMatch =
-text.match(
-/\bTILL\s+END\s*[-:#]?\s*(\d+)\b/i
-);
-if (
-tillEndMatch &&
-section === "TILL ENDS"
-) {
-return (
-"TILL END " +
-tillEndMatch[1]
-);
-}
-const tillFrontMatch =
-text.match(
-/\bTILL\s+FRONT\s*[-:#]?\s*(\d+)\b/i
-);
-if (
-tillFrontMatch &&
-section === "TILL FRONTS"
-) {
-return (
-"TILL FRONT " +
-tillFrontMatch[1]
-);
-}
-if (
-section === "FRONT OF STORE" ||
-section === "WINDOW BASKETS" ||
-section === "BULK STACKS" ||
-section === "PENCIL STACKS" ||
-section === "FSDU & STANDS" ||
-section === "DUMP BINS" ||
-section === "GIANT TIERED BASKETS" ||
-section === "CLIP STRIPS" ||
-section === "DRINKS CHILLER"
-) {
-return text;
-}
-}
-return "GENERAL";
-}
+
+
+/* =========================================================
+   PROMOTION ORDER
+   ========================================================= */
+
 const promotionSectionOrder = [
-"ENDS",
-"SIDES",
-"TILL ENDS",
-"TILL FRONTS",
-"FRONT OF STORE",
-"WINDOW BASKETS",
-"PROMO BAYS",
-"BULK STACKS",
-"PENCIL STACKS",
-"FSDU & STANDS",
-"DUMP BINS",
-"GIANT TIERED BASKETS",
-"CLIP STRIPS",
-"DRINKS CHILLER",
-"OTHER"
+
+  "ENDS",
+
+  "SIDES",
+
+  "TILL ENDS",
+
+  "TILL FRONTS",
+
+  "FRONT OF STORE",
+
+  "WINDOW BASKETS",
+
+  "PROMO BAYS",
+
+  "BULK STACKS",
+
+  "PENCIL STACKS",
+
+  "FSDU & STANDS",
+
+  "DUMP BINS",
+
+  "GIANT TIERED BASKETS",
+
+  "CLIP STRIPS",
+
+  "DRINKS CHILLER",
+
+  "OTHER"
+
 ];
-function sortSections(a, b) {
-const ai =
-promotionSectionOrder.indexOf(a);
-const bi =
-promotionSectionOrder.indexOf(b);
-const av =
-ai === -1
-? 999
-: ai;
-const bv =
-bi === -1
-? 999
-: bi;
-return av - bv;
+
+
+function sortSections(
+  a,
+  b
+) {
+
+  const ai =
+    promotionSectionOrder.indexOf(
+      a
+    );
+
+  const bi =
+    promotionSectionOrder.indexOf(
+      b
+    );
+
+
+  const av =
+    ai === -1
+      ? 999
+      : ai;
+
+
+  const bv =
+    bi === -1
+      ? 999
+      : bi;
+
+
+  return av - bv;
 }
-function naturalSort(a, b) {
-return String(a)
-.localeCompare(
-String(b),
-undefined,
-{
-numeric: true,
-sensitivity: "base"
+
+
+function naturalSort(
+  a,
+  b
+) {
+
+  return String(a)
+    .localeCompare(
+      String(b),
+      undefined,
+      {
+        numeric:true,
+        sensitivity:"base"
+      }
+    );
 }
-);
-}
+
+
+/* =========================================================
+   LOAD PROMOTIONS
+   ========================================================= */
+
 let promotionProducts = [];
+
 let promotionSections = {};
-let selectedPromotionSection = "";
-let selectedPromotionLocation = "";
+
+
 async function loadPromotions() {
-promotionProducts = [];
-let from = 0;
-const pageSize = 1000;
-while (true) {
-const {
-data,
-error
-} =
-await supabaseClient
-.from("products")
-.select(
-"barcode,name,price,product_code,promo_offer"
-)
-.not(
-"promo_offer",
-"is",
-null
-)
-.neq(
-"promo_offer",
-""
-)
-.range(
-from,
-from + pageSize - 1
-);
-if (error) {
-throw error;
+
+  promotionProducts = [];
+
+  let from = 0;
+
+  const pageSize = 1000;
+
+
+  while (true) {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("products")
+        .select(
+          "barcode,name,price,product_code,promo_offer"
+        )
+        .not(
+          "promo_offer",
+          "is",
+          null
+        )
+        .neq(
+          "promo_offer",
+          ""
+        )
+        .range(
+          from,
+          from +
+          pageSize -
+          1
+        );
+
+
+    if (error) {
+
+      throw error;
+
+    }
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      break;
+
+    }
+
+
+    promotionProducts.push(
+      ...data
+    );
+
+
+    if (
+      data.length <
+      pageSize
+    ) {
+
+      break;
+
+    }
+
+
+    from +=
+      pageSize;
+
+  }
+
+
+  buildPromotionSections();
 }
-if (
-!data ||
-data.length === 0
-) {
-break;
-}
-promotionProducts.push(
-...data
-);
-if (
-data.length < pageSize
-) {
-break;
-}
-from += pageSize;
-}
-buildPromotionSections();
-}
+
+
 function buildPromotionSections() {
-promotionSections = {};
-promotionProducts.forEach(product => {
-const promotions =
-parsePromotions(
-product.promo_offer
-);
-promotions.forEach(promo => {
-const section =
-identifySection(
-promo
-);
-const location =
-identifyLocation(
-promo,
-section
-);
-if (
-!promotionSections[section]
-) {
-promotionSections[section] =
-{};
+
+  promotionSections = {};
+
+
+  promotionProducts.forEach(
+    product => {
+
+      const promotions =
+        parsePromotions(
+          product.promo_offer
+        );
+
+
+      promotions.forEach(
+        promo => {
+
+          const section =
+            identifySection(
+              promo
+            );
+
+          const location =
+            identifyLocation(
+              promo,
+              section
+            );
+
+
+          if (
+            !promotionSections[
+              section
+            ]
+          ) {
+
+            promotionSections[
+              section
+            ] = {};
+
+          }
+
+
+          if (
+            !promotionSections[
+              section
+            ][location]
+          ) {
+
+            promotionSections[
+              section
+            ][location] = [];
+
+          }
+
+
+          promotionSections[
+            section
+          ][location]
+            .push({
+              product,
+              promo
+            });
+
+        }
+      );
+
+    }
+  );
 }
-if (
-!promotionSections[section][location]
-) {
-promotionSections[section][location] =
-[];
-}
-promotionSections[section][location]
-.push({
-product,
-promo
-});
-});
-});
-}
+
+
 async function openPromotions() {
-showScreen(
-"promotionSectionsScreen"
-);
-const container =
-document.getElementById(
-"promotionSectionsContainer"
-);
-container.innerHTML =
-'<div class="loading">Loading promotions...</div>';
-try {
-await loadPromotions();
-renderPromotionSections();
-} catch (error) {
-console.error(error);
-container.innerHTML = `
-<div class="empty-message">
-Unable to load promotions.<br><br>
-${escapeHtml(error.message)}
-</div>
-`;
+
+  showScreen(
+    "promotionSectionsScreen"
+  );
+
+
+  const container =
+    document.getElementById(
+      "promotionSectionsContainer"
+    );
+
+
+  container.innerHTML =
+    '<div class="loading">Loading promotions...</div>';
+
+
+  try {
+
+    await loadPromotions();
+
+    renderPromotionSections();
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+    container.innerHTML =
+      `
+      <div class="empty-message">
+
+        Unable to load promotions.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+      `;
+
+  }
+
 }
-}
+
+
 function renderPromotionSections() {
-const container =
-document.getElementById(
-"promotionSectionsContainer"
-);
-container.innerHTML = "";
-const sections =
-Object.keys(
-promotionSections
-).sort(
-sortSections
-);
-if (!sections.length) {
-container.innerHTML =
-'<div class="empty-message">No promotions found.</div>';
-return;
+
+  const container =
+    document.getElementById(
+      "promotionSectionsContainer"
+    );
+
+
+  container.innerHTML = "";
+
+
+  const sections =
+    Object.keys(
+      promotionSections
+    )
+    .sort(
+      sortSections
+    );
+
+
+  if (
+    !sections.length
+  ) {
+
+    container.innerHTML =
+      '<div class="empty-message">No promotions found.</div>';
+
+    return;
+
+  }
+
+
+  sections.forEach(
+    (
+      section,
+      index
+    ) => {
+
+      const locations =
+        promotionSections[
+          section
+        ];
+
+
+      let count = 0;
+
+
+      Object.values(
+        locations
+      ).forEach(
+        products => {
+
+          count +=
+            products.length;
+
+        }
+      );
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "promo-section-card";
+
+
+      card.innerHTML =
+        `
+        <div class="promo-number">
+          ${index + 1}
+        </div>
+
+        <div>
+
+          <div class="promo-section-name">
+            ${escapeHtml(
+              section
+            )}
+          </div>
+
+          <div class="promo-section-count">
+            ${count.toLocaleString()}
+            products
+          </div>
+
+        </div>
+        `;
+
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          openPromotionLocations(
+            section
+          );
+
+        }
+      );
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
 }
-sections.forEach(
-(section, index) => {
-const locations =
-promotionSections[
-section
-];
-let count = 0;
-Object.values(
-locations
-).forEach(
-products => {
-count += products.length;
-}
-);
-const card =
-document.createElement(
-"div"
-);
-card.className =
-"promo-section-card";
-card.innerHTML = `
-<div class="promo-number">
-${index + 1}
-</div>
-<div>
-<div class="promo-section-name">
-${escapeHtml(section)}
-</div>
-<div class="promo-section-count">
-${count.toLocaleString()} products
-</div>
-</div>
-`;
-card.addEventListener(
-"click",
-() => {
-openPromotionLocations(
-section
-);
-}
-);
-container.appendChild(
-card
-);
-}
-);
-}
+
+
 function openPromotionLocations(
-section
+  section
 ) {
-selectedPromotionSection = section;
-showScreen(
-"promotionLocationsScreen"
-);
-document.getElementById(
-"promotionLocationsHeading"
-).textContent =
-section;
-const container =
-document.getElementById(
-"promotionLocationsContainer"
-);
-container.innerHTML = "";
-const locations =
-Object.keys(
-promotionSections[section] || {}
-).sort(
-naturalSort
-);
-if (!locations.length) {
-container.innerHTML =
-'<div class="empty-message">No locations found.</div>';
-return;
+
+  selectedPromotion =
+    section;
+
+  showScreen(
+    "promotionLocationsScreen"
+  );
+
+
+  document.getElementById(
+    "promotionLocationsHeading"
+  ).textContent =
+    section;
+
+
+  const container =
+    document.getElementById(
+      "promotionLocationsContainer"
+    );
+
+
+  container.innerHTML = "";
+
+
+  const locations =
+    Object.keys(
+      promotionSections[
+        section
+      ] || {}
+    )
+    .sort(
+      naturalSort
+    );
+
+
+  if (
+    !locations.length
+  ) {
+
+    container.innerHTML =
+      '<div class="empty-message">No locations found.</div>';
+
+    return;
+
+  }
+
+
+  locations.forEach(
+    (
+      location,
+      index
+    ) => {
+
+      const products =
+        promotionSections[
+          section
+        ][location];
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "promo-section-card";
+
+
+      card.innerHTML =
+        `
+        <div class="promo-number">
+          ${index + 1}
+        </div>
+
+        <div>
+
+          <div class="promo-section-name">
+            ${escapeHtml(
+              location
+            )}
+          </div>
+
+          <div class="promo-section-count">
+            ${products.length.toLocaleString()}
+            products
+          </div>
+
+        </div>
+        `;
+
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          openPromotionProducts(
+            section,
+            location
+          );
+
+        }
+      );
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
 }
-locations.forEach(
-(location, index) => {
-const products =
-promotionSections[
-section
-][location];
-const card =
-document.createElement(
-"div"
-);
-card.className =
-"promo-section-card";
-card.innerHTML = `
-<div class="promo-number">
-${index + 1}
-</div>
-<div>
-<div class="promo-section-name">
-${escapeHtml(location)}
-</div>
-<div class="promo-section-count">
-${products.length.toLocaleString()} products
-</div>
-</div>
-`;
-card.addEventListener(
-"click",
-() => {
-openPromotionProducts(
-section,
-location
-);
-}
-);
-container.appendChild(
-card
-);
-}
-);
-}
+
+
 function openPromotionProducts(
-section,
-location
+  section,
+  location
 ) {
-selectedPromotionSection = section;
-selectedPromotionLocation = location;
-showScreen(
-"promotionProductsScreen"
-);
-document.getElementById(
-"promotionProductsHeading"
-).textContent =
-section +
-" — " +
-location;
-const products =
-(
-promotionSections[
-section
-] || {}
-)[location] || [];
-document.getElementById(
-"promotionProductsCount"
-).textContent =
-products.length.toLocaleString() +
-" products";
-const container =
-document.getElementById(
-"promotionProductsContainer"
-);
-container.innerHTML = "";
-if (!products.length) {
-container.innerHTML =
-'<div class="empty-message">No products found.</div>';
-return;
+
+  showScreen(
+    "promotionProductsScreen"
+  );
+
+
+  document.getElementById(
+    "promotionProductsHeading"
+  ).textContent =
+    section +
+    " — " +
+    location;
+
+
+  const products =
+    (
+      promotionSections[
+        section
+      ] || {}
+    )[location] || [];
+
+
+  document.getElementById(
+    "promotionProductsCount"
+  ).textContent =
+    products.length.toLocaleString() +
+    " products";
+
+
+  const container =
+    document.getElementById(
+      "promotionProductsContainer"
+    );
+
+
+  container.innerHTML = "";
+
+
+  if (
+    !products.length
+  ) {
+
+    container.innerHTML =
+      '<div class="empty-message">No products found.</div>';
+
+    return;
+
+  }
+
+
+  products.forEach(
+    (
+      item,
+      index
+    ) => {
+
+      const product =
+        item.product;
+
+      const promo =
+        item.promo;
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "promo-product-card";
+
+
+      let detailsHtml =
+        "";
+
+
+      if (
+        promo.categories
+      ) {
+
+        detailsHtml +=
+          `
+          <div class="promo-detail">
+            <strong>
+              Store Categories:
+            </strong>
+
+            ${escapeHtml(
+              promo.categories
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.price
+      ) {
+
+        detailsHtml +=
+          `
+          <div class="promo-detail">
+
+            <strong>
+              Promotional Price:
+            </strong>
+
+            ${escapeHtml(
+              promo.price
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.code
+      ) {
+
+        detailsHtml +=
+          `
+          <div class="promo-detail">
+
+            <strong>
+              Product Code:
+            </strong>
+
+            ${escapeHtml(
+              promo.code
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        product.barcode
+      ) {
+
+        detailsHtml +=
+          `
+          <div class="promo-detail">
+
+            <strong>
+              Barcode:
+            </strong>
+
+            ${escapeHtml(
+              product.barcode
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.bay &&
+        section ===
+        "PROMO BAYS"
+      ) {
+
+        detailsHtml +=
+          `
+          <div class="promo-detail">
+
+            <strong>
+              Bay:
+            </strong>
+
+            ${escapeHtml(
+              promo.bay
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.details
+      ) {
+
+        detailsHtml +=
+          `
+          <div class="promo-detail">
+
+            <strong>
+              Comments:
+            </strong>
+
+            ${escapeHtml(
+              promo.details
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      card.innerHTML =
+        `
+        <div class="product-number">
+          PRODUCT ${index + 1}
+        </div>
+
+        <div class="promo-product-name">
+
+          ${escapeHtml(
+            product.name ||
+            promo.product ||
+            "Unnamed Product"
+          )}
+
+        </div>
+
+        <div class="promo-product-price">
+
+          £${formatPrice(
+            product.price
+          )}
+
+        </div>
+
+        ${detailsHtml}
+        `;
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
 }
-products.forEach(
-(item, index) => {
-const product =
-item.product;
-const promo =
-item.promo;
-const card =
-document.createElement(
-"div"
-);
-card.className =
-"promo-product-card";
-let detailsHtml = "";
-if (promo.categories) {
-detailsHtml += `
-<div class="promo-detail">
-<strong>Store Categories:</strong>
-${escapeHtml(
-promo.categories
-)}
-</div>
-`;
-}
-if (promo.price) {
-detailsHtml += `
-<div class="promo-detail">
-<strong>Promotional Price:</strong>
-${escapeHtml(
-promo.price
-)}
-</div>
-`;
-}
-if (promo.code) {
-detailsHtml += `
-<div class="promo-detail">
-<strong>Product Code:</strong>
-${escapeHtml(
-promo.code
-)}
-</div>
-`;
-}
-if (product.barcode) {
-detailsHtml += `
-<div class="promo-detail">
-<strong>Barcode:</strong>
-${escapeHtml(
-product.barcode
-)}
-</div>
-`;
-}
-if (
-promo.bay &&
-section === "PROMO BAYS"
+
+
+function formatPrice(
+  value
 ) {
-detailsHtml += `
-<div class="promo-detail">
-<strong>Bay:</strong>
-${escapeHtml(
-promo.bay
-)}
-</div>
-`;
+
+  const number =
+    Number(value);
+
+
+  if (
+    !Number.isFinite(
+      number
+    )
+  ) {
+
+    return "0.00";
+
+  }
+
+
+  return number.toFixed(
+    2
+  );
 }
-if (promo.details) {
-detailsHtml += `
-<div class="promo-detail">
-<strong>Comments:</strong>
-${escapeHtml(
-promo.details
-)}
-</div>
-`;
-}
-card.innerHTML = `
-<div class="product-number">
-PRODUCT ${index + 1}
-</div>
-<div class="promo-product-name">
-${escapeHtml(
-product.name ||
-promo.product ||
-"Unnamed Product"
-)}
-</div>
-<div class="promo-product-price">
-£${formatPrice(
-product.price
-)}
-</div>
-${detailsHtml}
-`;
-container.appendChild(
-card
-);
-}
-);
-}
-function formatPrice(value) {
-const number =
-Number(value);
-if (
-!Number.isFinite(number)
+
+
+function escapeHtml(
+  value
 ) {
-return "0.00";
+
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 }
-return number.toFixed(2);
-}
-function escapeHtml(value) {
-return String(
-value ?? ""
-)
-.replace(
-/&/g,
-"&amp;"
-)
-.replace(
-/</g,
-"&lt;"
-)
-.replace(
-/>/g,
-"&gt;"
-)
-.replace(
-/"/g,
-"&quot;"
-)
-.replace(
-/'/g,
-"&#039;"
-);
-}
+
+
+/* =========================================================
+   PROMOTION DISPLAY
+   ========================================================= */
+
 function renderPromoInformation(
-promoText
+  promoText
 ) {
-const promotions =
-parsePromotions(
-promoText
-);
-if (!promotions.length) {
-return "";
+
+  const promotions =
+    parsePromotions(
+      promoText
+    );
+
+
+  if (
+    !promotions.length
+  ) {
+
+    return "";
+
+  }
+
+
+  let html =
+    '<div class="promo-box">';
+
+
+  html +=
+    '<div class="promo-title">Promotion</div>';
+
+
+  promotions.forEach(
+    promo => {
+
+      if (
+        promo.plan
+      ) {
+
+        html +=
+          `
+          <div class="promo-line">
+
+            <strong>
+              Plan:
+            </strong>
+
+            ${escapeHtml(
+              promo.plan
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.location
+      ) {
+
+        html +=
+          `
+          <div class="promo-line">
+
+            <strong>
+              Location:
+            </strong>
+
+            ${escapeHtml(
+              promo.location
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.bay
+      ) {
+
+        html +=
+          `
+          <div class="promo-line">
+
+            <strong>
+              Bay:
+            </strong>
+
+            ${escapeHtml(
+              promo.bay
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.categories
+      ) {
+
+        html +=
+          `
+          <div class="promo-line">
+
+            <strong>
+              Store Categories:
+            </strong>
+
+            ${escapeHtml(
+              promo.categories
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.price
+      ) {
+
+        html +=
+          `
+          <div class="promo-line">
+
+            <strong>
+              Promo Price:
+            </strong>
+
+            ${escapeHtml(
+              promo.price
+            )}
+
+          </div>
+          `;
+
+      }
+
+
+      if (
+        promo.details
+      ) {
+
+        html +=
+          `
+          <div class="promo-line">
+
+            <strong>
+              Details:
+            </strong>
+
+            ${escapeHtml(
+              promo.details
+            )}
+
+          </div>
+          `;
+
+      }
+
+    }
+  );
+
+
+  html +=
+    "</div>";
+
+
+  return html;
 }
-let html =
-'<div class="promo-box">';
-html +=
-'<div class="promo-title">Promotion</div>';
-promotions.forEach(
-promo => {
-if (promo.plan) {
-html += `
-<div class="promo-line">
-<strong>Plan:</strong>
-${escapeHtml(
-promo.plan
-)}
-</div>
-`;
-}
-if (promo.location) {
-html += `
-<div class="promo-line">
-<strong>Location:</strong>
-${escapeHtml(
-promo.location
-)}
-</div>
-`;
-}
-if (promo.bay) {
-html += `
-<div class="promo-line">
-<strong>Bay:</strong>
-${escapeHtml(
-promo.bay
-)}
-</div>
-`;
-}
-if (promo.categories) {
-html += `
-<div class="promo-line">
-<strong>Store Categories:</strong>
-${escapeHtml(
-promo.categories
-)}
-</div>
-`;
-}
-if (promo.price) {
-html += `
-<div class="promo-line">
-<strong>Promo Price:</strong>
-${escapeHtml(
-promo.price
-)}
-</div>
-`;
-}
-if (promo.details) {
-html += `
-<div class="promo-line">
-<strong>Details:</strong>
-${escapeHtml(
-promo.details
-)}
-</div>
-`;
-}
-}
-);
-html +=
-"</div>";
-return html;
-}
+
+
+/* =========================================================
+   ID CARD
+   ========================================================= */
+
 const idCardButton =
-document.getElementById(
-"idCardButton"
-);
+  document.getElementById(
+    "idCardButton"
+  );
+
 const idCardBackButton =
-document.getElementById(
-"idCardBackButton"
-);
+  document.getElementById(
+    "idCardBackButton"
+  );
+
 const idCardPhotoInput =
-document.getElementById(
-"idCardPhoto"
-);
+  document.getElementById(
+    "idCardPhoto"
+  );
+
 const idCardNameInput =
-document.getElementById(
-"idCardName"
-);
+  document.getElementById(
+    "idCardName"
+  );
+
 const idCardPositionInput =
-document.getElementById(
-"idCardPosition"
-);
+  document.getElementById(
+    "idCardPosition"
+  );
+
 const idCardTillCodeInput =
-document.getElementById(
-"idCardTillCode"
-);
+  document.getElementById(
+    "idCardTillCode"
+  );
+
 const idCardPhotoPreview =
-document.getElementById(
-"idCardPhotoPreview"
-);
+  document.getElementById(
+    "idCardPhotoPreview"
+  );
+
 const idCardResult =
-document.getElementById(
-"idCardResult"
-);
+  document.getElementById(
+    "idCardResult"
+  );
+
 const generatedIdCardPhoto =
-document.getElementById(
-"generatedIdCardPhoto"
-);
+  document.getElementById(
+    "generatedIdCardPhoto"
+  );
+
 const generatedIdCardName =
-document.getElementById(
-"generatedIdCardName"
-);
+  document.getElementById(
+    "generatedIdCardName"
+  );
+
 const generatedIdCardPosition =
-document.getElementById(
-"generatedIdCardPosition"
-);
+  document.getElementById(
+    "generatedIdCardPosition"
+  );
+
 const idCardQr =
-document.getElementById(
-"idCardQr"
-);
-let temporaryIdCardPhoto = "";
-idCardButton.addEventListener(
-"click",
-() => {
-stopScanner();
-showScreen(
-"idCardScreen"
-);
-}
-);
-idCardBackButton.addEventListener(
-"click",
-() => {
-resetIdCard();
-showScreen(
-"homeScreen"
-);
-}
-);
-idCardPhotoInput.addEventListener(
-"change",
-event => {
-const file =
-event.target.files &&
-event.target.files[0];
-if (!file) {
-return;
-}
-if (
-!file.type.startsWith(
-"image/"
-)
-) {
-alert(
-"Please select an image."
-);
-idCardPhotoInput.value = "";
-return;
-}
-const reader =
-new FileReader();
-reader.onload =
-function() {
-temporaryIdCardPhoto =
-reader.result;
-idCardPhotoPreview.src =
-temporaryIdCardPhoto;
-idCardPhotoPreview.style.display =
-"block";
-};
-reader.readAsDataURL(
-file
-);
-}
-);
-idCardTillCodeInput.addEventListener(
-"input",
-() => {
-idCardTillCodeInput.value =
-idCardTillCodeInput.value
-.replace(
-/[^0-9]/g,
-""
-)
-.slice(
-0,
-10
-);
-}
-);
+  document.getElementById(
+    "idCardQr"
+  );
+
+let temporaryIdCardPhoto =
+  "";
+
+
+idCardButton
+  .addEventListener(
+    "click",
+    () => {
+
+      stopScanner();
+
+      showScreen(
+        "idCardScreen"
+      );
+
+    }
+  );
+
+
+idCardBackButton
+  .addEventListener(
+    "click",
+    () => {
+
+      resetIdCard();
+
+      showScreen(
+        "homeScreen"
+      );
+
+    }
+  );
+
+
+idCardPhotoInput
+  .addEventListener(
+    "change",
+    event => {
+
+      const file =
+        event.target.files &&
+        event.target.files[0];
+
+
+      if (!file) {
+        return;
+      }
+
+
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
+
+        alert(
+          "Please select an image."
+        );
+
+        idCardPhotoInput.value =
+          "";
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function() {
+
+          temporaryIdCardPhoto =
+            reader.result;
+
+          idCardPhotoPreview.src =
+            temporaryIdCardPhoto;
+
+          idCardPhotoPreview.style.display =
+            "block";
+
+        };
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+
+idCardTillCodeInput
+  .addEventListener(
+    "input",
+    () => {
+
+      idCardTillCodeInput.value =
+        idCardTillCodeInput.value
+          .replace(
+            /[^0-9]/g,
+            ""
+          )
+          .slice(
+            0,
+            10
+          );
+
+    }
+  );
+
+
 document
-.getElementById(
-"generateIdCardButton"
-)
-.addEventListener(
-"click",
-generateIdCard
-);
+  .getElementById(
+    "generateIdCardButton"
+  )
+  .addEventListener(
+    "click",
+    generateIdCard
+  );
+
+
 function generateIdCard() {
-const name =
-idCardNameInput.value.trim();
-const position =
-idCardPositionInput.value.trim();
-const tillCode =
-idCardTillCodeInput.value.trim();
-if (!temporaryIdCardPhoto) {
-alert(
-"Please upload a photo."
-);
-return;
+
+  const name =
+    idCardNameInput.value.trim();
+
+  const position =
+    idCardPositionInput.value.trim();
+
+  const tillCode =
+    idCardTillCodeInput.value.trim();
+
+
+  if (
+    !temporaryIdCardPhoto
+  ) {
+
+    alert(
+      "Please upload a photo."
+    );
+
+    return;
+
+  }
+
+
+  if (!name) {
+
+    alert(
+      "Please enter the person's name."
+    );
+
+    return;
+
+  }
+
+
+  if (!position) {
+
+    alert(
+      "Please enter the person's position."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !/^[0-9]{4,10}$/.test(
+      tillCode
+    )
+  ) {
+
+    alert(
+      "Till Code must contain between 4 and 10 digits."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    typeof QRCode ===
+    "undefined"
+  ) {
+
+    alert(
+      "QR code generator could not be loaded. Please check your internet connection."
+    );
+
+    return;
+
+  }
+
+
+  generatedIdCardPhoto.src =
+    temporaryIdCardPhoto;
+
+
+  generatedIdCardName.textContent =
+    name;
+
+
+  generatedIdCardPosition.textContent =
+    position;
+
+
+  idCardQr.innerHTML =
+    "";
+
+
+  new QRCode(
+    idCardQr,
+    {
+      text:
+        tillCode,
+      width:
+        190,
+      height:
+        190,
+      correctLevel:
+        QRCode.CorrectLevel.M
+    }
+  );
+
+
+  idCardResult.style.display =
+    "block";
+
+
+  setTimeout(
+    () => {
+
+      idCardResult.scrollIntoView({
+        behavior:
+          "smooth",
+        block:
+          "start"
+      });
+
+    },
+    100
+  );
+
 }
-if (!name) {
-alert(
-"Please enter the person's name."
-);
-return;
-}
-if (!position) {
-alert(
-"Please enter the person's position."
-);
-return;
-}
-if (
-!^[0-9]{4,10}$/.test(
-tillCode
-)
-) {
-alert(
-"Till Code must contain between 4 and 10 digits."
-);
-return;
-}
-if (
-typeof QRCode === "undefined"
-) {
-alert(
-"QR code generator could not be loaded. Please check your internet connection."
-);
-return;
-}
-generatedIdCardPhoto.src =
-temporaryIdCardPhoto;
-generatedIdCardName.textContent =
-name;
-generatedIdCardPosition.textContent =
-position;
-idCardQr.innerHTML = "";
-new QRCode(
-idCardQr,
-{
-text: tillCode,
-width: 190,
-height: 190,
-correctLevel:
-QRCode.CorrectLevel.M
-}
-);
-idCardResult.style.display =
-"block";
-setTimeout(
-() => {
-idCardResult.scrollIntoView({
-behavior: "smooth",
-block: "start"
-});
-},
-100
-);
-}
+
+
 document
-.getElementById(
-"resetIdCardButton"
-)
-.addEventListener(
-"click",
-resetIdCard
-);
+  .getElementById(
+    "resetIdCardButton"
+  )
+  .addEventListener(
+    "click",
+    resetIdCard
+  );
+
+
 function resetIdCard() {
-temporaryIdCardPhoto = "";
-idCardPhotoInput.value =
-"";
-idCardNameInput.value =
-"";
-idCardPositionInput.value =
-"";
-idCardTillCodeInput.value =
-"";
-idCardPhotoPreview.src =
-"";
-idCardPhotoPreview.style.display =
-"none";
-generatedIdCardPhoto.src =
-"";
-generatedIdCardName.textContent =
-"";
-generatedIdCardPosition.textContent =
-"";
-idCardQr.innerHTML =
-"";
-idCardResult.style.display =
-"none";
+
+  temporaryIdCardPhoto =
+    "";
+
+  idCardPhotoInput.value =
+    "";
+
+  idCardNameInput.value =
+    "";
+
+  idCardPositionInput.value =
+    "";
+
+  idCardTillCodeInput.value =
+    "";
+
+  idCardPhotoPreview.src =
+    "";
+
+  idCardPhotoPreview.style.display =
+    "none";
+
+  generatedIdCardPhoto.src =
+    "";
+
+  generatedIdCardName.textContent =
+    "";
+
+  generatedIdCardPosition.textContent =
+    "";
+
+  idCardQr.innerHTML =
+    "";
+
+  idCardResult.style.display =
+    "none";
+
 }
+
+
+/* =========================================================
+   INITIALISE
+   ========================================================= */
+
 showScreen(
-"homeScreen"
+  "homeScreen"
 );
-setProductMode("barcode");
+
+setProductMode(
+  "barcode"
+);
+
 </script>
+
 </body>
 </html>
